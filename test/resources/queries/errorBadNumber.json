@@ -1,0 +1,17 @@
+{
+	"title": "Invalid number",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_avg": "60"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_avg"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

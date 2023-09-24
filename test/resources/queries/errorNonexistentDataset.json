@@ -1,0 +1,17 @@
+{
+	"title": "Query nonexistent dataset",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sfu_avg": 60
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sfu_avg"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

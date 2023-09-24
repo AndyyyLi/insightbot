@@ -1,0 +1,14 @@
+{
+	"title": "Query result over 5000",
+	"input": {
+		"WHERE": {
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_avg"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "ResultTooLargeError"
+}

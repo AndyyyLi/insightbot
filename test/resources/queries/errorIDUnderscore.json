@@ -1,0 +1,17 @@
+{
+	"title": "Query idstring has underscore",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"s_ections_avg": 90
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"s_ections_avg"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

@@ -1,0 +1,12 @@
+{
+	"title": "Query missing options",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_avg": 60
+			}
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

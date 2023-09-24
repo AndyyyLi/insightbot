@@ -1,0 +1,17 @@
+{
+	"title": "Invalid mfield",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_agv": 90
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_agv"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

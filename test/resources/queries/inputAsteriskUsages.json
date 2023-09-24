@@ -1,0 +1,41 @@
+{
+	"title": "SELECT dept, instructor, title WHERE dept IS bio* AND title IS *math* AND instructor = *sarah",
+	"input": {
+		"WHERE": {
+			"AND": [
+				{
+					"IS": {
+						"sections_dept": "bio*"
+					}
+				},
+				{
+					"IS": {
+						"sections_title": "*math*"
+					}
+				},
+				{
+					"IS": {
+						"sections_instructor": "*sarah"
+					}
+				}
+			]
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_instructor",
+				"sections_title"
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{"sections_dept": "biol", "sections_instructor": "otto, sarah", "sections_title": "biomathematics"},
+		{"sections_dept": "biol", "sections_instructor": "otto, sarah", "sections_title": "biomathematics"},
+		{"sections_dept": "biol", "sections_instructor": "otto, sarah", "sections_title": "biomathematics"},
+		{"sections_dept": "biol", "sections_instructor": "otto, sarah", "sections_title": "biomathematics"},
+		{"sections_dept": "biol", "sections_instructor": "otto, sarah", "sections_title": "biomathematics"},
+		{"sections_dept": "biol", "sections_instructor": "otto, sarah", "sections_title": "biomathematics"},
+		{"sections_dept": "biol", "sections_instructor": "otto, sarah", "sections_title": "biomathematics"}
+	]
+}
