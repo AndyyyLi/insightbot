@@ -1,0 +1,14 @@
+{
+	"title": "OPTIONS empty body",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_avg": 98.7
+			}
+		},
+		"OPTIONS": {
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

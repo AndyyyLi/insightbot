@@ -333,14 +333,47 @@ describe("InsightFacade", function () {
 			"./test/resources/queries",
 			{
 				assertOnResult: (actual, expected) => {
-					// TODO add an assertion!
+					expect(actual).to.deep.equal(expected);
 				},
 				errorValidator: (error): error is PQErrorKind =>
 					error === "ResultTooLargeError" || error === "InsightError",
 				assertOnError: (actual, expected) => {
-					// TODO add an assertion!
+					expect(actual).to.equal(expected);
 				},
 			}
 		);
+
+		it("should reject if query references multiple datasets", function () {
+			let sectionsS = getContentFromArchives("pairSmall.zip");
+			const result = facade.addDataset("sections2", sectionsS, InsightDatasetKind.Sections);
+
+			return expect(result).to.eventually.have.members(["sections", "sections2"])
+				.then(() => {
+					const query = facade.performQuery({
+						WHERE: {
+							AND: [
+								{
+									GT: {
+										sections_avg: 60
+									}
+								},
+								{
+									GT: {
+										sections2_avg: 60
+									}
+								}
+							]
+						},
+						OPTIONS: {
+							COLUMNS: [
+								"sections_avg",
+								"sections2_avg"
+							]
+						}
+					});
+
+					return expect(query).to.eventually.be.rejectedWith(InsightError);
+				});
+		});
 	});
 });

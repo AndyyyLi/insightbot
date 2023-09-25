@@ -1,0 +1,16 @@
+{
+	"title": "COLUMNS empty array",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_avg": 98.7
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

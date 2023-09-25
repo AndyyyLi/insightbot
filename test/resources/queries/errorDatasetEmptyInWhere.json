@@ -1,0 +1,17 @@
+{
+	"title": "Empty dataset field in WHERE",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"": 98.7
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

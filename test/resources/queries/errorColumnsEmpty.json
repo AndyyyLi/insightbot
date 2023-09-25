@@ -1,0 +1,19 @@
+{
+	"title": "COLUMNS array invalid",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_avg": 98.7
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sectionsdept",
+				"sections_instructor"
+			],
+			"ORDER": "sectionsdept"
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

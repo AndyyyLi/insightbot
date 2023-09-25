@@ -1,0 +1,34 @@
+{
+	"title": "SELECT dept, avg WHERE avg > 99 OR < 1",
+	"input": {
+		"WHERE": {
+			"OR": [
+				{
+					"GT": {
+						"sections_avg": 99
+					}
+				},
+				{
+					"LT": {
+						"sections_avg": 1
+					}
+				}
+			]
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_avg"
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{"sections_dept": "cnps", "sections_avg": 99.19},
+		{"sections_dept": "frst", "sections_avg": 0},
+		{"sections_dept": "lfs", "sections_avg": 0},
+		{"sections_dept": "lfs", "sections_avg": 0},
+		{"sections_dept": "math", "sections_avg": 99.78},
+		{"sections_dept": "math", "sections_avg": 99.78}
+	]
+}

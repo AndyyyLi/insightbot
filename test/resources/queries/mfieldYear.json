@@ -1,0 +1,37 @@
+{
+	"title": "SELECT dept, year WHERE year > 2010 AND avg > 98",
+	"input": {
+		"WHERE": {
+			"AND": [
+				{
+					"GT": {
+						"sections_year": 2010
+					}
+				},
+				{
+					"GT": {
+						"sections_avg": 98
+					}
+				}
+			]
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_year"
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{"sections_dept": "cnps", "sections_year": 2012},
+		{"sections_dept": "epse", "sections_year": 2014},
+		{"sections_dept": "epse", "sections_year": 2012},
+		{"sections_dept": "epse", "sections_year": 2012},
+		{"sections_dept": "epse", "sections_year": 2011},
+		{"sections_dept": "nurs", "sections_year": 2011},
+		{"sections_dept": "nurs", "sections_year": 2015},
+		{"sections_dept": "nurs", "sections_year": 2013},
+		{"sections_dept": "spph", "sections_year": 2015}
+	]
+}

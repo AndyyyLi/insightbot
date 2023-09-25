@@ -1,0 +1,17 @@
+{
+	"title": "Empty dataset field in COLUMNS",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_avg": 98.7
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				""
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}
