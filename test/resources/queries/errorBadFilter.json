@@ -1,0 +1,17 @@
+{
+	"title": "Invalid filter",
+	"input": {
+		"CONTAINS": {
+			"GEQ": {
+				"sections_avg": 90
+			}
+		},
+		"OPTIONS": {
+			"ROWS": [
+				"sections_avg"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

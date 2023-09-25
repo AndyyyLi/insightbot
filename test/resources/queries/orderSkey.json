@@ -1,0 +1,32 @@
+{
+	"title": "SELECT dept, instructor ORDER by instructor WHERE avg > 98.7",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_avg": 98.7
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_instructor"
+			],
+			"ORDER": "sections_instructor"
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{"sections_dept": "eece", "sections_instructor": ""},
+		{"sections_dept": "epse", "sections_instructor": ""},
+		{"sections_dept": "math", "sections_instructor": ""},
+		{"sections_dept": "nurs", "sections_instructor": ""},
+		{"sections_dept": "spph", "sections_instructor": ""},
+		{"sections_dept": "nurs", "sections_instructor": "brew, nancy"},
+		{"sections_dept": "eece", "sections_instructor": "coria, lino"},
+		{"sections_dept": "cnps", "sections_instructor": "cox, daniel"},
+		{"sections_dept": "spph", "sections_instructor": "frank, erica"},
+		{"sections_dept": "math", "sections_instructor": "gomez, jose"},
+		{"sections_dept": "epse", "sections_instructor": "grow, laura"},
+		{"sections_dept": "epse", "sections_instructor": "grow, laura"}
+	]
+}

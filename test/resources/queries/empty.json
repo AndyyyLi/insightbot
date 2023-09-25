@@ -1,0 +1,17 @@
+{
+	"title": "SELECT avg WHERE avg > 100 (empty)",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_avg": 100
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_avg"
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": []
+}

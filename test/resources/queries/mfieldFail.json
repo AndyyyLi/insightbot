@@ -1,0 +1,24 @@
+{
+	"title": "SELECT dept, fail WHERE fail > 250",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_fail": 250
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_fail"
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{"sections_dept": "chem", "sections_fail": 266},
+		{"sections_dept": "chem", "sections_fail": 264},
+		{"sections_dept": "chem", "sections_fail": 287},
+		{"sections_dept": "chem", "sections_fail": 260},
+		{"sections_dept": "chem", "sections_fail": 251}
+	]
+}

@@ -1,0 +1,17 @@
+{
+	"title": "Mfield uses sfield instead",
+	"input": {
+		"WHERE": {
+			"EQ": {
+				"sections_id": 310
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_id"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

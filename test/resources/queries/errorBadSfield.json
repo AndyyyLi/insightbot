@@ -1,0 +1,17 @@
+{
+	"title": "Invalid sfield",
+	"input": {
+		"WHERE": {
+			"IS": {
+				"sections_pet": "cat"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_pet"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

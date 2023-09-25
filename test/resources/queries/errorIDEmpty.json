@@ -1,0 +1,17 @@
+{
+	"title": "Query idstring is empty",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"_avg": 90
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"_avg"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

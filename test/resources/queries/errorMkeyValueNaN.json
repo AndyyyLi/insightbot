@@ -1,0 +1,18 @@
+{
+	"title": "Mkey has non-number value",
+	"input": {
+		"WHERE": {
+			"EQ": {
+				"sections_avg": "90"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_avg"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}
