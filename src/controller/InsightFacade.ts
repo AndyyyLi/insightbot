@@ -34,7 +34,7 @@ export default class InsightFacade implements IInsightFacade {
 	public performQuery(query: unknown): Promise<InsightResult[]> {
 		return new Promise((resolve, reject) => {
 			try {
-				let result = this.queryEngine.checkNewQuery(query);
+				let result: InsightResult[] = this.queryEngine.checkNewQuery(query);
 				resolve(result);
 			} catch (err) {
 				if (err === ResultTooLargeError) {
