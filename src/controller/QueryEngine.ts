@@ -4,42 +4,39 @@ import {
 	ResultTooLargeError
 } from "./IInsightFacade";
 export default class QueryEngine {
-	private currDataset: string | undefined;
-	private queryParsed: InsightResult | undefined;
-	private queryCols: string[] | undefined;
-	private order: string | undefined;
+	private currDataset: string;
+	private queryParsed: InsightResult;
+	private parsedRawQuery: any;
+	private queryCols: string[];
+	private order: string;
 	constructor() {
-		console.log("QueryEngine created");
+		this.currDataset = "";
+		this.queryParsed = {};
+		this.parsedRawQuery = {};
+		this.queryCols = [];
+		this.order = "";
 	}
 	// checks top level syntax and that WHERE and OPTIONS exist
 	// calls checkWhere and checkOptions, and executeQuery if query is valid
-	// can throw InsightError and ResultTooLargeError
-	public checkNewQuery(query: unknown): InsightResult[] {
+	// can throw InsightError
+	public checkNewQuery(query: unknown): void {
 		if (query == null || typeof query !== "object") {
 			throw InsightError;
 		}
-		let stringified = JSON.stringify(query);
-		let parsedRawQuery = JSON.parse(stringified);
-		let keys = Object.keys(parsedRawQuery);
+		this.parsedRawQuery = JSON.parse(JSON.stringify(query));
+		let keys = Object.keys(this.parsedRawQuery);
 		if (keys.length !== 2 || keys[0] !== "WHERE" || keys[1] !== "OPTIONS") {
 			throw InsightError;
 		}
 		// reset values
-		this.queryParsed = {};
 		this.currDataset = "";
+		this.queryParsed = {};
 		this.queryCols = [];
-		this.order = undefined;
-		// call each of the two "subtrees"
-		this.checkWhere(parsedRawQuery.WHERE);
-		this.checkOptions(parsedRawQuery.OPTIONS);
-		console.log(this.queryParsed);
-		console.log(this.queryCols);
-		console.log(this.order);
-		return this.executeQuery();
+		this.order = "";
 	}
 
 	// helper function for navigating between different filters
-	private switchFilter(curr: any, filter: string, prefix: string) {
+	public switchFilter(curr: any, filter: string, prefix: string) {
 		if (prefix !== "") {
 			prefix += "_";
 		}
@@ -73,7 +70,8 @@ export default class QueryEngine {
 	// checks filter validity if present, calls appropriate filter method
 	// calls checkLogic, checkComparison, checkSComparison, or checkNegation
 	// can throw InsightError
-	private checkWhere(where: any) {
+	public checkWhere() {
+		let where = this.parsedRawQuery.WHERE;
 		let key = Object.keys(where);
 		if (key.length === 0) {
 			return;
@@ -86,10 +84,8 @@ export default class QueryEngine {
 
 	// checks syntax, can call itself or any other filter method
 	// isOR is true if logic is 'OR', else is false (logic is 'AND')
-	// if OR: marks all components such that if at least one is true, the entire logic is true
-	// if AND: marks all components such that if at least one is false, the entire logic is false
 	// can throw InsightError
-	private checkLogic(logic: object[], logicStr: string, prefix: string) {
+	public checkLogic(logic: object[], logicStr: string, prefix: string) {
 		if (logic.length === 0) {
 			throw InsightError;
 		}
@@ -104,8 +100,8 @@ export default class QueryEngine {
 	}
 
 	// helper for verifying comparison key is valid and splits into array
-	// checks referenced dataset, returns respect mfield or sfield
-	private verifyCompKeyReturnField(key: string[]): string {
+	// checks referenced dataset, returns respective mfield or sfield key
+	public verifyCompKeyReturnField(key: string[]): string {
 		if (key.length !== 1) {
 			throw InsightError;
 		}
@@ -123,10 +119,10 @@ export default class QueryEngine {
 		return components[1];
 	}
 
-	// checks syntax, if valid return filter
+	// checks syntax, if valid return filter, math argument must accompany LT/GT/EQ prefix
 	// can throw InsightError
-	private checkComparison(mcomp: any, prefix: string, math?: string) {
-		let key = Object.keys(mcomp);
+	public checkComparison(comp: any, prefix: string, math?: string) {
+		let key = Object.keys(comp);
 		let field = this.verifyCompKeyReturnField(key);
 		if (math === "LT") {
 			prefix += "LT_";
@@ -136,17 +132,16 @@ export default class QueryEngine {
 			prefix += "EQ_";
 		}
 		prefix += field;
-		if (this.queryParsed) {
-			this.queryParsed[prefix] = mcomp[key[0]];
-		} else {
+		if ((math && typeof comp[key[0]] !== "number") || (!math && typeof comp[key[0]] !== "string")) {
 			throw InsightError;
 		}
+		this.queryParsed[prefix] = comp[key[0]];
 	}
 
 	// checks syntax, marks all components such that the return logic is negated
 	// can call itself or any other filter
 	// can throw InsightError
-	private checkNegation(not: any, prefix: string) {
+	public checkNegation(not: any, prefix: string) {
 		let key = Object.keys(not);
 		if (key.length !== 1) {
 			throw InsightError;
@@ -157,102 +152,112 @@ export default class QueryEngine {
 
 	// checks syntax, calls checkColumns, and checkOrder if it exists
 	// can throw InsightError
-	private checkOptions(options: any) {
+	public checkOptions() {
+		let options = this.parsedRawQuery.OPTIONS;
 		let keys = Object.keys(options);
-		if (keys.length === 0 || keys.length > 2) {
+		if (keys.length === 0 || keys.length > 2 || keys[0] !== "COLUMNS" ||
+			(keys.length === 2 && keys[1] !== "ORDER")) {
 			throw InsightError;
 		}
-		if (keys[0] === "COLUMNS") {
-			this.checkColumns(options.COLUMNS);
-		} else {
-			throw InsightError;
-		}
+		this.checkColumns(options.COLUMNS);
 		if (keys.length === 2) {
-			if (keys[1] === "ORDER") {
-				this.checkOrder(options.ORDER);
-			} else {
-				throw InsightError;
-			}
+			this.checkOrder(options.ORDER);
 		}
 	}
 
 	// checks syntax, adds filtered columns to queryCols
 	// can throw InsightError
-	private checkColumns(columns: string[]) {
+	public checkColumns(columns: any) {
+		if (!Array.isArray(columns) || columns.length === 0 || typeof columns[0] !== "string") {
+			throw InsightError;
+		}
 		columns.forEach((col: string) => {
 			let components = col.split("_");
-			if (components.length !== 2 || components[0] !== this.currDataset) {
+			if (components.length !== 2 || this.queryCols.includes(components[1])) {
 				throw InsightError;
 			}
-			if (this.queryCols && !this.queryCols.includes(components[1])) {
-				this.queryCols.push(components[1]);
-			} else {
+			if (this.currDataset === "") {
+				this.currDataset = components[0];
+			} else if (components[0] !== this.currDataset) {
 				throw InsightError;
 			}
+			this.queryCols.push(components[1]);
 		});
 	}
 
-	// checks syntax, sets order
+	// checks syntax, sets order, order must be type string
 	// can throw InsightError
-	private checkOrder(order: string) {
-		let components = order.split("_");
-		if (components.length !== 2 || components[0] !== this.currDataset) {
+	public checkOrder(order: any) {
+		if (typeof order !== "string") {
 			throw InsightError;
 		}
-		if (this.queryCols && !this.queryCols.includes(components[1])) {
+		let components = order.split("_");
+		if (components.length !== 2 || components[0] !== this.currDataset || !this.queryCols.includes(components[1])) {
 			throw InsightError;
 		}
 		this.order = components[1];
 	}
 
-	private compareFn(sectionA: any, sectionB: any): number {
-		if (!this.order) {
-			throw InsightError;
-		}
-		if (this.order === "dept" || this.order === "id" || this.order === "instructor" ||
-			this.order === "title" || this.order === "uuid") {
-			return sectionA[this.order].localeCompare(sectionB[this.order], undefined, {numeric: true});
-		} else {
-			return sectionA[this.order] - sectionB[this.order];
-		}
+	// creates InsightResult with selected columns to be inserted into query result
+	public makeInsightResult(section: InsightResult): InsightResult {
+		let result: InsightResult = {};
+		this.queryCols.forEach((col: string) => {
+			result[this.currDataset + "_" + col] = section[col];
+		});
+		return result;
 	}
 
-	// performs query with queryParsed, assume syntax is correct
-	// iterates through sections, checks each section to see if it meets requirements, if so then reads requested
-	// columns' values, sorts while inserting if order is specified
-	// can throw ResultTooLargeError if result size is > 5000
-	private executeQuery(): InsightResult[] {
+	// performs query with queryParsed, assume syntax is correct checks each section to see if it meets requirements,
+	// if so then reads requested columns' values, sorts while inserting if order is specified
+	// throw InsightError if requested dataset doesn't exist, ResultTooLargeError if result size is > 5000
+	public executeQuery(datasets: Map<string, InsightResult[]>): InsightResult[] {
 		let result: InsightResult[] = [];
-		// let sections = <GET SECTIONS DATA STRUCTURE>;
-		// let id = <GET DATASET ID>;
-		// let filters = Object.keys(this.queryParsed);
-		// sections.forEach((section: any) => {
-		// 		filters.forEach((filter: string) => {
-		//			let checks = Object.keys(filter);
-		//			if (meetsFilterReqs(section, filter)) {
-		//				let insightResult = this.makeInsightResult(section);
-		//				result.push(section);
-		//				if (result.length > 5000) {
-		//					throw ResultTooLargeError;
-		//				}
-		//			}
-		// 		}
-		// });
-		result.sort(this.compareFn);
+		let sections = datasets.get(this.currDataset);
+		if (!sections) {
+			throw InsightError;
+		}
+		let filters = Object.keys(this.queryParsed);
+		console.log(this.queryParsed);
+		console.log(this.queryCols);
+		console.log(this.order);
+		sections.forEach((section: InsightResult) => {
+			if (filters.length > 0) {
+				filters.forEach((filter: string) => {
+					if (this.meetsFilterReqs(section, filter)) {
+						result.push(this.makeInsightResult(section));
+					}
+				});
+			} else {
+				result.push(this.makeInsightResult(section));
+			}
+		});
+		if (result.length > 5000) {
+			throw ResultTooLargeError;
+		}
+		if (this.order !== "") {
+			result.sort((sectionA: any, sectionB: any): number => {
+				let attribute = this.currDataset + "_" + this.order;
+				if (this.order === "dept" || this.order === "id" || this.order === "instructor" ||
+					this.order === "title" || this.order === "uuid") {
+					return sectionA[attribute].localeCompare(sectionB[attribute], undefined, {numeric: true});
+				} else {
+					return sectionA[attribute] - sectionB[attribute];
+				}
+			});
+		}
 		return result;
 	}
 
 	// checks filter in reverse order to see if section meets requirements
 	// returns true if filter meets all requirements, else return false
-	private meetsFilterReqs(section: any, filter: string): boolean {
-		if (this.queryParsed === undefined) {
-			throw InsightError;
-		}
-		let success = false;
+	// if OR: marks all components such that if at least one is true, the entire logic is true
+	// if AND: marks all components such that if at least one is false, the entire logic is false
+	public meetsFilterReqs(section: any, filter: string): boolean {
+		let success: boolean;
 		let reqs = filter.split("_");
 		let idx = reqs.length - 1;
 		let curr = reqs[idx];
-		let data = section[curr]; // get data from sections implementation TBA
+		let data = section[curr];
 		curr = reqs[--idx];
 		if (curr === "GT") {
 			success = data > this.queryParsed[filter];
@@ -264,6 +269,7 @@ export default class QueryEngine {
 			success = data !== this.queryParsed[filter];
 			idx--;
 		} else {
+			// EQ or IS (implicit)
 			if (curr === "EQ") {
 				idx--;
 			}
@@ -277,8 +283,6 @@ export default class QueryEngine {
 				return true;
 			} else if (curr === "NOT") {
 				success = !success;
-			} else {
-				success = false;
 			}
 		}
 		return success;

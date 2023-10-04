@@ -17,9 +17,12 @@ import QueryEngine from "./QueryEngine";
  */
 export default class InsightFacade implements IInsightFacade {
 	private queryEngine: QueryEngine;
+	private datasetsMap: Map<string, InsightResult[]>;
+
 	constructor() {
 		console.log("InsightFacadeImpl::init()");
 		this.queryEngine = new QueryEngine();
+		this.datasetsMap = new Map<string, InsightResult[]>();
 	}
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
@@ -34,8 +37,11 @@ export default class InsightFacade implements IInsightFacade {
 	public performQuery(query: unknown): Promise<InsightResult[]> {
 		return new Promise((resolve, reject) => {
 			try {
-				let result: InsightResult[] = this.queryEngine.checkNewQuery(query);
-				resolve(result);
+				this.queryEngine.checkNewQuery(query);
+				this.queryEngine.checkWhere();
+				this.queryEngine.checkOptions();
+
+				resolve(this.queryEngine.executeQuery(this.datasetsMap));
 			} catch (err) {
 				if (err === ResultTooLargeError) {
 					reject(ResultTooLargeError);
