@@ -21,12 +21,12 @@ export default class QueryEngine {
 	// can throw InsightError
 	public checkNewQuery(query: unknown): void {
 		if (query == null || typeof query !== "object") {
-			throw InsightError;
+			throw new InsightError("Query is null or not an object");
 		}
 		this.parsedRawQuery = JSON.parse(JSON.stringify(query));
 		let keys = Object.keys(this.parsedRawQuery);
 		if (keys.length !== 2 || keys[0] !== "WHERE" || keys[1] !== "OPTIONS") {
-			throw InsightError;
+			throw new InsightError("Query keys invalid");
 		}
 		// reset values
 		this.currDataset = "";
@@ -63,7 +63,7 @@ export default class QueryEngine {
 				this.checkNegation(curr.NOT, prefix);
 				break;
 			default:
-				throw InsightError;
+				throw new InsightError("Invalid query filter");
 		}
 	}
 
@@ -77,7 +77,7 @@ export default class QueryEngine {
 			return;
 		}
 		if (key.length > 1) {
-			throw InsightError;
+			throw new InsightError("WHERE key > 1");
 		}
 		this.switchFilter(where, key[0], "");
 	}
@@ -87,13 +87,13 @@ export default class QueryEngine {
 	// can throw InsightError
 	public checkLogic(logic: object[], logicStr: string, prefix: string) {
 		if (logic.length === 0) {
-			throw InsightError;
+			throw new InsightError("LOGIC array empty");
 		}
 		prefix += logicStr;
 		logic.forEach((filterObj: object) => {
 			let key = Object.keys(filterObj);
 			if (key.length === 0) {
-				throw InsightError;
+				throw new InsightError("LOGIC body empty");
 			}
 			this.switchFilter(filterObj, key[0], prefix);
 		});
@@ -103,23 +103,21 @@ export default class QueryEngine {
 	// checks referenced dataset, returns respective mfield or sfield key
 	public verifyCompKeyReturnField(key: string[]): string {
 		if (key.length !== 1) {
-			throw InsightError;
+			throw new InsightError("COMP key not length 1");
 		}
 		let components = key[0].split("_");
 		if (components.length !== 2) {
-			throw InsightError;
+			throw new InsightError("invalid COMP components");
 		}
 		if (this.currDataset === "") {
-			// store querying dataset
 			this.currDataset = components[0];
 		} else if (this.currDataset !== components[0]) {
-			// referencing two datasets
-			throw InsightError;
+			throw new InsightError("Referencing two datasets");
 		}
 		return components[1];
 	}
 
-	// checks syntax, if valid return filter, math argument must accompany LT/GT/EQ prefix
+	// checks syntax, if valid add filter to query, math argument must accompany LT/GT/EQ prefix
 	// can throw InsightError
 	public checkComparison(comp: any, prefix: string, math?: string) {
 		let key = Object.keys(comp);
@@ -133,7 +131,7 @@ export default class QueryEngine {
 		}
 		prefix += field;
 		if ((math && typeof comp[key[0]] !== "number") || (!math && typeof comp[key[0]] !== "string")) {
-			throw InsightError;
+			throw new InsightError("Incorrect field type");
 		}
 		this.queryParsed[prefix] = comp[key[0]];
 	}
@@ -144,7 +142,7 @@ export default class QueryEngine {
 	public checkNegation(not: any, prefix: string) {
 		let key = Object.keys(not);
 		if (key.length !== 1) {
-			throw InsightError;
+			throw new InsightError("Negation body length not 1");
 		}
 		prefix += "NOT";
 		this.switchFilter(not, key[0], prefix);
@@ -157,7 +155,7 @@ export default class QueryEngine {
 		let keys = Object.keys(options);
 		if (keys.length === 0 || keys.length > 2 || keys[0] !== "COLUMNS" ||
 			(keys.length === 2 && keys[1] !== "ORDER")) {
-			throw InsightError;
+			throw new InsightError("Invalid OPTIONS key");
 		}
 		this.checkColumns(options.COLUMNS);
 		if (keys.length === 2) {
@@ -169,17 +167,17 @@ export default class QueryEngine {
 	// can throw InsightError
 	public checkColumns(columns: any) {
 		if (!Array.isArray(columns) || columns.length === 0 || typeof columns[0] !== "string") {
-			throw InsightError;
+			throw new InsightError("Invalid COLUMNS format");
 		}
 		columns.forEach((col: string) => {
 			let components = col.split("_");
 			if (components.length !== 2 || this.queryCols.includes(components[1])) {
-				throw InsightError;
+				throw new InsightError("Invalid COLUMNS filter");
 			}
 			if (this.currDataset === "") {
 				this.currDataset = components[0];
 			} else if (components[0] !== this.currDataset) {
-				throw InsightError;
+				throw new InsightError("Incorrect dataset ID in COLUMNS");
 			}
 			this.queryCols.push(components[1]);
 		});
@@ -189,11 +187,11 @@ export default class QueryEngine {
 	// can throw InsightError
 	public checkOrder(order: any) {
 		if (typeof order !== "string") {
-			throw InsightError;
+			throw new InsightError("ORDER not string");
 		}
 		let components = order.split("_");
 		if (components.length !== 2 || components[0] !== this.currDataset || !this.queryCols.includes(components[1])) {
-			throw InsightError;
+			throw new InsightError("Invalid ORDER format");
 		}
 		this.order = components[1];
 	}
@@ -214,7 +212,7 @@ export default class QueryEngine {
 		let result: InsightResult[] = [];
 		let sections = datasets.get(this.currDataset);
 		if (!sections) {
-			throw InsightError;
+			throw new InsightError("Dataset not found");
 		}
 		let filters = Object.keys(this.queryParsed);
 		console.log(this.queryParsed);
@@ -253,27 +251,32 @@ export default class QueryEngine {
 	// if OR: marks all components such that if at least one is true, the entire logic is true
 	// if AND: marks all components such that if at least one is false, the entire logic is false
 	public meetsFilterReqs(section: any, filter: string): boolean {
-		let success: boolean;
-		let reqs = filter.split("_");
-		let idx = reqs.length - 1;
-		let curr = reqs[idx];
-		let data = section[curr];
+		let success: boolean, reqs = filter.split("_");
+		let idx = reqs.length - 1, curr = reqs[idx], data = section[curr];
+		let queryVal = this.queryParsed[filter];
 		curr = reqs[--idx];
-		if (curr === "GT") {
-			success = data > this.queryParsed[filter];
-			idx--;
-		} else if (curr === "LT") {
-			success = data < this.queryParsed[filter];
+		if (curr === "GT" || curr === "LT") {
+			success = curr === "GT" ? data > queryVal : data < queryVal;
 			idx--;
 		} else if (curr === "NOT") {
-			success = data !== this.queryParsed[filter];
+			success = data !== queryVal;
 			idx--;
-		} else {
-			// EQ or IS (implicit)
-			if (curr === "EQ") {
-				idx--;
+		} else { // EQ or IS (implicit)
+			if (curr === "EQ" || !(queryVal as string).includes("*")) {
+				idx -= curr === "EQ" ? 1 : 0;
+				success = data === queryVal;
+			} else {
+				queryVal = queryVal as string;
+				if (queryVal.substring(1, (queryVal.length - 1)).includes("*")) {
+					throw new InsightError("QueryVal: " + queryVal + " contains invalid asterisk");
+				} else if (queryVal.at(0) === "*" && queryVal.at(-1) === "*") { // contains queryVal
+					success = data.includes(queryVal.substring(1, queryVal.length - 1));
+				} else if (queryVal.at(0) === "*") { // ends with queryVal
+					success = data.substring(data.length - queryVal.length + 1) === queryVal.substring(1);
+				} else { // starts with queryVal
+					success = data.substring(0, queryVal.length - 1) === queryVal.substring(0, queryVal.length - 1);
+				}
 			}
-			success = data === this.queryParsed[filter];
 		}
 		for (idx; idx >= 0; idx--) {
 			curr = reqs[idx];

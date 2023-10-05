@@ -18,14 +18,14 @@ describe("QueryEngine", () => {
 				queryEngine.checkNewQuery({});
 				assert.fail("expected InsightError on null");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 
 			try {
 				queryEngine.checkNewQuery("some query");
 				assert.fail("expected InsightError on non-object");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -40,7 +40,7 @@ describe("QueryEngine", () => {
 				});
 				assert.fail("expected InsightError with key length < 2");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 
 			try {
@@ -59,7 +59,7 @@ describe("QueryEngine", () => {
 				});
 				assert.fail("expected InsightError with key length > 2");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -79,7 +79,7 @@ describe("QueryEngine", () => {
 				});
 				assert.fail("expected InsightError with no WHERE");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 
 			try {
@@ -97,7 +97,7 @@ describe("QueryEngine", () => {
 				});
 				assert.fail("expected InsightError with no OPTIONS");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -142,7 +142,7 @@ describe("QueryEngine", () => {
 				queryEngine.checkWhere();
 				assert.fail("expected InsightError");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -185,7 +185,7 @@ describe("QueryEngine", () => {
 				queryEngine.checkWhere();
 				assert.fail("expected error at checking WHERE");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 	});
@@ -196,14 +196,14 @@ describe("QueryEngine", () => {
 				queryEngine.switchFilter({AND: []}, "AND", "");
 				assert.fail("expected error at checking empty logic body");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 
 			try {
 				queryEngine.switchFilter({AND: [{}]}, "AND", "");
 				assert.fail("expected error at checking empty filter object body");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -246,7 +246,7 @@ describe("QueryEngine", () => {
 				queryEngine.switchFilter({NOT: []}, "NOT", "");
 				assert.fail("expected error with empty NEGATION body");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 			try {
 				queryEngine.switchFilter({
@@ -261,7 +261,7 @@ describe("QueryEngine", () => {
 				}, "NOT", "");
 				assert.fail("expected error with NEGATION body > 1");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -284,25 +284,25 @@ describe("QueryEngine", () => {
 				queryEngine.verifyCompKeyReturnField([]);
 				assert.fail("expected error with empty key");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 			try {
 				queryEngine.verifyCompKeyReturnField(["key1", "key2"]);
 				assert.fail("expected error with key size > 1");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 			try {
 				queryEngine.verifyCompKeyReturnField(["key1"]);
 				assert.fail("expected error with 1 component");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 			try {
 				queryEngine.verifyCompKeyReturnField(["k_e_y_1"]);
 				assert.fail("expected error with > 2 components");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -317,7 +317,7 @@ describe("QueryEngine", () => {
 				queryEngine.verifyCompKeyReturnField(["sections2_avg"]);
 				assert.fail("expected error with second dataset");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -353,13 +353,13 @@ describe("QueryEngine", () => {
 				queryEngine.checkComparison({sections_avg: "96"}, "", "EQ");
 				assert.fail("expected error with string value for mcomp");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 			try {
 				queryEngine.checkComparison({sections_id: 310}, "");
 				assert.fail("expected error with number value for scomp");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 	});
@@ -383,7 +383,7 @@ describe("QueryEngine", () => {
 				queryEngine.checkOptions();
 				assert.fail("expected error checking 0 options keys");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -408,7 +408,7 @@ describe("QueryEngine", () => {
 				queryEngine.checkOptions();
 				assert.fail("expected error checking > 2 options keys");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -431,7 +431,7 @@ describe("QueryEngine", () => {
 				queryEngine.checkOptions();
 				assert.fail("expected error checking first key not COLUMNS");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -455,7 +455,7 @@ describe("QueryEngine", () => {
 				queryEngine.checkOptions();
 				assert.fail("expected error checking second key not ORDER");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -479,7 +479,7 @@ describe("QueryEngine", () => {
 				queryEngine.checkOptions();
 				assert.fail("expected error checking valid OPTIONS keys from checkColumns");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -488,7 +488,7 @@ describe("QueryEngine", () => {
 				queryEngine.checkColumns([]);
 				assert.fail("expected error checking empty COLUMNS");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -497,7 +497,7 @@ describe("QueryEngine", () => {
 				queryEngine.checkColumns(["sections-avg"]);
 				assert.fail("expected error checking COLUMNS with != 2 components");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -506,13 +506,13 @@ describe("QueryEngine", () => {
 				queryEngine.checkColumns("not string[]");
 				assert.fail("expected error checking COLUMNS with non-array");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 			try {
 				queryEngine.checkColumns([21, 14]);
 				assert.fail("expected error checking COLUMNS with array of not string");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -535,7 +535,7 @@ describe("QueryEngine", () => {
 				queryEngine.checkColumns(["section_avg"]);
 				assert.fail("expected error checking COLUMNS with different datasetid");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -547,7 +547,7 @@ describe("QueryEngine", () => {
 				]);
 				assert.fail("expected error checking COLUMNS with duplicate COLUMNS filters");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -581,13 +581,13 @@ describe("QueryEngine", () => {
 				queryEngine.checkOrder(123);
 				assert.fail("expected error checking ORDER with non-string");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 			try {
 				queryEngine.checkOrder("sections-avg");
 				assert.fail("expected error checking ORDER with != 2 components");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -618,13 +618,13 @@ describe("QueryEngine", () => {
 				queryEngine.checkOrder("section_avg");
 				assert.fail("expected error checking different ORDER id");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 			try {
 				queryEngine.checkOrder("sections_id");
 				assert.fail("expected error checking filter not in cols");
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
@@ -662,11 +662,10 @@ describe("QueryEngine", () => {
 	describe("Meets Filter Reqs", () => {
 		let sampleSection: InsightResult = {
 			title:"comptn, progrmng",
-			id:"101",
-			professor:"kiczales, gregor",
-			year:"2014",
-			enrolled:245,
-			high:100,
+			uuid:"1248",
+			instructor:"kiczales, gregor",
+			audit:0,
+			year:2014,
 			course:"110",
 			pass:180,
 			fail:38,
@@ -1013,6 +1012,85 @@ describe("QueryEngine", () => {
 			let actual = queryEngine.meetsFilterReqs(sampleSection, "NOT_dept");
 			expect(actual).to.be.false;
 		});
+
+		it("should throw InsightError with invalid asterisk IS filter", () => {
+			try {
+				queryEngine.checkNewQuery({
+					WHERE: {
+						IS: {
+							sections_instructor: "g*regor"
+						}
+					},
+					OPTIONS: {
+					}
+				});
+				queryEngine.checkWhere();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE body: " + err);
+			}
+			try {
+				queryEngine.meetsFilterReqs(sampleSection, "instructor");
+			} catch (err) {
+				expect(err).to.be.instanceof(InsightError);
+			}
+		});
+
+		it("should return true with valid IS filter with front asterisk", () => {
+			try {
+				queryEngine.checkNewQuery({
+					WHERE: {
+						IS: {
+							sections_instructor: "*gregor"
+						}
+					},
+					OPTIONS: {
+					}
+				});
+				queryEngine.checkWhere();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE body: " + err);
+			}
+			let actual = queryEngine.meetsFilterReqs(sampleSection, "instructor");
+			expect(actual).to.be.true;
+		});
+
+		it("should return true with valid IS filter with end asterisk", () => {
+			try {
+				queryEngine.checkNewQuery({
+					WHERE: {
+						IS: {
+							sections_instructor: "kiczales*"
+						}
+					},
+					OPTIONS: {
+					}
+				});
+				queryEngine.checkWhere();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE body: " + err);
+			}
+			let actual = queryEngine.meetsFilterReqs(sampleSection, "instructor");
+			expect(actual).to.be.true;
+		});
+
+		it("should return true with valid IS filter with double asterisks", () => {
+			try {
+				queryEngine.checkNewQuery({
+					WHERE: {
+						IS: {
+							sections_instructor: "*ales*"
+						}
+					},
+					OPTIONS: {
+					}
+				});
+				queryEngine.checkWhere();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE body: " + err);
+			}
+			let actual = queryEngine.meetsFilterReqs(sampleSection, "instructor");
+			expect(actual).to.be.true;
+		});
 	});
 
 	describe("Execute Query", () => {
@@ -1077,7 +1155,7 @@ describe("QueryEngine", () => {
 			try {
 				queryEngine.executeQuery(testMap);
 			} catch (err) {
-				expect(err).to.equals(InsightError);
+				expect(err).to.be.instanceof(InsightError);
 			}
 		});
 
