@@ -7,11 +7,14 @@ import {
 	InsightDatasetKind,
 	InsightError,
 	InsightResult,
-	NotFoundError
+	NotFoundError,
+	ResultTooLargeError
 } from "./IInsightFacade";
 import {Section} from "./Section";
 const PROJECT_ROOT = path.join(__dirname, "../..");
 const DATA_FOLDER_PATH = path.join(PROJECT_ROOT, "data");
+
+import QueryEngine from "./QueryEngine";
 
 /**
  * This is the main programmatic entry point for the project.
@@ -19,12 +22,15 @@ const DATA_FOLDER_PATH = path.join(PROJECT_ROOT, "data");
  *
  */
 export default class InsightFacade implements IInsightFacade {
-	public currentDatasets: string[];
-	public datasetsMap: Map<string, InsightResult[]>;
+
+	private currentDatasets: string[];
+  private queryEngine: QueryEngine;
+	private datasetsMap: Map<string, InsightResult[]>;
 
 	constructor() {
 		this.currentDatasets = [];
-		this.datasetsMap = new Map<string, []>();
+    this.queryEngine = new QueryEngine();
+		this.datasetsMap = new Map<string, InsightResult[]>();
 	}
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
@@ -159,8 +165,20 @@ export default class InsightFacade implements IInsightFacade {
 	}
 
 	public performQuery(query: unknown): Promise<InsightResult[]> {
-		return Promise.reject("Not implemented.");
-		// return Promise.resolve([]);
+		return new Promise((resolve, reject) => {
+			try {
+				this.queryEngine.checkNewQuery(query);
+				this.queryEngine.checkWhere();
+				this.queryEngine.checkOptions();
+				resolve(this.queryEngine.executeQuery(this.datasetsMap));
+			} catch (err) {
+				if (err === ResultTooLargeError) {
+					reject(ResultTooLargeError);
+				} else {
+					reject(InsightError);
+				}
+			}
+		});
 	}
 
 	public listDatasets(): Promise<InsightDataset[]> {
