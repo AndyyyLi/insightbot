@@ -24,12 +24,12 @@ import QueryEngine from "./QueryEngine";
 export default class InsightFacade implements IInsightFacade {
 
 	private currentDatasets: string[];
-  private queryEngine: QueryEngine;
+  	private queryEngine: QueryEngine;
 	private datasetsMap: Map<string, InsightResult[]>;
 
 	constructor() {
 		this.currentDatasets = [];
-    this.queryEngine = new QueryEngine();
+    	this.queryEngine = new QueryEngine();
 		this.datasetsMap = new Map<string, InsightResult[]>();
 	}
 
