@@ -77,19 +77,24 @@ export default class InsightFacade implements IInsightFacade {
 			return new Promise<void>((resolve) => {
 				try {
 					const courseFile = JSON.parse(jsonCourseFile);
-					if (courseFile.result && Array.isArray(courseFile.result)) {
-						for (const section of courseFile.result) {
-							let sectionParser = new Section();
-							if (sectionParser.validSection(section)) {
-								const parsedSection = sectionParser.parse(section);
-								if (parsedSection) {
-									sectionsArray.push(parsedSection);
+					let courseFileKeys = Object.keys(courseFile);
+					if (courseFileKeys.length === 2 && courseFileKeys[0] === "result" && courseFileKeys[1] === "rank") {
+						if (courseFile.result && Array.isArray(courseFile.result)) {
+							for (const section of courseFile.result) {
+								let sectionParser = new Section();
+								if (sectionParser.validSection(section)) {
+									const parsedSection = sectionParser.parse(section);
+									if (parsedSection) {
+										sectionsArray.push(parsedSection);
+									}
 								}
 							}
+							resolve();
+						} else {
+							reject(new InsightError("JSON file does not include a 'result' key"));
 						}
-						resolve();
 					} else {
-						reject(new InsightError("JSON file does not include a 'result' key"));
+						reject(new InsightError("JSON file does not have correct course format"));
 					}
 				} catch (e) {
 					reject(new InsightError("JSON file could not be parsed"));
