@@ -163,7 +163,7 @@ describe("InsightFacade", function () {
 				const result = await facade.addDataset("sections", sections, InsightDatasetKind.Sections);
 				return expect(result).to.deep.members(["sections"]);
 			} catch (err) {
-				return expect.fail("should NOT have failed valid addition of dataset");
+				return expect.fail("should NOT have failed valid addition of dataset" + err);
 			}
 		});
 
@@ -174,7 +174,7 @@ describe("InsightFacade", function () {
 				const second = await facade.addDataset("sections2", sections, InsightDatasetKind.Sections);
 				return expect(second).to.have.deep.members(["sections1", "sections2"]);
 			} catch (err) {
-				return expect.fail("should NOT have failed valid addition of two datasets");
+				return expect.fail("should NOT have failed valid addition of two datasets" + err);
 			}
 		});
 
@@ -264,38 +264,38 @@ describe("InsightFacade", function () {
 
 		it("should successfully list the dataset", async function () {
 			try {
-				await facade.addDataset("sections", sectionsMini, InsightDatasetKind.Sections);
+				await facade.addDataset("sections", sections, InsightDatasetKind.Sections);
 				const result = await facade.listDatasets();
 				expect(result).to.have.deep.members([{
 					id: "sections",
 					kind: InsightDatasetKind.Sections,
-					numRows: 114
+					numRows: 64612
 				}]);
 				return expect(result).to.have.lengthOf(1);
 			} catch (err) {
-				return expect.fail("should NOT have failed listing the dataset");
+				return expect.fail("should NOT have failed listing the dataset" + err);
 			}
 		});
 
 		it("should successfully list multiple datasets", async function () {
 			try {
-				await facade.addDataset("sections1", sectionsMini, InsightDatasetKind.Sections);
-				await facade.addDataset("sections2", sectionsMini, InsightDatasetKind.Sections);
+				await facade.addDataset("sections1", sections, InsightDatasetKind.Sections);
+				await facade.addDataset("sections2", sections, InsightDatasetKind.Sections);
 				const result = await facade.listDatasets();
 				expect(result).to.have.deep.members(
-					[{id: "sections1", kind: InsightDatasetKind.Sections, numRows: 114},
-						{id: "sections2", kind: InsightDatasetKind.Sections, numRows: 114}]);
+					[{id: "sections1", kind: InsightDatasetKind.Sections, numRows: 64612},
+						{id: "sections2", kind: InsightDatasetKind.Sections, numRows: 64612}]);
 				expect(result).to.have.lengthOf(2);
 				await facade.removeDataset("sections2");
 				const newResult = await facade.listDatasets();
 				expect(newResult).to.have.deep.members(
-					[{id: "sections1", kind: InsightDatasetKind.Sections, numRows: 114}]);
+					[{id: "sections1", kind: InsightDatasetKind.Sections, numRows: 64612}]);
 				expect(newResult).to.have.lengthOf(1);
 				await facade.removeDataset("sections1");
 				const anotherResult = await facade.listDatasets();
 				return expect(anotherResult).to.have.lengthOf(0);
 			} catch (err) {
-				return expect.fail("should NOT have failed listing the multiple datasets");
+				return expect.fail("should NOT have failed listing the multiple datasets" + err);
 			}
 		});
 	});
