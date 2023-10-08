@@ -1,5 +1,5 @@
 {
-	"title": "SELECT dept, year WHERE year > 2010 AND avg > 98",
+	"title": "SELECT dept, id, year, uuid WHERE year > 2010 AND avg > 98",
 	"input": {
 		"WHERE": {
 			"AND": [
@@ -18,20 +18,67 @@
 		"OPTIONS": {
 			"COLUMNS": [
 				"sections_dept",
-				"sections_year"
+				"sections_id",
+				"sections_year",
+				"sections_uuid"
 			]
 		}
 	},
 	"errorExpected": false,
 	"expected": [
-		{"sections_dept": "cnps", "sections_year": 2012},
-		{"sections_dept": "epse", "sections_year": 2014},
-		{"sections_dept": "epse", "sections_year": 2012},
-		{"sections_dept": "epse", "sections_year": 2012},
-		{"sections_dept": "epse", "sections_year": 2011},
-		{"sections_dept": "nurs", "sections_year": 2011},
-		{"sections_dept": "nurs", "sections_year": 2015},
-		{"sections_dept": "nurs", "sections_year": 2013},
-		{"sections_dept": "spph", "sections_year": 2015}
+		{
+			"sections_dept": "cnps",
+			"sections_id": "574",
+			"sections_year": 2012,
+			"sections_uuid": "26777"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "449",
+			"sections_year": 2014,
+			"sections_uuid": "6320"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "449",
+			"sections_year": 2012,
+			"sections_uuid": "29255"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "449",
+			"sections_year": 2012,
+			"sections_uuid": "44816"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "519",
+			"sections_year": 2011,
+			"sections_uuid": "49677"
+		},
+		{
+			"sections_dept": "nurs",
+			"sections_id": "509",
+			"sections_year": 2011,
+			"sections_uuid": "15343"
+		},
+		{
+			"sections_dept": "nurs",
+			"sections_id": "509",
+			"sections_year": 2015,
+			"sections_uuid": "73638"
+		},
+		{
+			"sections_dept": "nurs",
+			"sections_id": "578",
+			"sections_year": 2013,
+			"sections_uuid": "88151"
+		},
+		{
+			"sections_dept": "spph",
+			"sections_id": "300",
+			"sections_year": 2015,
+			"sections_uuid": "65069"
+		}
 	]
 }

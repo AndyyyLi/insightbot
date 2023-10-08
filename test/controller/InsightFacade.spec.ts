@@ -2,8 +2,7 @@ import {
 	IInsightFacade,
 	InsightDatasetKind,
 	InsightError,
-	InsightResult, NotFoundError,
-	ResultTooLargeError
+	InsightResult, NotFoundError, ResultTooLargeError
 } from "../../src/controller/IInsightFacade";
 import InsightFacade from "../../src/controller/InsightFacade";
 
@@ -338,7 +337,11 @@ describe("InsightFacade", function () {
 				errorValidator: (error): error is PQErrorKind =>
 					error === "ResultTooLargeError" || error === "InsightError",
 				assertOnError: (actual, expected) => {
-					expect(actual).to.equal(expected);
+					if (expected === "InsightError") {
+						expect(actual).to.be.instanceOf(InsightError);
+					} else {
+						expect(actual).to.be.instanceOf(ResultTooLargeError);
+					}
 				},
 			}
 		);
