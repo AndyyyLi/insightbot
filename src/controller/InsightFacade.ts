@@ -170,13 +170,10 @@ export default class InsightFacade implements IInsightFacade {
 				this.queryEngine.checkNewQuery(query);
 				this.queryEngine.checkWhere();
 				this.queryEngine.checkOptions();
-				resolve(this.queryEngine.executeQuery(this.datasetsMap));
+				let result = this.queryEngine.executeQuery(this.datasetsMap);
+				resolve(result);
 			} catch (err) {
-				if (err === ResultTooLargeError) {
-					reject(ResultTooLargeError);
-				} else {
-					reject(InsightError);
-				}
+				reject(err);
 			}
 		});
 	}

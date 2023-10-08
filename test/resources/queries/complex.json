@@ -1,5 +1,5 @@
 {
-	"title": "SELECT dept, id, avg WHERE avg == 95 || avg > 90 && dept == 'adhe' ORDER BY avg",
+	"title": "SELECT dept, id, avg WHERE avg == 95 || (avg > 90 && dept == 'adhe') ORDER BY avg",
 	"input": {
 		"WHERE": {
 			"OR": [
@@ -106,118 +106,88 @@
 			"sections_avg": 93.33
 		},
 		{
-			"sections_dept": "sowk",
-			"sections_id": "570",
+			"sections_dept": "bmeg",
+			"sections_id": "597",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "rhsc",
-			"sections_id": "501",
+			"sections_dept": "bmeg",
+			"sections_id": "597",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "psyc",
-			"sections_id": "501",
+			"sections_dept": "cnps",
+			"sections_id": "535",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "psyc",
-			"sections_id": "501",
+			"sections_dept": "cnps",
+			"sections_id": "535",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "obst",
-			"sections_id": "549",
+			"sections_dept": "cpsc",
+			"sections_id": "589",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "nurs",
-			"sections_id": "424",
+			"sections_dept": "cpsc",
+			"sections_id": "589",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "nurs",
-			"sections_id": "424",
-			"sections_avg": 95
-		},
-		{
-			"sections_dept": "musc",
-			"sections_id": "553",
-			"sections_avg": 95
-		},
-		{
-			"sections_dept": "musc",
-			"sections_id": "553",
-			"sections_avg": 95
-		},
-		{
-			"sections_dept": "musc",
-			"sections_id": "553",
-			"sections_avg": 95
-		},
-		{
-			"sections_dept": "musc",
-			"sections_id": "553",
-			"sections_avg": 95
-		},
-		{
-			"sections_dept": "musc",
-			"sections_id": "553",
-			"sections_avg": 95
-		},
-		{
-			"sections_dept": "musc",
-			"sections_id": "553",
-			"sections_avg": 95
-		},
-		{
-			"sections_dept": "mtrl",
+			"sections_dept": "crwr",
 			"sections_id": "599",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "mtrl",
-			"sections_id": "564",
+			"sections_dept": "crwr",
+			"sections_id": "599",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "mtrl",
-			"sections_id": "564",
+			"sections_dept": "crwr",
+			"sections_id": "599",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "math",
-			"sections_id": "532",
+			"sections_dept": "crwr",
+			"sections_id": "599",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "math",
-			"sections_id": "532",
+			"sections_dept": "crwr",
+			"sections_id": "599",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "kin",
-			"sections_id": "500",
+			"sections_dept": "crwr",
+			"sections_id": "599",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "kin",
-			"sections_id": "500",
+			"sections_dept": "crwr",
+			"sections_id": "599",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "kin",
-			"sections_id": "499",
+			"sections_dept": "econ",
+			"sections_id": "516",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "epse",
-			"sections_id": "682",
+			"sections_dept": "econ",
+			"sections_id": "516",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "epse",
-			"sections_id": "682",
+			"sections_dept": "edcp",
+			"sections_id": "473",
+			"sections_avg": 95
+		},
+		{
+			"sections_dept": "edcp",
+			"sections_id": "473",
 			"sections_avg": 95
 		},
 		{
@@ -226,88 +196,118 @@
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "edcp",
-			"sections_id": "473",
+			"sections_dept": "epse",
+			"sections_id": "682",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "edcp",
-			"sections_id": "473",
+			"sections_dept": "epse",
+			"sections_id": "682",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "econ",
-			"sections_id": "516",
+			"sections_dept": "kin",
+			"sections_id": "499",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "econ",
-			"sections_id": "516",
+			"sections_dept": "kin",
+			"sections_id": "500",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "crwr",
+			"sections_dept": "kin",
+			"sections_id": "500",
+			"sections_avg": 95
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "532",
+			"sections_avg": 95
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "532",
+			"sections_avg": 95
+		},
+		{
+			"sections_dept": "mtrl",
+			"sections_id": "564",
+			"sections_avg": 95
+		},
+		{
+			"sections_dept": "mtrl",
+			"sections_id": "564",
+			"sections_avg": 95
+		},
+		{
+			"sections_dept": "mtrl",
 			"sections_id": "599",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "crwr",
-			"sections_id": "599",
+			"sections_dept": "musc",
+			"sections_id": "553",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "crwr",
-			"sections_id": "599",
+			"sections_dept": "musc",
+			"sections_id": "553",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "crwr",
-			"sections_id": "599",
+			"sections_dept": "musc",
+			"sections_id": "553",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "crwr",
-			"sections_id": "599",
+			"sections_dept": "musc",
+			"sections_id": "553",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "crwr",
-			"sections_id": "599",
+			"sections_dept": "musc",
+			"sections_id": "553",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "crwr",
-			"sections_id": "599",
+			"sections_dept": "musc",
+			"sections_id": "553",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "cpsc",
-			"sections_id": "589",
+			"sections_dept": "nurs",
+			"sections_id": "424",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "cpsc",
-			"sections_id": "589",
+			"sections_dept": "nurs",
+			"sections_id": "424",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "cnps",
-			"sections_id": "535",
+			"sections_dept": "obst",
+			"sections_id": "549",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "cnps",
-			"sections_id": "535",
+			"sections_dept": "psyc",
+			"sections_id": "501",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "bmeg",
-			"sections_id": "597",
+			"sections_dept": "psyc",
+			"sections_id": "501",
 			"sections_avg": 95
 		},
 		{
-			"sections_dept": "bmeg",
-			"sections_id": "597",
+			"sections_dept": "rhsc",
+			"sections_id": "501",
+			"sections_avg": 95
+		},
+		{
+			"sections_dept": "sowk",
+			"sections_id": "570",
 			"sections_avg": 95
 		},
 		{

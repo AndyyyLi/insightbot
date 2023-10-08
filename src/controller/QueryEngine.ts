@@ -3,15 +3,18 @@ import {
 	InsightResult,
 	ResultTooLargeError
 } from "./IInsightFacade";
+import QueryNode from "./QueryNode";
 export default class QueryEngine {
 	private currDataset: string;
-	private queryParsed: InsightResult;
+	private queryParsed: QueryNode[];
+	private nextEmptyIdx: number;
 	private parsedRawQuery: any;
 	private queryCols: string[];
 	private order: string;
 	constructor() {
 		this.currDataset = "";
-		this.queryParsed = {};
+		this.queryParsed = [];
+		this.nextEmptyIdx = 1;
 		this.parsedRawQuery = {};
 		this.queryCols = [];
 		this.order = "";
@@ -30,40 +33,65 @@ export default class QueryEngine {
 		}
 		// reset values
 		this.currDataset = "";
-		this.queryParsed = {};
+		this.queryParsed = [];
+		this.nextEmptyIdx = 1;
 		this.queryCols = [];
 		this.order = "";
 	}
 
+	// helpers to determine if a field is S or M type
+	private isMfield(field: string): boolean {
+		return field === "avg" || field === "pass" || field === "fail" || field === "audit" || field === "year";
+	}
+	private isSfield(field: string): boolean {
+		return field === "dept" || field === "id" || field === "instructor" || field === "title" || field === "uuid";
+	}
+
 	// helper function for navigating between different filters
-	public switchFilter(curr: any, filter: string, prefix: string) {
-		if (prefix !== "") {
-			prefix += "_";
-		}
-		switch (filter) {
-			case "AND":
-				this.checkLogic(curr.AND, "AND", prefix);
-				break;
-			case "OR":
-				this.checkLogic(curr.OR, "OR", prefix);
-				break;
-			case "GT":
-				this.checkComparison(curr.GT, prefix, "GT");
-				break;
-			case "LT":
-				this.checkComparison(curr.LT, prefix, "LT");
-				break;
-			case "EQ":
-				this.checkComparison(curr.EQ, prefix, "EQ");
-				break;
-			case "IS":
-				this.checkComparison(curr.IS, prefix);
-				break;
-			case "NOT":
-				this.checkNegation(curr.NOT, prefix);
-				break;
-			default:
+	public handleFilters(objectQueue: any[]) {
+		while (objectQueue.length > 0) {
+			let curr = objectQueue.shift(), keys = Object.keys(curr);
+			if (keys.length !== 1) {
+				throw new InsightError("Invalid filter");
+			}
+			if (keys[0] === "AND" || keys[0] === "OR") {
+				let logic = keys[0];
+				if (curr[logic].length === 0) {
+					throw new InsightError("LOGIC array empty");
+				}
+				let node = new QueryNode(keys[0], 0, []);
+				this.queryParsed.push(node);
+				curr[logic].forEach((filterObj: object) => {
+					node.pushIntoBody(this.nextEmptyIdx++);
+					let key = Object.keys(filterObj);
+					if (key.length === 0) {
+						throw new InsightError("LOGIC body empty");
+					}
+					objectQueue.push(filterObj);
+				});
+			} else if (keys[0] === "GT" || keys[0] === "LT" || keys[0] === "EQ" || keys[0] === "IS") {
+				let comp = keys[0], compObj = curr[comp], compKeys = Object.keys(compObj);
+				let filter = "", field = this.verifyCompKeyReturnField(compKeys);
+				if (!(this.isSfield(field) || this.isMfield(field))) {
+					throw new InsightError("Invalid key field!");
+				}
+				filter += comp + "_" + field;
+				if ((comp !== "IS" && (typeof compObj[compKeys[0]] !== "number" || this.isSfield(field))) ||
+					(comp === "IS" && (typeof compObj[compKeys[0]] !== "string" || this.isMfield(field)))) {
+					throw new InsightError("Invalid key/field type");
+				}
+				this.queryParsed.push(new QueryNode(filter, comp === "IS" ? 2 : 1, compObj[compKeys[0]]));
+			} else if (keys[0] === "NOT") {
+				let NOTobj = curr[keys[0]];
+				let key = Object.keys(NOTobj);
+				if (key.length !== 1) {
+					throw new InsightError("Negation body length not 1");
+				}
+				this.queryParsed.push(new QueryNode(keys[0], 0, [this.nextEmptyIdx++]));
+				objectQueue.push(NOTobj);
+			} else {
 				throw new InsightError("Invalid query filter");
+			}
 		}
 	}
 
@@ -76,27 +104,9 @@ export default class QueryEngine {
 		if (key.length === 0) {
 			return;
 		}
-		if (key.length > 1) {
-			throw new InsightError("WHERE key > 1");
-		}
-		this.switchFilter(where, key[0], "");
-	}
-
-	// checks syntax, can call itself or any other filter method
-	// isOR is true if logic is 'OR', else is false (logic is 'AND')
-	// can throw InsightError
-	public checkLogic(logic: object[], logicStr: string, prefix: string) {
-		if (logic.length === 0) {
-			throw new InsightError("LOGIC array empty");
-		}
-		prefix += logicStr;
-		logic.forEach((filterObj: object) => {
-			let key = Object.keys(filterObj);
-			if (key.length === 0) {
-				throw new InsightError("LOGIC body empty");
-			}
-			this.switchFilter(filterObj, key[0], prefix);
-		});
+		let queue: object[] = [];
+		queue.push(where);
+		this.handleFilters(queue);
 	}
 
 	// helper for verifying comparison key is valid and splits into array
@@ -115,37 +125,6 @@ export default class QueryEngine {
 			throw new InsightError("Referencing two datasets");
 		}
 		return components[1];
-	}
-
-	// checks syntax, if valid add filter to query, math argument must accompany LT/GT/EQ prefix
-	// can throw InsightError
-	public checkComparison(comp: any, prefix: string, math?: string) {
-		let key = Object.keys(comp);
-		let field = this.verifyCompKeyReturnField(key);
-		if (math === "LT") {
-			prefix += "LT_";
-		} else if (math === "GT") {
-			prefix += "GT_";
-		} else if (math === "EQ") {
-			prefix += "EQ_";
-		}
-		prefix += field;
-		if ((math && typeof comp[key[0]] !== "number") || (!math && typeof comp[key[0]] !== "string")) {
-			throw new InsightError("Incorrect field type");
-		}
-		this.queryParsed[prefix] = comp[key[0]];
-	}
-
-	// checks syntax, marks all components such that the return logic is negated
-	// can call itself or any other filter
-	// can throw InsightError
-	public checkNegation(not: any, prefix: string) {
-		let key = Object.keys(not);
-		if (key.length !== 1) {
-			throw new InsightError("Negation body length not 1");
-		}
-		prefix += "NOT";
-		this.switchFilter(not, key[0], prefix);
 	}
 
 	// checks syntax, calls checkColumns, and checkOrder if it exists
@@ -214,23 +193,13 @@ export default class QueryEngine {
 		if (!sections) {
 			throw new InsightError("Dataset not found");
 		}
-		let filters = Object.keys(this.queryParsed);
-		console.log(this.queryParsed);
-		console.log(this.queryCols);
-		console.log(this.order);
 		sections.forEach((section: InsightResult) => {
-			if (filters.length > 0) {
-				filters.forEach((filter: string) => {
-					if (this.meetsFilterReqs(section, filter)) {
-						result.push(this.makeInsightResult(section));
-					}
-				});
-			} else {
+			if (this.queryParsed.length === 0 || this.meetsFilterReqs(section, this.queryParsed[0])) {
 				result.push(this.makeInsightResult(section));
 			}
 		});
 		if (result.length > 5000) {
-			throw ResultTooLargeError;
+			throw new ResultTooLargeError();
 		}
 		if (this.order !== "") {
 			result.sort((sectionA: any, sectionB: any): number => {
@@ -250,44 +219,50 @@ export default class QueryEngine {
 	// returns true if filter meets all requirements, else return false
 	// if OR: marks all components such that if at least one is true, the entire logic is true
 	// if AND: marks all components such that if at least one is false, the entire logic is false
-	public meetsFilterReqs(section: any, filter: string): boolean {
-		let success: boolean, reqs = filter.split("_");
-		let idx = reqs.length - 1, curr = reqs[idx], data = section[curr];
-		let queryVal = this.queryParsed[filter];
-		curr = reqs[--idx];
-		if (curr === "GT" || curr === "LT") {
-			success = curr === "GT" ? data > queryVal : data < queryVal;
-			idx--;
-		} else if (curr === "NOT") {
-			success = data !== queryVal;
-			idx--;
-		} else { // EQ or IS (implicit)
-			if (curr === "EQ" || !(queryVal as string).includes("*")) {
-				idx -= curr === "EQ" ? 1 : 0;
-				success = data === queryVal;
-			} else {
-				queryVal = queryVal as string;
-				if (queryVal.substring(1, (queryVal.length - 1)).includes("*")) {
-					throw new InsightError("QueryVal: " + queryVal + " contains invalid asterisk");
-				} else if (queryVal.at(0) === "*" && queryVal.at(-1) === "*") { // contains queryVal
-					success = data.includes(queryVal.substring(1, queryVal.length - 1));
-				} else if (queryVal.at(0) === "*") { // ends with queryVal
-					success = data.substring(data.length - queryVal.length + 1) === queryVal.substring(1);
-				} else { // starts with queryVal
-					success = data.substring(0, queryVal.length - 1) === queryVal.substring(0, queryVal.length - 1);
+	public meetsFilterReqs(section: any, query: QueryNode): boolean {
+		let filterType = query.getFilterType(), filter = query.getFilter();
+		if (filterType === 0) { // non comp
+			let children = query.getBody() as number[];
+			if (filter === "AND" || filter === "OR") {
+				let success = false;
+				for (let child of children) {
+					success = this.meetsFilterReqs(section, this.queryParsed[child]);
+					if (filter === "AND" ? !success : success) {
+						break;
+					}
+				}
+				return success;
+			} else { // NOT
+				return !this.meetsFilterReqs(section, this.queryParsed[children[0]]);
+			}
+		} else {
+			let components = query.getFilter().split("_");
+			let comp = components[0], field = components[1], data = section[field];
+			if (filterType === 1) { // mcomp
+				let value = query.getBody() as number;
+				if (comp === "GT") {
+					return data > value;
+				} else if (comp === "LT") {
+					return data < value;
+				} else {
+					return data === value;
+				}
+			} else { // comp
+				let name = query.getBody() as string;
+				if (!name.includes("*")) {
+					return name === data;
+				} else {
+					if (name.substring(1, (name.length - 1)).includes("*")) {
+						throw new InsightError(name + " contains invalid asterisk");
+					} else if (name.at(0) === "*" && name.at(-1) === "*") { // contains queryVal
+						return data.includes(name.substring(1, name.length - 1));
+					} else if (name.at(0) === "*") { // ends with queryVal
+						return data.substring(data.length - name.length + 1) === name.substring(1);
+					} else { // starts with queryVal
+						return data.substring(0, name.length - 1) === name.substring(0, name.length - 1);
+					}
 				}
 			}
 		}
-		for (idx; idx >= 0; idx--) {
-			curr = reqs[idx];
-			if (curr === "AND" && !success) {
-				return false;
-			} else if (curr === "OR" && success) {
-				return true;
-			} else if (curr === "NOT") {
-				success = !success;
-			}
-		}
-		return success;
 	}
 }

@@ -1,9 +1,10 @@
 import {
 	InsightError,
-	InsightResult, ResultTooLargeError
+	InsightResult
 } from "../../src/controller/IInsightFacade";
 import QueryEngine from "../../src/controller/QueryEngine";
 import {assert, expect} from "chai";
+import QueryNode from "../../src/controller/QueryNode";
 
 describe("QueryEngine", () => {
 	let queryEngine: QueryEngine;
@@ -121,7 +122,7 @@ describe("QueryEngine", () => {
 		});
 	});
 
-	describe("Check WHERE and switchFilter", () => {
+	describe("Check WHERE", () => {
 		it("should throw InsightError when body has > 1 keys", () => {
 			try {
 				queryEngine.checkNewQuery({
@@ -163,7 +164,7 @@ describe("QueryEngine", () => {
 			}
 		});
 
-		it("should call switchFilter properly which throws InsightError", () => {
+		it("should call handleFilters properly which throws InsightError", () => {
 			try {
 				queryEngine.checkNewQuery({
 					WHERE: {
@@ -190,17 +191,17 @@ describe("QueryEngine", () => {
 		});
 	});
 
-	describe("Check switchFilter and filters", () => {
+	describe("Check Handle Filter", () => {
 		it("should throw InsightError with empty LOGIC body or empty filter object body", function () {
 			try {
-				queryEngine.switchFilter({AND: []}, "AND", "");
+				queryEngine.handleFilters([{AND: []}]);
 				assert.fail("expected error at checking empty logic body");
 			} catch (err) {
 				expect(err).to.be.instanceof(InsightError);
 			}
 
 			try {
-				queryEngine.switchFilter({AND: [{}]}, "AND", "");
+				queryEngine.handleFilters([{AND: [{}]}]);
 				assert.fail("expected error at checking empty filter object body");
 			} catch (err) {
 				expect(err).to.be.instanceof(InsightError);
@@ -209,7 +210,7 @@ describe("QueryEngine", () => {
 
 		it("should accept LOGIC bodies with 1 and 2 filters", () => {
 			try {
-				queryEngine.switchFilter({
+				queryEngine.handleFilters([{
 					OR: [
 						{
 							IS: {
@@ -217,12 +218,12 @@ describe("QueryEngine", () => {
 							}
 						}
 					]
-				}, "OR", "");
+				}]);
 			} catch (err) {
 				assert.fail("unexpected error with 1 LOGIC: " + err);
 			}
 			try {
-				queryEngine.switchFilter({
+				queryEngine.handleFilters([{
 					AND: [
 						{
 							IS: {
@@ -235,7 +236,7 @@ describe("QueryEngine", () => {
 							}
 						}
 					]
-				}, "AND", "");
+				}]);
 			} catch (err) {
 				assert.fail("unexpected error with 2 LOGIC: " + err);
 			}
@@ -243,13 +244,13 @@ describe("QueryEngine", () => {
 
 		it("should throw InsightError with improper NEGATION body size", () => {
 			try {
-				queryEngine.switchFilter({NOT: []}, "NOT", "");
+				queryEngine.handleFilters([{NOT: []}]);
 				assert.fail("expected error with empty NEGATION body");
 			} catch (err) {
 				expect(err).to.be.instanceof(InsightError);
 			}
 			try {
-				queryEngine.switchFilter({
+				queryEngine.handleFilters([{
 					NOT: {
 						IS: {
 							sections_dept: "cpsc"
@@ -258,7 +259,7 @@ describe("QueryEngine", () => {
 							sections_dept: "math"
 						}
 					}
-				}, "NOT", "");
+				}]);
 				assert.fail("expected error with NEGATION body > 1");
 			} catch (err) {
 				expect(err).to.be.instanceof(InsightError);
@@ -267,13 +268,13 @@ describe("QueryEngine", () => {
 
 		it("should accept proper NEGATION body", () => {
 			try {
-				queryEngine.switchFilter({
+				queryEngine.handleFilters([{
 					NOT: {
 						IS: {
 							sections_dept: "cpsc"
 						}
 					}
-				}, "NOT", "");
+				}]);
 			} catch (err) {
 				assert.fail("unexpected error with NEGATION: " + err);
 			}
@@ -321,42 +322,23 @@ describe("QueryEngine", () => {
 			}
 		});
 
-		it("should check MCOMPs properly", () => {
-			try {
-				queryEngine.checkComparison({sections_avg: 96}, "", "LT");
-			} catch (err) {
-				assert.fail("unexpected error with LT: " + err);
-			}
-			try {
-				queryEngine.checkComparison({sections_avg: 96}, "", "GT");
-			} catch (err) {
-				assert.fail("unexpected error with GT: " + err);
-			}
-			try {
-				queryEngine.checkComparison({sections_avg: 96}, "", "EQ");
-			} catch (err) {
-				assert.fail("unexpected error with EQ: " + err);
-			}
-		});
-
-		it("should check SCOMP properly", () => {
-			queryEngine = new QueryEngine();
-			try {
-				queryEngine.checkComparison({sections_dept: "cpsc"}, "");
-			} catch (err) {
-				assert.fail("unexpected error with IS: " + err);
-			}
-		});
-
 		it("should throw InsightError when comp key and value not matching", () => {
 			try {
-				queryEngine.checkComparison({sections_avg: "96"}, "", "EQ");
+				queryEngine.handleFilters([{
+					EQ: {
+						sections_avg: "96"
+					}
+				}]);
 				assert.fail("expected error with string value for mcomp");
 			} catch (err) {
 				expect(err).to.be.instanceof(InsightError);
 			}
 			try {
-				queryEngine.checkComparison({sections_id: 310}, "");
+				queryEngine.handleFilters([{
+					IS: {
+						sections_id: 310
+					}
+				}]);
 				assert.fail("expected error with number value for scomp");
 			} catch (err) {
 				expect(err).to.be.instanceof(InsightError);
@@ -718,7 +700,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "GT_avg");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("GT_avg", 1, 71));
 			expect(actual).to.be.true;
 		});
 
@@ -737,7 +720,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "GT_avg");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("GT_avg", 1, 72));
 			expect(actual).to.be.false;
 		});
 
@@ -756,7 +740,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "LT_avg");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("LT_avg", 1, 72));
 			expect(actual).to.be.true;
 		});
 
@@ -775,7 +760,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "LT_avg");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("LT_avg", 1, 71));
 			expect(actual).to.be.false;
 		});
 
@@ -794,7 +780,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "EQ_avg");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("EQ_avg", 1, 71.07));
 			expect(actual).to.be.true;
 		});
 
@@ -813,7 +800,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "EQ_avg");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("EQ_avg", 1, 71.06));
 			expect(actual).to.be.false;
 		});
 
@@ -832,7 +820,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "dept");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("IS_dept", 2, "cpsc"));
 			expect(actual).to.be.true;
 		});
 
@@ -851,7 +840,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "dept");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("IS_dept", 2, "math"));
 			expect(actual).to.be.false;
 		});
 
@@ -879,8 +869,46 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "AND_dept") &&
-				queryEngine.meetsFilterReqs(sampleSection, "AND_GT_avg");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("AND", 0, [1,2]));
+			expect(actual).to.be.true;
+		});
+
+		it("should return true with valid AND inside OR", () => {
+			try {
+				queryEngine.checkNewQuery({
+					WHERE: {
+						OR: [
+							{
+								AND: [
+									{
+										GT: {
+											sections_avg: 71
+										}
+									},
+									{
+										IS: {
+											sections_dept: "cpsc"
+										}
+									}
+								]
+							},
+							{
+								EQ: {
+									sections_avg: 71
+								}
+							}
+						]
+					},
+					OPTIONS: {
+					}
+				});
+				queryEngine.checkWhere();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE body: " + err);
+			}
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("OR", 0, [1,2]));
 			expect(actual).to.be.true;
 		});
 
@@ -908,8 +936,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "AND_dept") &&
-				queryEngine.meetsFilterReqs(sampleSection, "AND_GT_avg");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("AND", 0, [1,2]));
 			expect(actual).to.be.false;
 		});
 
@@ -937,8 +965,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "OR_dept") ||
-				queryEngine.meetsFilterReqs(sampleSection, "OR_GT_avg");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("OR", 0, [1,2]));
 			expect(actual).to.be.true;
 		});
 
@@ -966,8 +994,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "OR_dept") ||
-				queryEngine.meetsFilterReqs(sampleSection, "OR_GT_avg");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("OR", 0, [1,2]));
 			expect(actual).to.be.false;
 		});
 
@@ -988,7 +1016,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "NOT_dept");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("NOT", 0, [1]));
 			expect(actual).to.be.true;
 		});
 
@@ -1009,7 +1038,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "NOT_dept");
+			let actual =
+				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("NOT", 0, [1]));
 			expect(actual).to.be.false;
 		});
 
@@ -1029,7 +1059,8 @@ describe("QueryEngine", () => {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
 			try {
-				queryEngine.meetsFilterReqs(sampleSection, "instructor");
+				queryEngine.meetsFilterReqs(sampleSection,
+					new QueryNode("IS_instructor", 2, "g*regor"));
 			} catch (err) {
 				expect(err).to.be.instanceof(InsightError);
 			}
@@ -1050,7 +1081,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "instructor");
+			let actual = queryEngine.meetsFilterReqs(sampleSection,
+				new QueryNode("IS_instructor", 2, "*gregor"));
 			expect(actual).to.be.true;
 		});
 
@@ -1069,7 +1101,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "instructor");
+			let actual = queryEngine.meetsFilterReqs(sampleSection,
+				new QueryNode("IS_instructor", 2, "kiczales*"));
 			expect(actual).to.be.true;
 		});
 
@@ -1088,7 +1121,8 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			let actual = queryEngine.meetsFilterReqs(sampleSection, "instructor");
+			let actual = queryEngine.meetsFilterReqs(sampleSection,
+				new QueryNode("IS_instructor", 2, "*ales*"));
 			expect(actual).to.be.true;
 		});
 	});

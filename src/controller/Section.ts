@@ -51,7 +51,7 @@ export class Section {
 	 */
 	public parse(section: any): InsightResult {
 		const stringID = String(section.id);
-		const numberYear = section.Year === "overall" ? Number(1900) : Number(section.Year);
+		const numberYear = section.Section === "overall" ? 1900 : Number(section.Year);
 		const sectionResult: InsightResult = {
 			uuid: stringID,
 			id: section.Course,
