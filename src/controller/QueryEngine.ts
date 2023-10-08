@@ -258,7 +258,7 @@ export default class QueryEngine {
 						return data.includes(name.substring(1, name.length - 1));
 					} else if (name.at(0) === "*") { // ends with queryVal
 						return data.substring(data.length - name.length + 1) === name.substring(1);
-					} else { // starts with queryVal
+					} else {
 						return data.substring(0, name.length - 1) === name.substring(0, name.length - 1);
 					}
 				}
