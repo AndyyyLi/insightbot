@@ -7,8 +7,7 @@ import {
 	InsightDatasetKind,
 	InsightError,
 	InsightResult,
-	NotFoundError,
-	ResultTooLargeError
+	NotFoundError
 } from "./IInsightFacade";
 import {Section} from "./Section";
 const PROJECT_ROOT = path.join(__dirname, "../..");
@@ -36,7 +35,7 @@ export default class InsightFacade implements IInsightFacade {
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
 		return new Promise<string[]>( (resolve, reject) => {
 			if (id && content && kind) {
-				this.loadDatasetsFromDisk().then((r) => {
+				this.loadDatasetsFromDisk().then(() => {
 					if (id === "" || id.includes("_") || this.currentDatasets.includes(id)) {
 						reject(
 							new InsightError("Trying to add dataset with an invalid ID, or one with a duplicate ID"));
@@ -53,7 +52,7 @@ export default class InsightFacade implements IInsightFacade {
 							if (sectionsArray.length === 0) {
 								reject(new InsightError("Trying to add dataset with no valid sections in course file"));
 							}
-							this.saveToDisk(id, sectionsArray, reject).then((rr) => {
+							this.saveToDisk(id, sectionsArray, reject).then(() => {
 								this.currentDatasets.push(id);
 								this.datasetsMap.set(id, sectionsArray);
 								resolve(this.currentDatasets);
@@ -140,7 +139,7 @@ export default class InsightFacade implements IInsightFacade {
 			}
 			return Promise.all(courseFiles);
 		})
-			.catch((error) => {
+			.catch(() => {
 				reject(new InsightError("Trying to add dataset with content that cannot be unzipped"));
 				return [];
 			});
@@ -148,7 +147,7 @@ export default class InsightFacade implements IInsightFacade {
 
 	public removeDataset(id: string): Promise<string> {
 		return new Promise<string>((resolve, reject) => {
-			this.loadDatasetsFromDisk().then((r) => {
+			this.loadDatasetsFromDisk().then(() => {
 				if (id === "" || id.includes("_")) {
 					reject(new InsightError("Trying to remove dataset with an invalid ID"));
 				}
@@ -171,22 +170,24 @@ export default class InsightFacade implements IInsightFacade {
 
 	public performQuery(query: unknown): Promise<InsightResult[]> {
 		return new Promise((resolve, reject) => {
-			try {
-				this.queryEngine.checkNewQuery(query);
-				this.queryEngine.checkWhere();
-				this.queryEngine.checkOptions();
-				let result = this.queryEngine.executeQuery(this.datasetsMap);
-				resolve(result);
-			} catch (err) {
-				reject(err);
-			}
+			this.loadDatasetsFromDisk().then(() => {
+				try {
+					this.queryEngine.checkNewQuery(query);
+					this.queryEngine.checkWhere();
+					this.queryEngine.checkOptions();
+					let result = this.queryEngine.executeQuery(this.datasetsMap);
+					resolve(result);
+				} catch (err) {
+					reject(err);
+				}
+			});
 		});
 	}
 
 	public listDatasets(): Promise<InsightDataset[]> {
 		return new Promise<InsightDataset[]>((resolve) => {
 			let datasetsList: InsightDataset[] = [];
-			this.loadDatasetsFromDisk().then((r) => {
+			this.loadDatasetsFromDisk().then(() => {
 				for(const key of this.datasetsMap.keys()) {
 					const dataset = this.datasetsMap.get(key);
 					if (dataset) {
@@ -196,8 +197,8 @@ export default class InsightFacade implements IInsightFacade {
 							numRows: dataset.length
 						};
 						datasetsList.push(currInsightDataset);
-					};
-				};
+					}
+				}
 				resolve(datasetsList);
 			});
 		});

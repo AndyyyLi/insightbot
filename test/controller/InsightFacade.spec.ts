@@ -367,7 +367,7 @@ describe("InsightFacade", function () {
 				const fileExists = await fs.access(filePath).then(() => true).catch(() => false);
 				expect(fileExists).to.be.true;
 
-				// crash
+				// crash!!
 				const newInstance = new InsightFacade();
 				await newInstance.addDataset("sections", sectionsSmall, InsightDatasetKind.Sections);
 				expect.fail("should have failed to add the same dataset id to a new instance");
@@ -486,6 +486,59 @@ describe("InsightFacade", function () {
 				return expect(listNew).to.have.lengthOf(2);
 			} catch (err) {
 				return expect.fail("should NOT failed to add/remove/list datasets on a new instance" + err);
+			}
+		});
+
+		it("should be able to query on a new instance and return the same result", async () => {
+			try {
+				const ds = await facade.addDataset("sections", sections, InsightDatasetKind.Sections);
+				expect(ds).to.deep.members(["sections"]);
+				const filePath = path.join(__dirname, "../../data", "sections.json");
+				const fileExists = await fs.access(filePath).then(() => true).catch(() => false);
+				expect(fileExists).to.be.true;
+				const query = {
+					WHERE: {
+						AND: [
+							{
+								IS: {
+									sections_dept: "cpsc"
+								}
+							},
+							{
+								GT: {
+									sections_avg: 93
+								}
+							}
+						]
+					},
+					OPTIONS: {
+						COLUMNS: [
+							"sections_id",
+							"sections_avg"
+						]
+					}
+				};
+				const expected: InsightResult[] = [
+					{sections_id: "449", sections_avg: 93.38},
+					{sections_id: "449", sections_avg: 93.38},
+					{sections_id: "449", sections_avg: 93.5},
+					{sections_id: "449", sections_avg: 93.5},
+					{sections_id: "501", sections_avg: 94},
+					{sections_id: "501", sections_avg: 94},
+					{sections_id: "503", sections_avg: 94.5},
+					{sections_id: "503", sections_avg: 94.5},
+					{sections_id: "589", sections_avg: 95},
+					{sections_id: "589", sections_avg: 95}
+				];
+				let result = await facade.performQuery(query);
+				expect(result).to.deep.equals(expected);
+
+				// crash!!
+				const newInstance = new InsightFacade();
+				let newResult = await newInstance.performQuery(query);
+				return expect(newResult).to.deep.equals(result);
+			} catch (err) {
+				return expect.fail("should NOT fail to query on a new instance: " + err);
 			}
 		});
 	});
