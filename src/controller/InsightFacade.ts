@@ -78,15 +78,16 @@ export default class InsightFacade implements IInsightFacade {
 		}
 	}
 
-	// Takes the JSON course files and parses them into desired InsightResult[]
+	// Takes the files in the /courses directory and parses them into desired InsightResult[]
 	private processCourseFiles(jsonCourseFiles: string[], reject: (reason?: any) => void): Promise<InsightResult[]> {
 		const sectionsArray: InsightResult[] = [];
+		let hasValidSection = false;
+
 		const promises = jsonCourseFiles.map((jsonCourseFile) => {
 			return new Promise<void>((resolve) => {
 				try {
 					const courseFile = JSON.parse(jsonCourseFile);
-					let courseFileKeys = Object.keys(courseFile);
-					if (courseFileKeys.length === 2 && courseFileKeys[0] === "result" && courseFileKeys[1] === "rank") {
+					if ("result" in courseFile) {
 						if (courseFile.result && Array.isArray(courseFile.result)) {
 							for (const section of courseFile.result) {
 								let sectionParser = new Section();
@@ -94,55 +95,52 @@ export default class InsightFacade implements IInsightFacade {
 									const parsedSection = sectionParser.parse(section);
 									if (parsedSection) {
 										sectionsArray.push(parsedSection);
+										hasValidSection = true;
 									}
 								}
 							}
 							resolve();
-						} else {
-							reject(new InsightError("JSON file does not include a 'result' key"));
 						}
-					} else {
-						reject(new InsightError("JSON file does not have correct course format"));
 					}
 				} catch (e) {
-					reject(new InsightError("JSON file could not be parsed"));
+					// courseFile could not be parsed, ignored and proceed to the next file
 				}
 			});
 		});
 		return Promise.all(promises)
-			.then(() => sectionsArray)
+			.then(() => {
+				if (hasValidSection) {
+					return sectionsArray;
+				} else {
+					reject(new InsightError("No valid sections found in course files"));
+					return [];
+				}
+			})
 			.catch((error) => {
-				reject(error);
+				reject(error);  // This line ensures that the outer promise is rejected with the error.
 				return [];
 			});
 	}
 
-	// Unzips the content and tries to convert all JSON files in the courses folder into a parsable text
+	// Unzips the content and converts files in /courses directory into parsable text
 	private extractCourseFiles(content: string, reject: (reason?: any) => void): Promise<string[]> {
 		let zip = new JSZip();
 		const courseFiles: Array<Promise<string>> = [];
 		return zip.loadAsync(content, {base64: true}).then((contents) => {
-			const coursesFolder = contents.folder("courses");
-			if ("courses/" in contents.files && coursesFolder && coursesFolder.files) {
-				Object.keys(coursesFolder.files).forEach((filename) => {
-					try {
-						if (filename !== "courses/") {
-							let courseFile = coursesFolder.files[filename];
-							courseFiles.push(courseFile.async("text"));
-						}
-					} catch (e) {
-						reject(new InsightError("Trying to add dataset with non-JSON file"));
-					}
-				});
-			} else {
-				reject(new InsightError("Trying to add dataset with no courses folder"));
-			}
-			return Promise.all(courseFiles);
-		})
-			.catch(() => {
-				reject(new InsightError("Trying to add dataset with content that cannot be unzipped"));
-				return [];
+			Object.keys(contents.files).forEach((filename) => {
+				if (filename.startsWith("courses/") && filename.length > "courses/".length) {
+					let courseFile = contents.files[filename];
+					courseFiles.push(courseFile.async("text").catch(() => {
+						// Ignore a non-JSON file, proceed with the next file
+						return "";
+					}));
+				}
 			});
+			return Promise.all(courseFiles);
+		}).catch(() => {
+			reject(new InsightError("Trying to add dataset of section kind with content that cannot be unzipped"));
+			return [];
+		});
 	}
 
 	public removeDataset(id: string): Promise<string> {

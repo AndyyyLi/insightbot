@@ -102,16 +102,6 @@ describe("InsightFacade", function () {
 			}
 		});
 
-		it("should reject addition of a dataset that is empty within", async function () {
-			try {
-				await facade.addDataset("sections", getContentFromArchives("invalidEmpty.zip"),
-					InsightDatasetKind.Sections);
-				return expect.fail("should have rejected addition of a dataset that is empty/invalid");
-			} catch (err) {
-				return expect(err).to.be.instanceOf(InsightError);
-			}
-
-		});
 		it("should reject the addition of a non zip file", async function () {
 			try {
 				await facade.addDataset("section", getContentFromArchives("invalidDatasetFile.txt"),
@@ -122,19 +112,9 @@ describe("InsightFacade", function () {
 			}
 		});
 
-		it("should reject the addition of a dataset with an invalid section", async function () {
-			try {
-				await facade.addDataset("section", getContentFromArchives("invalidSectionDataset.zip"),
-					InsightDatasetKind.Sections);
-				return expect.fail("should have rejected the addition of a dataset with an invalid section");
-			} catch (err) {
-				return expect(err).to.be.instanceOf(InsightError);
-			}
-		});
-
 		it("should reject the addition of a dataset with an invalid directory", async function () {
 			try {
-				await facade.addDataset("section", getContentFromArchives("invalidCourseDirectory.zip"),
+				await facade.addDataset("section", getContentFromArchives("pairInvalidDirectory.zip"),
 					InsightDatasetKind.Sections);
 				return expect.fail("should have rejected the addition of a dataset with an invalid directory");
 			} catch (err) {
@@ -142,15 +122,17 @@ describe("InsightFacade", function () {
 			}
 		});
 
-		it("should reject the addition of a dataset with an invalid course file type", async function () {
-			try {
-				await facade.addDataset("section", getContentFromArchives("invalidCourseFileType.zip"),
-					InsightDatasetKind.Sections);
-				return expect.fail("should have rejected the addition of a dataset with an invalid course file");
-			} catch (err) {
-				return expect(err).to.be.instanceOf(InsightError);
-			}
-		});
+		it("should reject the addition of a dataset with no valid course file type and no valid section",
+			async function () {
+				try {
+					await facade.addDataset("section", getContentFromArchives(
+						"pairMixFileTypesWithNoValidSection.zip"), InsightDatasetKind.Sections);
+					return expect.fail("should have rejected the addition of a dataset with an invalid course file and "
+						+ "invalid section");
+				} catch (err) {
+					return expect(err).to.be.instanceOf(InsightError);
+				}
+			});
 
 		it("should reject addition of a dataset with room dataset kind", async function () {
 			try {
