@@ -1,0 +1,49 @@
+{
+	"title": "SELECT dept, instructor, title WHERE avg GT 99 AND title IS ** and instructor IS *",
+	"input": {
+		"WHERE": {
+			"AND": [
+				{
+					"GT": {
+						"sections_avg": 99
+					}
+				},
+				{
+					"IS": {
+						"sections_title": "**"
+					}
+				},
+				{
+					"IS": {
+						"sections_instructor": "*"
+					}
+				}
+			]
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_instructor",
+				"sections_title"
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "cnps",
+			"sections_instructor": "cox, daniel",
+			"sections_title": "career planning"
+		},
+		{
+			"sections_dept": "math",
+			"sections_instructor": "gomez, jose",
+			"sections_title": "algb topology i"
+		},
+		{
+			"sections_dept": "math",
+			"sections_instructor": "",
+			"sections_title": "algb topology i"
+		}
+	]
+}
