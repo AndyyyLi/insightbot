@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import {Section} from "../../src/controller/Section";
 
-describe("addDataset: Section", () => {
+describe("Section", () => {
 	const section = new Section();
 
 	describe("validSection", () => {

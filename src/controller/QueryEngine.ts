@@ -19,6 +19,7 @@ export default class QueryEngine {
 		this.queryCols = [];
 		this.order = "";
 	}
+
 	// checks top level syntax and that WHERE and OPTIONS exist
 	// calls checkWhere and checkOptions, and executeQuery if query is valid
 	// can throw InsightError
@@ -43,6 +44,7 @@ export default class QueryEngine {
 	private isMfield(field: string): boolean {
 		return field === "avg" || field === "pass" || field === "fail" || field === "audit" || field === "year";
 	}
+
 	private isSfield(field: string): boolean {
 		return field === "dept" || field === "id" || field === "instructor" || field === "title" || field === "uuid";
 	}

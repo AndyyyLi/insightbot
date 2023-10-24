@@ -23,7 +23,7 @@ import QueryEngine from "./QueryEngine";
 export default class InsightFacade implements IInsightFacade {
 
 	private currentDatasets: string[];
-  	private queryEngine: QueryEngine;
+	private queryEngine: QueryEngine;
 	private datasetsMap: Map<string, InsightResult[]>;
 
 	constructor() {
@@ -33,36 +33,51 @@ export default class InsightFacade implements IInsightFacade {
 	}
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
-		return new Promise<string[]>( (resolve, reject) => {
-			if (id && content && kind) {
-				this.loadDatasetsFromDisk().then(() => {
+		return new Promise<string[]>((resolve, reject) => {
+			const handleInvalidParameters = () => {
+				reject(new InsightError("Trying to add a dataset with invalid parameters"));
+			};
+
+			if (!id || !content || !kind) {
+				handleInvalidParameters();
+				return;
+			}
+
+			let sectionsArray: InsightResult[] = [];
+
+			this.loadDatasetsFromDisk()
+				.then(() => {
 					if (id === "" || id.includes("_") || this.currentDatasets.includes(id)) {
-						reject(
-							new InsightError("Trying to add dataset with an invalid ID, or one with a duplicate ID"));
+						reject(new InsightError("Trying to add dataset with an invalid ID, or one with a duplicate " +
+							"ID"));
 					}
 
 					if (kind === InsightDatasetKind.Rooms) {
 						reject(new InsightError("Trying to add dataset with Rooms kind"));
 					}
 
-					const courseFilesPromise = this.extractCourseFiles(content, reject);
-					courseFilesPromise.then((courseFiles) => {
-						const sectionsArrayPromise = this.processCourseFiles(courseFiles, reject);
-						sectionsArrayPromise.then((sectionsArray) => {
-							if (sectionsArray.length === 0) {
-								reject(new InsightError("Trying to add dataset with no valid sections in course file"));
-							}
-							this.saveToDisk(id, sectionsArray, reject).then(() => {
-								this.currentDatasets.push(id);
-								this.datasetsMap.set(id, sectionsArray);
-								resolve(this.currentDatasets);
-							});
-						});
-					});
+					return this.extractCourseFiles(content, reject);
+				})
+				.then((courseFiles) => this.processCourseFiles(courseFiles, reject))
+				.then((processedSectionsArray) => {
+					sectionsArray = processedSectionsArray;
+
+					if (sectionsArray.length === 0) {
+						reject(new InsightError("Trying to add dataset with no valid sections in course file"));
+					}
+
+					return this.saveToDisk(id, sectionsArray, reject);
+				})
+				.then(() => {
+					this.currentDatasets.push(id);
+					this.datasetsMap.set(id, sectionsArray);
+					resolve(this.currentDatasets);
+				})
+				.catch((error) => {
+					if (!(error instanceof InsightError || error instanceof NotFoundError)) {
+						reject(new InsightError("Unexpected error while adding dataset"));
+					}
 				});
-			} else {
-				reject(new InsightError("Trying to add a dataset with invalid parameters"));
-			}
 		});
 	}
 
@@ -104,66 +119,77 @@ export default class InsightFacade implements IInsightFacade {
 					}
 				} catch (e) {
 					// courseFile could not be parsed, ignored and proceed to the next file
+					resolve();
 				}
 			});
 		});
-		return Promise.all(promises)
-			.then(() => {
-				if (hasValidSection) {
-					return sectionsArray;
-				} else {
-					reject(new InsightError("No valid sections found in course files"));
-					return [];
-				}
-			})
-			.catch((error) => {
-				reject(error);  // This line ensures that the outer promise is rejected with the error.
-				return [];
-			});
+		return Promise.all(promises).then(() => sectionsArray).catch((error) => {
+			reject(error);
+			return [];
+		});
 	}
 
 	// Unzips the content and converts files in /courses directory into parsable text
 	private extractCourseFiles(content: string, reject: (reason?: any) => void): Promise<string[]> {
 		let zip = new JSZip();
 		const courseFiles: Array<Promise<string>> = [];
-		return zip.loadAsync(content, {base64: true}).then((contents) => {
-			Object.keys(contents.files).forEach((filename) => {
-				if (filename.startsWith("courses/") && filename.length > "courses/".length) {
-					let courseFile = contents.files[filename];
-					courseFiles.push(courseFile.async("text").catch(() => {
-						// Ignore a non-JSON file, proceed with the next file
-						return "";
-					}));
+
+		return zip.loadAsync(content, {base64: true})
+			.then((contents) => {
+				const promises = Object.keys(contents.files).map(async (filename) => {
+					if (filename.startsWith("courses/") && filename.length > "courses/".length) {
+						let courseFile = contents.files[filename];
+						try {
+							const text = await courseFile.async("text");
+							return text;
+						} catch (error) {
+							return "";
+						}
+					}
+					return "";
+				});
+
+				return Promise.all(promises);
+			})
+			.then((results) => {
+				const validResults = results.filter((result) => result !== "");
+				if (validResults.length === 0) {
+					return Promise.reject(new InsightError("No valid course files found"));
 				}
+				return validResults;
+			})
+			.catch((error) => {
+				reject(new InsightError(""));
+				return [];
 			});
-			return Promise.all(courseFiles);
-		}).catch(() => {
-			reject(new InsightError("Trying to add dataset of section kind with content that cannot be unzipped"));
-			return [];
-		});
 	}
 
 	public removeDataset(id: string): Promise<string> {
-		return new Promise<string>((resolve, reject) => {
-			this.loadDatasetsFromDisk().then(() => {
+		return this.loadDatasetsFromDisk()
+			.then(() => {
 				if (id === "" || id.includes("_")) {
-					reject(new InsightError("Trying to remove dataset with an invalid ID"));
+					throw new InsightError("Trying to remove dataset with an invalid ID");
 				}
 
 				if (!this.currentDatasets.includes(id)) {
-					reject(new NotFoundError("Trying to remove dataset that has not been added"));
+					throw new NotFoundError("Trying to remove dataset that has not been added");
 				}
 
 				const filePath = path.join(DATA_FOLDER_PATH, id + ".json");
-				fs.remove(filePath).then(() => {
-					this.currentDatasets = this.currentDatasets.filter((datasetID) => datasetID !== id);
-					this.datasetsMap.delete(id);
-					resolve(id);
-				}).catch(() => {
-					reject(new NotFoundError("Trying to remove dataset with unknown file path"));
-				});
+				return fs.remove(filePath);
+			})
+			.then(() => {
+				this.currentDatasets = this.currentDatasets.filter((datasetID) => datasetID !== id);
+				this.datasetsMap.delete(id);
+				return id;
+			})
+			.catch((error) => {
+				if (error instanceof InsightError || error instanceof NotFoundError) {
+					throw error;
+				} else {
+					throw new NotFoundError("Trying to remove dataset with unknown file path");
+				}
 			});
-		});
 	}
 
 	public performQuery(query: unknown): Promise<InsightResult[]> {
