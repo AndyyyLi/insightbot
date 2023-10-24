@@ -252,13 +252,15 @@ export default class QueryEngine {
 				if (!name.includes("*")) {
 					return name === data;
 				} else {
-					if (name.substring(1, (name.length - 1)).includes("*")) {
+					if (name === "*" || name === "**") { // full wildcard, anything works
+						return true;
+					} else if (name.substring(1, (name.length - 1)).includes("*")) {
 						throw new InsightError(name + " contains invalid asterisk");
-					} else if (name.at(0) === "*" && name.at(-1) === "*") { // contains queryVal
+					} else if (name.at(0) === "*" && name.at(-1) === "*") { // contains name
 						return data.includes(name.substring(1, name.length - 1));
-					} else if (name.at(0) === "*") { // ends with queryVal
+					} else if (name.at(0) === "*") { // ends with name
 						return data.substring(data.length - name.length + 1) === name.substring(1);
-					} else {
+					} else { // starts with name
 						return data.substring(0, name.length - 1) === name.substring(0, name.length - 1);
 					}
 				}
