@@ -712,7 +712,7 @@ describe("InsightFacade", function () {
 					const removeFirst = await facade.removeDataset("sections");
 					return expect(removeFirst).to.deep.equals("sections");
 				} catch (err) {
-					return expect.fail("damn should not have failed" + err);
+					return expect.fail("Should not have failed to query multiple times across different datasets");
 				}
 			});
 
