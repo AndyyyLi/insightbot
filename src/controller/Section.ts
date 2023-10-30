@@ -22,18 +22,30 @@ export class Section {
 
 	/**
 	 * If the provided section is valid return true
-	 * a section is valid if includes the same EBNF fields and values in SectionObject
+	 * a section is valid if includes the same EBNF fields in the SectionObject and values that are or can be parsed
+	 * into the values in the SectionObject
 	 * Otherwise return false
 	 *
 	 * @param section The text content of a section within a course file
 	 */
+
 	public validSection(section: any): boolean {
 		if (section) {
-			for(const property in Section.SectionObject) {
-				const propertyName = property as keyof typeof Section.SectionObject;
-				if (!(property in section) &&
-					typeof section[propertyName] !== Section.SectionObject[propertyName].name.toLowerCase()) {
+			for (const field in Section.SectionObject) {
+				const fieldName = field as keyof typeof Section.SectionObject;
+				if (!(field in section)) {
 					return false;
+				}
+
+				const fieldType = Section.SectionObject[fieldName];
+				if (fieldType === Number) {
+					if (typeof section[fieldName] !== "number" && isNaN(Number(section[fieldName]))) {
+						return false;
+					}
+				} else if (fieldType === String) {
+					if (typeof section[fieldName] !== "string" && typeof section[fieldName] !== "number") {
+						return false;
+					}
 				}
 			}
 			return true;
@@ -45,24 +57,24 @@ export class Section {
 	 * Parse through the valid section and return a subset of the section as an InsightResult
 	 * the returned InsightResult should include the EBNF fields:
 	 * uuid, id, title, instructor, dept, year, avg, pass, fail, audit
-	 * Return null if ??
+	 * The type for the fields' values are respectively:
+	 * String, String, String, String, String, Number, Number, Number, Number, Number
 	 *
 	 * @param section The text content of a section within a course file, required to be a validSection
 	 */
 	public parse(section: any): InsightResult {
-		const stringID = String(section.id);
 		const numberYear = section.Section === "overall" ? 1900 : Number(section.Year);
 		const sectionResult: InsightResult = {
-			uuid: stringID,
-			id: section.Course,
-			title: section.Title,
-			instructor: section.Professor,
-			dept: section.Subject,
+			uuid: String(section.id),
+			id: String(section.Course),
+			title: String(section.Title),
+			instructor: String(section.Professor),
+			dept: String(section.Subject),
 			year: numberYear,
-			avg: section.Avg,
-			pass: section.Pass,
-			fail: section.Fail,
-			audit: section.Audit
+			avg: Number(section.Avg),
+			pass: Number(section.Pass),
+			fail: Number(section.Fail),
+			audit: Number(section.Audit)
 		};
 		return sectionResult;
 	}

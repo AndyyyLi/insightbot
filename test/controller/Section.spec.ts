@@ -66,6 +66,40 @@ describe("Section", () => {
 			expect(result).to.be.true;
 		});
 
+		it("Should return true for a valid section with non-intuitive values - id/Avg is a String", () => {
+			const validSection = {
+				id: "123",
+				Course: "CPSC110",
+				Title: "Introduction to Computer Science",
+				Professor: "Dr. Smith",
+				Subject: "CPSC",
+				Year: "2010",
+				Avg: "80",
+				Pass: 50,
+				Fail: 10,
+				Audit: 5
+			};
+			const result = section.validSection(validSection);
+			expect(result).to.be.true;
+		});
+
+		it("Should return true for a valid section with non-intuitive values - Course/Year is a Number", () => {
+			const validSection = {
+				id: 123,
+				Course: 110,
+				Title: "Introduction to Computer Science",
+				Professor: "Dr. Smith",
+				Subject: "CPSC",
+				Year: 2010,
+				Avg: 80,
+				Pass: 50,
+				Fail: 10,
+				Audit: 5
+			};
+			const result = section.validSection(validSection);
+			expect(result).to.be.true;
+		});
+
 		it("Should return false for a null section", () => {
 			const result = section.validSection(null);
 			expect(result).to.be.false;
@@ -147,7 +181,7 @@ describe("Section", () => {
 				Audit: 5
 			};
 
-			const expectedResult = {
+			const parsedSection = {
 				uuid: "123",
 				id: "CPSC110",
 				title: "Introduction to Computer Science",
@@ -160,7 +194,7 @@ describe("Section", () => {
 				audit: 5
 			};
 			const result = section.parse(validSection);
-			expect(result).to.deep.equal(expectedResult);
+			expect(result).to.deep.equal(parsedSection);
 		});
 
 		it("Should parse a valid section correctly", () => {
@@ -203,7 +237,7 @@ describe("Section", () => {
 				Subject:"stat"
 			};
 
-			const expectedResult = {
+			const parsedSection = {
 				uuid: "2971",
 				id: "561",
 				title: "",
@@ -216,7 +250,7 @@ describe("Section", () => {
 				audit: 1
 			};
 			const result = section.parse(validSection);
-			expect(result).to.deep.equal(expectedResult);
+			expect(result).to.deep.equal(parsedSection);
 		});
 
 		it("Should parse a valid 'overall' section correctly", () => {
@@ -259,7 +293,7 @@ describe("Section", () => {
 				Subject:"stat"
 			};
 
-			const expectedResult = {
+			const parsedSection = {
 				uuid: "2971",
 				id: "561",
 				title: "",
@@ -272,7 +306,68 @@ describe("Section", () => {
 				audit: 1
 			};
 			const result = section.parse(validSection);
-			expect(result).to.deep.equal(expectedResult);
+			expect(result).to.deep.equal(parsedSection);
 		});
+
+		it("Should parse a valid section with non-intuitive values correctly - id/Avg is a String", () => {
+			const validSection = {
+				id: "123",
+				Course: "CPSC110",
+				Title: "Introduction to Computer Science",
+				Professor: "Dr. Smith",
+				Subject: "CPSC",
+				Year: "2010",
+				Avg: "80",
+				Pass: 50,
+				Fail: 10,
+				Audit: 5
+			};
+
+			const parsedSection = {
+				uuid: "123",
+				id: "CPSC110",
+				title: "Introduction to Computer Science",
+				instructor: "Dr. Smith",
+				dept: "CPSC",
+				year: 2010,
+				avg: 80,
+				pass: 50,
+				fail: 10,
+				audit: 5
+			};
+			const result = section.parse(validSection);
+			expect(result).to.deep.equals(parsedSection);
+		});
+
+		it("Should parse a valid section with non-intuitive values correctly - Course/Year is a Number", () => {
+			const validSection = {
+				id: 123,
+				Course: 110,
+				Title: "Introduction to Computer Science",
+				Professor: "Dr. Smith",
+				Subject: "CPSC",
+				Year: 2010,
+				Avg: 80,
+				Pass: 50,
+				Fail: 10,
+				Audit: 5
+			};
+
+			const parsedSection = {
+				uuid: "123",
+				id: "110",
+				title: "Introduction to Computer Science",
+				instructor: "Dr. Smith",
+				dept: "CPSC",
+				year: 2010,
+				avg: 80,
+				pass: 50,
+				fail: 10,
+				audit: 5
+			};
+			const result = section.parse(validSection);
+			expect(result).to.deep.equals(parsedSection);
+		});
+
 	});
 });
