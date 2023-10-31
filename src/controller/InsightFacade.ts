@@ -1,4 +1,3 @@
-import JSZip from "jszip";
 import fs from "fs-extra";
 import path from "path";
 import {
@@ -9,11 +8,11 @@ import {
 	InsightResult,
 	NotFoundError
 } from "./IInsightFacade";
-import {Section} from "./Section";
+import QueryEngine from "./QueryEngine";
+import {DatasetSectionKind} from "./DatasetSectionKind";
+
 const PROJECT_ROOT = path.join(__dirname, "../..");
 const DATA_FOLDER_PATH = path.join(PROJECT_ROOT, "data");
-
-import QueryEngine from "./QueryEngine";
 
 /**
  * This is the main programmatic entry point for the project.
@@ -22,29 +21,25 @@ import QueryEngine from "./QueryEngine";
  */
 export default class InsightFacade implements IInsightFacade {
 
-	private currentDatasets: string[];
 	private queryEngine: QueryEngine;
+	private datasetSectionHelper: DatasetSectionKind;
+	private currentDatasets: string[];
 	private datasetsMap: Map<string, InsightResult[]>;
 
 	constructor() {
-		this.currentDatasets = [];
 		this.queryEngine = new QueryEngine();
+		this.datasetSectionHelper = new DatasetSectionKind();
+		this.currentDatasets = [];
 		this.datasetsMap = new Map<string, InsightResult[]>();
 	}
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
 		return new Promise<string[]>((resolve, reject) => {
-			const handleInvalidParameters = () => {
-				reject(new InsightError("Trying to add a dataset with invalid parameters"));
-			};
-
 			if (!id || !content || !kind) {
-				handleInvalidParameters();
-				return;
+				reject(new InsightError("Trying to add a dataset with invalid parameters"));
 			}
 
-			let sectionsArray: InsightResult[] = [];
-
+			let InsightResultArray: InsightResult[] = [];
 			this.loadDatasetsFromDisk()
 				.then(() => {
 					if (id === "" || id.includes("_") || this.currentDatasets.includes(id)) {
@@ -53,30 +48,22 @@ export default class InsightFacade implements IInsightFacade {
 					}
 
 					if (kind === InsightDatasetKind.Rooms) {
-						reject(new InsightError("Trying to add dataset with Rooms kind"));
+						reject(new InsightError("Invalid room kind"));
+					} else if (kind === InsightDatasetKind.Sections) {
+						return this.datasetSectionHelper.handleDatasetSection(content);
 					}
-
-					return this.extractCourseFiles(content, reject);
 				})
-				.then((courseFiles) => this.processCourseFiles(courseFiles, reject))
-				.then((processedSectionsArray) => {
-					sectionsArray = processedSectionsArray;
-
-					if (sectionsArray.length === 0) {
-						reject(new InsightError("Trying to add dataset with no valid sections in course file"));
-					}
-
-					return this.saveToDisk(id, sectionsArray, reject);
+				.then((result) => {
+					InsightResultArray = result as InsightResult[];
+					return this.saveToDisk(id, InsightResultArray, reject);
 				})
 				.then(() => {
 					this.currentDatasets.push(id);
-					this.datasetsMap.set(id, sectionsArray);
+					this.datasetsMap.set(id, InsightResultArray);
 					resolve(this.currentDatasets);
 				})
 				.catch((error) => {
-					if (!(error instanceof InsightError || error instanceof NotFoundError)) {
-						reject(new InsightError("Unexpected error while adding dataset"));
-					}
+					reject(error);
 				});
 		});
 	}
@@ -91,77 +78,6 @@ export default class InsightFacade implements IInsightFacade {
 		} catch (error: any) {
 			reject(new InsightError("Failed to save dataset to disk: " + error.message));
 		}
-	}
-
-	// Takes the files in the /courses directory and parses them into desired InsightResult[]
-	private processCourseFiles(jsonCourseFiles: string[], reject: (reason?: any) => void): Promise<InsightResult[]> {
-		const sectionsArray: InsightResult[] = [];
-		let hasValidSection = false;
-
-		const promises = jsonCourseFiles.map((jsonCourseFile) => {
-			return new Promise<void>((resolve) => {
-				try {
-					const courseFile = JSON.parse(jsonCourseFile);
-					if ("result" in courseFile) {
-						if (courseFile.result && Array.isArray(courseFile.result)) {
-							for (const section of courseFile.result) {
-								let sectionParser = new Section();
-								if (sectionParser.validSection(section)) {
-									const parsedSection = sectionParser.parse(section);
-									if (parsedSection) {
-										sectionsArray.push(parsedSection);
-										hasValidSection = true;
-									}
-								}
-							}
-							resolve();
-						}
-					}
-				} catch (e) {
-					// courseFile could not be parsed, ignored and proceed to the next file
-					resolve();
-				}
-			});
-		});
-		return Promise.all(promises).then(() => sectionsArray).catch((error) => {
-			reject(error);
-			return [];
-		});
-	}
-
-	// Unzips the content and converts files in /courses directory into parsable text
-	private extractCourseFiles(content: string, reject: (reason?: any) => void): Promise<string[]> {
-		let zip = new JSZip();
-		const courseFiles: Array<Promise<string>> = [];
-
-		return zip.loadAsync(content, {base64: true})
-			.then((contents) => {
-				const promises = Object.keys(contents.files).map(async (filename) => {
-					if (filename.startsWith("courses/") && filename.length > "courses/".length) {
-						let courseFile = contents.files[filename];
-						try {
-							const text = await courseFile.async("text");
-							return text;
-						} catch (error) {
-							return "";
-						}
-					}
-					return "";
-				});
-
-				return Promise.all(promises);
-			})
-			.then((results) => {
-				const validResults = results.filter((result) => result !== "");
-				if (validResults.length === 0) {
-					return Promise.reject(new InsightError("No valid course files found"));
-				}
-				return validResults;
-			})
-			.catch((error) => {
-				reject(new InsightError(""));
-				return [];
-			});
 	}
 
 	public removeDataset(id: string): Promise<string> {
