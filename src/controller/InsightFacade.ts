@@ -14,6 +14,7 @@ const PROJECT_ROOT = path.join(__dirname, "../..");
 const DATA_FOLDER_PATH = path.join(PROJECT_ROOT, "data");
 
 import QueryEngine from "./QueryEngine";
+import QueryValidator from "./QueryValidator";
 
 /**
  * This is the main programmatic entry point for the project.
@@ -24,12 +25,16 @@ export default class InsightFacade implements IInsightFacade {
 
 	private currentDatasets: string[];
 	private queryEngine: QueryEngine;
+	private queryValidator: QueryValidator;
 	private datasetsMap: Map<string, InsightResult[]>;
+	private datasetsType: Map<string, InsightDatasetKind>;
 
 	constructor() {
 		this.currentDatasets = [];
+		this.queryValidator = new QueryValidator();
 		this.queryEngine = new QueryEngine();
 		this.datasetsMap = new Map<string, InsightResult[]>();
+		this.datasetsType = new Map<string, InsightDatasetKind>();
 	}
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
@@ -196,9 +201,10 @@ export default class InsightFacade implements IInsightFacade {
 		return new Promise((resolve, reject) => {
 			this.loadDatasetsFromDisk().then(() => {
 				try {
-					this.queryEngine.checkNewQuery(query);
-					this.queryEngine.checkWhere();
-					this.queryEngine.checkOptions();
+					this.queryValidator.checkNewQuery(query, this.datasetsType);
+					this.queryValidator.checkWhere();
+					this.queryValidator.checkOptions();
+					this.queryEngine.importQueryObject(this.queryValidator.makeQueryObj());
 					let result = this.queryEngine.executeQuery(this.datasetsMap);
 					resolve(result);
 				} catch (err) {

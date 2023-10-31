@@ -1,0 +1,143 @@
+{
+	"title": "SELECT dept, id, instructor, overallAvg WHERE avg > 98, APPLY AVG, GROUP by dept, id, instructor",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_avg": 98
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_instructor",
+				"overallAvg"
+			]
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_dept",
+				"sections_id",
+				"sections_instructor"
+			],
+			"APPLY": [
+				{
+					"overallAvg": {
+						"AVG": "sections_avg"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "cnps",
+			"sections_id": "574",
+			"sections_instructor": "cox, daniel",
+			"overallAvg": 99.19
+		},
+		{
+			"sections_dept": "eece",
+			"sections_id": "541",
+			"sections_instructor": "coria, lino",
+			"overallAvg": 98.75
+		},
+		{
+			"sections_dept": "eece",
+			"sections_id": "541",
+			"sections_instructor": "",
+			"overallAvg": 98.75
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "421",
+			"sections_instructor": "cole, kenneth",
+			"overallAvg": 98.39
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "421",
+			"sections_instructor": "",
+			"overallAvg": 98.36
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "449",
+			"sections_instructor": "grow, laura",
+			"overallAvg": 98.71
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "449",
+			"sections_instructor": "",
+			"overallAvg": 98.67
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "519",
+			"sections_instructor": "cannon, joanna",
+			"overallAvg": 98.45
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "519",
+			"sections_instructor": "",
+			"overallAvg": 98.45
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "527",
+			"sections_instructor": "gomez, jose",
+			"overallAvg": 99.78
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "527",
+			"sections_instructor": "",
+			"overallAvg": 99.78
+		},
+		{
+			"sections_dept": "nurs",
+			"sections_id": "509",
+			"sections_instructor": "brew, nancy",
+			"overallAvg": 98.71
+		},
+		{
+			"sections_dept": "nurs",
+			"sections_id": "509",
+			"sections_instructor": "",
+			"overallAvg": 98.46
+		},
+		{
+			"sections_dept": "nurs",
+			"sections_id": "509",
+			"sections_instructor": "krist, jennifer",
+			"overallAvg": 98.21
+		},
+		{
+			"sections_dept": "nurs",
+			"sections_id": "578",
+			"sections_instructor": "burrows, marlene;harding, jillian;krist, jennifer;mccuaig, fairleth",
+			"overallAvg": 98.5
+		},
+		{
+			"sections_dept": "nurs",
+			"sections_id": "578",
+			"sections_instructor": "",
+			"overallAvg": 98.55
+		},
+		{
+			"sections_dept": "spph",
+			"sections_id": "300",
+			"sections_instructor": "frank, erica",
+			"overallAvg": 98.98
+		},
+		{
+			"sections_dept": "spph",
+			"sections_id": "300",
+			"sections_instructor": "",
+			"overallAvg": 98.98
+		}
+	]
+}

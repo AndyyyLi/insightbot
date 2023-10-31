@@ -1,0 +1,51 @@
+{
+	"title": "SELECT dept WHERE fail > 100, GROUP by dept",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_fail": 100
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept"
+			]
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_dept"
+			],
+			"APPLY": []
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "apsc"
+		},
+		{
+			"sections_dept": "biol"
+		},
+		{
+			"sections_dept": "chem"
+		},
+		{
+			"sections_dept": "comm"
+		},
+		{
+			"sections_dept": "cpsc"
+		},
+		{
+			"sections_dept": "econ"
+		},
+		{
+			"sections_dept": "math"
+		},
+		{
+			"sections_dept": "phys"
+		},
+		{
+			"sections_dept": "psyc"
+		}
+	]
+}

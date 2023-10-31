@@ -1,0 +1,93 @@
+{
+	"title": "SELECT dept, id, uuid WHERE avg > 98.6, SORT UP by dept, id, uuid",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_avg": 98.6
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"sections_id",
+				"sections_uuid"
+			],
+			"ORDER": {
+				"dir": "UP",
+				"keys": [
+					"sections_dept",
+					"sections_id",
+					"sections_uuid"
+				]
+			}
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "cnps",
+			"sections_id": "574",
+			"sections_uuid": "26777"
+		},
+		{
+			"sections_dept": "eece",
+			"sections_id": "541",
+			"sections_uuid": "10235"
+		},
+		{
+			"sections_dept": "eece",
+			"sections_id": "541",
+			"sections_uuid": "10236"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "421",
+			"sections_uuid": "33780"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "449",
+			"sections_uuid": "44816"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "449",
+			"sections_uuid": "44817"
+		},
+		{
+			"sections_dept": "epse",
+			"sections_id": "449",
+			"sections_uuid": "6320"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "527",
+			"sections_uuid": "5373"
+		},
+		{
+			"sections_dept": "math",
+			"sections_id": "527",
+			"sections_uuid": "5374"
+		},
+		{
+			"sections_dept": "nurs",
+			"sections_id": "509",
+			"sections_uuid": "15343"
+		},
+		{
+			"sections_dept": "nurs",
+			"sections_id": "509",
+			"sections_uuid": "15344"
+		},
+		{
+			"sections_dept": "spph",
+			"sections_id": "300",
+			"sections_uuid": "65069"
+		},
+		{
+			"sections_dept": "spph",
+			"sections_id": "300",
+			"sections_uuid": "65070"
+		}
+	]
+}
