@@ -1,0 +1,79 @@
+{
+	"title": "SELECT dept, maxAvg WHERE pass > 1000, APPLY MAX, GROUP by dept",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_pass": 1000
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"maxAvg"
+			]
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_dept"
+			],
+			"APPLY": [
+				{
+					"maxAvg": {
+						"MAX": "sections_avg"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "biol",
+			"maxAvg": 80.99
+		},
+		{
+			"sections_dept": "chem",
+			"maxAvg": 76.95
+		},
+		{
+			"sections_dept": "comm",
+			"maxAvg": 76.46
+		},
+		{
+			"sections_dept": "crwr",
+			"maxAvg": 79.76
+		},
+		{
+			"sections_dept": "econ",
+			"maxAvg": 70.08
+		},
+		{
+			"sections_dept": "engl",
+			"maxAvg": 73.51
+		},
+		{
+			"sections_dept": "eosc",
+			"maxAvg": 76.61
+		},
+		{
+			"sections_dept": "math",
+			"maxAvg": 73.29
+		},
+		{
+			"sections_dept": "phil",
+			"maxAvg": 71.22
+		},
+		{
+			"sections_dept": "phys",
+			"maxAvg": 76.57
+		},
+		{
+			"sections_dept": "psyc",
+			"maxAvg": 69.51
+		},
+		{
+			"sections_dept": "wrds",
+			"maxAvg": 70.76
+		}
+	]
+}

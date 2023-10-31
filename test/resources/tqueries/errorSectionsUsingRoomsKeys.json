@@ -1,0 +1,17 @@
+{
+	"title": "sections dataset using rooms keys",
+	"input": {
+		"WHERE": {
+			"IS": {
+				"sections_shortname": "MATH"
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_fullname"
+			]
+		}
+	},
+	"errorExpected": true,
+	"expected": "InsightError"
+}

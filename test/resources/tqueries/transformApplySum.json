@@ -1,0 +1,67 @@
+{
+	"title": "SELECT dept, totalFails WHERE fail > 100, APPLY SUM, GROUP by dept",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_fail": 100
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"totalFails"
+			]
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_dept"
+			],
+			"APPLY": [
+				{
+					"totalFails": {
+						"SUM": "sections_fail"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "apsc",
+			"totalFails": 715
+		},
+		{
+			"sections_dept": "biol",
+			"totalFails": 2894
+		},
+		{
+			"sections_dept": "chem",
+			"totalFails": 3985
+		},
+		{
+			"sections_dept": "comm",
+			"totalFails": 102
+		},
+		{
+			"sections_dept": "cpsc",
+			"totalFails": 615
+		},
+		{
+			"sections_dept": "econ",
+			"totalFails": 2739
+		},
+		{
+			"sections_dept": "math",
+			"totalFails": 4269
+		},
+		{
+			"sections_dept": "phys",
+			"totalFails": 1302
+		},
+		{
+			"sections_dept": "psyc",
+			"totalFails": 1415
+		}
+	]
+}

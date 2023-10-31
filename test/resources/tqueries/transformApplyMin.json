@@ -1,0 +1,79 @@
+{
+	"title": "SELECT dept, maxAvg WHERE pass > 1000, APPLY MIN, GROUP by dept",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_pass": 1000
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"minAvg"
+			]
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_dept"
+			],
+			"APPLY": [
+				{
+					"minAvg": {
+						"MIN": "sections_avg"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "biol",
+			"minAvg": 66.69
+		},
+		{
+			"sections_dept": "chem",
+			"minAvg": 63.33
+		},
+		{
+			"sections_dept": "comm",
+			"minAvg": 72.25
+		},
+		{
+			"sections_dept": "crwr",
+			"minAvg": 79.76
+		},
+		{
+			"sections_dept": "econ",
+			"minAvg": 66.86
+		},
+		{
+			"sections_dept": "engl",
+			"minAvg": 71.49
+		},
+		{
+			"sections_dept": "eosc",
+			"minAvg": 71.02
+		},
+		{
+			"sections_dept": "math",
+			"minAvg": 63.51
+		},
+		{
+			"sections_dept": "phil",
+			"minAvg": 71.22
+		},
+		{
+			"sections_dept": "phys",
+			"minAvg": 69.62
+		},
+		{
+			"sections_dept": "psyc",
+			"minAvg": 66.69
+		},
+		{
+			"sections_dept": "wrds",
+			"minAvg": 70.15
+		}
+	]
+}
