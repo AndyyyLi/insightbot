@@ -578,11 +578,11 @@ describe("InsightFacade", function () {
 
 	describe("PerformQuery", function () {
 		/*
-	 * This test suite dynamically generates tests from the JSON files in test/resources/queries.
-	 * You should not need to modify it; instead, add additional files to the queries directory.
-	 * You can still make tests the normal way, this is just a convenient tool for a majority of queries.
-	 */
-		describe("PerformQuery Folder Test", () => {
+		 * This test suite dynamically generates tests from the JSON files in test/resources/queries.
+		 * You should not need to modify it; instead, add additional files to the queries directory.
+		 * You can still make tests the normal way, this is just a convenient tool for a majority of queries.
+		 */
+		describe.only("PerformQuery Folder Test", () => {
 			before(function () {
 
 				facade = new InsightFacade();

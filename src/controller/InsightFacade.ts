@@ -24,7 +24,7 @@ import QueryValidator from "./QueryValidator";
 export default class InsightFacade implements IInsightFacade {
 
 	private currentDatasets: string[];
-	private queryEngine: QueryEngine;
+	private queryEngine: QueryEngine | undefined;
 	private queryValidator: QueryValidator;
 	private datasetsMap: Map<string, InsightResult[]>;
 	private datasetsType: Map<string, InsightDatasetKind>;
@@ -32,7 +32,6 @@ export default class InsightFacade implements IInsightFacade {
 	constructor() {
 		this.currentDatasets = [];
 		this.queryValidator = new QueryValidator();
-		this.queryEngine = new QueryEngine();
 		this.datasetsMap = new Map<string, InsightResult[]>();
 		this.datasetsType = new Map<string, InsightDatasetKind>();
 	}
@@ -204,7 +203,8 @@ export default class InsightFacade implements IInsightFacade {
 					this.queryValidator.checkNewQuery(query, this.datasetsType);
 					this.queryValidator.checkWhere();
 					this.queryValidator.checkOptions();
-					this.queryEngine.importQueryObject(this.queryValidator.makeQueryObj());
+					this.queryValidator.checkTransformations();
+					this.queryEngine = new QueryEngine(this.queryValidator.makeQueryObj());
 					let result = this.queryEngine.executeQuery(this.datasetsMap);
 					resolve(result);
 				} catch (err) {
