@@ -11,6 +11,7 @@ export default class QueryValidator {
 	private order: string;
 	private sectionsDataset: boolean;
 	private datasetTypes: Map<string, InsightDatasetKind>;
+	private transformations: string[][]; // [0] contains GROUP array, [1] contains APPLY array
 	constructor() {
 		this.currDataset = "";
 		this.queryParsed = [];
@@ -20,16 +21,16 @@ export default class QueryValidator {
 		this.order = "";
 		this.sectionsDataset = true;
 		this.datasetTypes = new Map<string, InsightDatasetKind>();
+		this.transformations = [];
 	}
 
 	// returns query object for QueryEngine, should be called after validating a raw query
 	public makeQueryObj(): QueryObject {
-		return new QueryObject(this.currDataset, this.queryParsed, this.queryCols, this.order);
+		return new QueryObject(this.currDataset, this.queryParsed, this.queryCols, this.order, this.transformations);
 	}
 
 	// checks top level syntax and that WHERE and OPTIONS exist
 	// calls checkWhere and checkOptions, and executeQuery if query is valid
-	// can throw InsightError
 	public checkNewQuery(query: unknown, datasetTypes: Map<string, InsightDatasetKind>): void {
 		if (query == null || typeof query !== "object") {
 			throw new InsightError("Query is null or not an object");
@@ -46,16 +47,15 @@ export default class QueryValidator {
 		this.nextEmptyIdx = 1;
 		this.queryCols = [];
 		this.order = "";
+		this.transformations = [];
 		this.datasetTypes = datasetTypes;
 	}
 
-	// helpers to determine if a field is S or M type
 	private isMfield(field: string): boolean {
 		if (this.sectionsDataset) {
 			return field === "avg" || field === "pass" || field === "fail" || field === "audit" || field === "year";
 		} else {
-			return field === "fullname" || field === "shortname" || field === "number" || field === "name" ||
-				field === "address" || field === "type" || field === "furniture" || field === "href";
+			return field === "lat" || field === "lon" || field === "seats";
 		}
 	}
 
@@ -64,7 +64,8 @@ export default class QueryValidator {
 			return field === "dept" || field === "id" || field === "instructor" || field === "title" ||
 				field === "uuid";
 		} else {
-			return field === "lat" || field === "lon" || field === "seats";
+			return field === "fullname" || field === "shortname" || field === "number" || field === "name" ||
+				field === "address" || field === "type" || field === "furniture" || field === "href";
 		}
 	}
 
@@ -120,8 +121,7 @@ export default class QueryValidator {
 	// calls checkLogic, checkComparison, checkSComparison, or checkNegation
 	// can throw InsightError
 	public checkWhere() {
-		let where = this.parsedRawQuery.WHERE;
-		let key = Object.keys(where);
+		let where = this.parsedRawQuery.WHERE, key = Object.keys(where);
 		if (key.length === 0) {
 			return;
 		}
@@ -132,6 +132,9 @@ export default class QueryValidator {
 
 	// checks if id matches currDataset, sets it if currDataset empty
 	private checkDatasetID(id: string) {
+		if (!this.datasetTypes.get(id)) {
+			throw new InsightError("Dataset not found");
+		}
 		if (this.currDataset === "") {
 			this.currDataset = id;
 			this.sectionsDataset = this.datasetTypes.get(id) === InsightDatasetKind.Sections;
@@ -157,8 +160,7 @@ export default class QueryValidator {
 	// checks syntax, calls checkColumns, and checkOrder if it exists
 	// can throw InsightError
 	public checkOptions() {
-		let options = this.parsedRawQuery.OPTIONS;
-		let keys = Object.keys(options);
+		let options = this.parsedRawQuery.OPTIONS, keys = Object.keys(options);
 		if (keys.length === 0 || keys.length > 2 || keys[0] !== "COLUMNS" ||
 			(keys.length === 2 && keys[1] !== "ORDER")) {
 			throw new InsightError("Invalid OPTIONS key");
@@ -171,8 +173,11 @@ export default class QueryValidator {
 
 	// checks syntax of transformation query, including checking GROUP and APPLY
 	public checkTransformations() {
-		let transformations = this.parsedRawQuery.TRANSFORMATIONS;
-		let keys = Object.keys(transformations);
+		if (Object.keys(this.parsedRawQuery).length !== 3) { // no TRANSFORMATIONS body
+			this.transformations = [[],[]]; // empty transformations
+			return;
+		}
+		let transformations = this.parsedRawQuery.TRANSFORMATIONS, keys = Object.keys(transformations);
 		if (keys.length !== 2 || keys[0] !== "GROUP" || keys[1] !== "APPLY") {
 			throw new InsightError("Invalid TRANSFORMATIONS body");
 		}
@@ -188,7 +193,9 @@ export default class QueryValidator {
 			}
 			transformKeys[i] = parts[1];
 		}
-		let apply = transformations.APPLY;
+		let groupKeys: string[] = [...transformKeys];
+		this.transformations.push(groupKeys);
+		let apply = transformations.APPLY, applyRules: string[] = [];
 		if (!Array.isArray(apply) || (apply.length > 0 && typeof apply[0] !== "object")) {
 			throw new InsightError("APPLY invalid array");
 		}
@@ -198,15 +205,13 @@ export default class QueryValidator {
 				throw new InsightError("Invalid APPLYRULE");
 			}
 			let key = ruleKey[0] as keyof typeof rule;
-			if (transformKeys.includes(key)) {
-				throw new InsightError("duplicate APPLYKEY");
+			if (transformKeys.includes(key) || (key as string).includes("_")) {
+				throw new InsightError("Invalid APPLYKEY");
 			}
-			if ((key as string).includes("_")) {
-				throw new InsightError("applyKey contains underscore");
-			}
-			this.checkApplyKey(rule[key]);
-			transformKeys.push(key);
+			transformKeys.push(key as string);
+			applyRules.push((key as string) + "__" + this.checkApplyKey(rule[key]));
 		}
+		this.transformations.push(applyRules);
 		let queryKeys = this.queryCols;
 		if (transformKeys.sort().join() !== queryKeys.sort().join()) {
 			throw new InsightError("COLUMNS keys do not match TRANSFORMATION keys");
@@ -214,17 +219,16 @@ export default class QueryValidator {
 	}
 
 	// checks syntax of APPLYKEY, namely APPLYTOKEN and KEY
-	public checkApplyKey(applyKey: any) {
+	public checkApplyKey(applyKey: any): string {
 		let keys = Object.keys(applyKey);
 		if (keys.length !== 1) {
-			throw new InsightError("Invalid APPLYKEY");
+			throw new InsightError("Invalid APPLYKEY body");
 		}
 		if (keys[0] !== "MAX" && keys[0] !== "MIN" && keys[0] !== "AVG" && keys[0] !== "SUM" && keys[0] !== "COUNT") {
 			throw new InsightError("Invalid APPLYTOKEN");
 		}
 		let calcKey = keys[0] as keyof typeof applyKey;
-		let key = applyKey[calcKey];
-		let components = key.split("_");
+		let key = applyKey[calcKey], components = key.split("_");
 		if (components.length !== 2) {
 			throw new InsightError("Invalid APPLYTOKEN KEY format");
 		}
@@ -232,7 +236,7 @@ export default class QueryValidator {
 		if (!this.isMfield(components[1]) && (!this.isSfield(components[1]) || keys[0] !== "COUNT")) {
 			throw new InsightError("Invalid APPLYTOKEN KEY value");
 		}
-		this.queryParsed.push(new QueryNode(keys[0], 3, components[1]));
+		return keys[0] + "__" + key;
 	}
 
 	// checks syntax, adds filtered columns to queryCols
@@ -260,7 +264,6 @@ export default class QueryValidator {
 	}
 
 	// checks syntax, sets order, order must be type string
-	// can throw InsightError
 	public checkOrder(order: any) {
 		if (typeof order === "string") {
 			let components = order.split("_");
@@ -292,7 +295,5 @@ export default class QueryValidator {
 		} else {
 			throw new InsightError("ORDER not string or object");
 		}
-
 	}
-
 }

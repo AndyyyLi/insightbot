@@ -1,6 +1,6 @@
 export default class QueryNode {
 	private readonly filter: string;
-	private readonly filterType: number; // 0: noncomp, 1: mcomp, 2: scomp, 3: applyToken
+	private readonly filterType: number; // 0: noncomp, 1: mcomp, 2: scomp
 	private readonly body: number[] | number | string;
 
 	constructor(filter: string, filterType: number, body: number[] | number | string) {

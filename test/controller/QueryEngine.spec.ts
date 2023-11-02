@@ -9,12 +9,11 @@ import QueryNode from "../../src/controller/QueryNode";
 import QueryValidator from "../../src/controller/QueryValidator";
 
 describe("QueryEngine", () => {
-	let queryEngine: QueryEngine;
+	let queryEngine: QueryEngine | undefined;
 	let queryValidator: QueryValidator;
 	let sampleDatasetTypes: Map<string, InsightDatasetKind>;
 
 	before(() => {
-		queryEngine = new QueryEngine();
 		queryValidator = new QueryValidator();
 		sampleDatasetTypes = new Map<string, InsightDatasetKind>();
 		sampleDatasetTypes.set("sections", InsightDatasetKind.Sections);
@@ -58,7 +57,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid COLUMNS: " + err);
 			}
-			queryEngine.importQueryObject(queryValidator.makeQueryObj());
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual = queryEngine.makeInsightResult(sampleSection);
 			expect(actual).to.deep.equals({
 				sections_avg: 71.07,
@@ -81,6 +80,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("GT_avg", 1, 71));
 			expect(actual).to.be.true;
@@ -101,6 +101,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("GT_avg", 1, 72));
 			expect(actual).to.be.false;
@@ -121,6 +122,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("LT_avg", 1, 72));
 			expect(actual).to.be.true;
@@ -141,6 +143,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("LT_avg", 1, 71));
 			expect(actual).to.be.false;
@@ -161,6 +164,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("EQ_avg", 1, 71.07));
 			expect(actual).to.be.true;
@@ -181,6 +185,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("EQ_avg", 1, 71.06));
 			expect(actual).to.be.false;
@@ -201,6 +206,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("IS_dept", 2, "cpsc"));
 			expect(actual).to.be.true;
@@ -221,6 +227,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("IS_dept", 2, "math"));
 			expect(actual).to.be.false;
@@ -250,7 +257,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			queryEngine.importQueryObject(queryValidator.makeQueryObj());
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("AND", 0, [1,2]));
 			expect(actual).to.be.true;
@@ -289,7 +296,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			queryEngine.importQueryObject(queryValidator.makeQueryObj());
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("OR", 0, [1,2]));
 			expect(actual).to.be.true;
@@ -319,7 +326,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			queryEngine.importQueryObject(queryValidator.makeQueryObj());
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("AND", 0, [1,2]));
 			expect(actual).to.be.false;
@@ -349,7 +356,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			queryEngine.importQueryObject(queryValidator.makeQueryObj());
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("OR", 0, [1,2]));
 			expect(actual).to.be.true;
@@ -379,7 +386,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			queryEngine.importQueryObject(queryValidator.makeQueryObj());
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("OR", 0, [1,2]));
 			expect(actual).to.be.false;
@@ -402,7 +409,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			queryEngine.importQueryObject(queryValidator.makeQueryObj());
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("NOT", 0, [1]));
 			expect(actual).to.be.true;
@@ -425,7 +432,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
-			queryEngine.importQueryObject(queryValidator.makeQueryObj());
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual =
 				queryEngine.meetsFilterReqs(sampleSection, new QueryNode("NOT", 0, [1]));
 			expect(actual).to.be.false;
@@ -447,6 +454,7 @@ describe("QueryEngine", () => {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
 			try {
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 				queryEngine.meetsFilterReqs(sampleSection,
 					new QueryNode("IS_instructor", 2, "g*regor"));
 			} catch (err) {
@@ -469,6 +477,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual = queryEngine.meetsFilterReqs(sampleSection,
 				new QueryNode("IS_instructor", 2, "*gregor"));
 			expect(actual).to.be.true;
@@ -489,6 +498,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual = queryEngine.meetsFilterReqs(sampleSection,
 				new QueryNode("IS_instructor", 2, "kiczales*"));
 			expect(actual).to.be.true;
@@ -509,6 +519,7 @@ describe("QueryEngine", () => {
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE body: " + err);
 			}
+			queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 			let actual = queryEngine.meetsFilterReqs(sampleSection,
 				new QueryNode("IS_instructor", 2, "*ales*"));
 			expect(actual).to.be.true;
@@ -554,33 +565,49 @@ describe("QueryEngine", () => {
 					title:"biol bact cell",
 					uuid:"18026"
 				},
+			]],
+			["rooms", [
+				{
+					fullname: "Mathematics",
+					shortname: "MATH",
+					number: "100",
+					name: "MATH_100",
+					address: "1984 Mathematics Road",
+					lat: 49.266463,
+					lon: -123.255534,
+					seats: 240,
+					type: "Tiered Large Group",
+					furniture: "Classroom-Fixed Tablets",
+					href: "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/MATH-100"
+				},
+				{
+					fullname: "Chemistry",
+					shortname: "CHEM",
+					number: "B250",
+					name: "CHEM_B250",
+					address: "2036 Main Mall",
+					lat: 49.2659,
+					lon: -123.25308,
+					seats: 240,
+					type: "Tiered Large Group",
+					furniture: "Classroom-Fixed Tablets",
+					href: "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/CHEM-B250"
+				},
+				{
+					fullname: "Buchanan",
+					shortname: "BUCH",
+					number: "B141",
+					name: "BUCH_B141",
+					address: "1866 Main Mall",
+					lat: 49.26826,
+					lon: -123.25468,
+					seats: 42,
+					type: "Open Design General Purpose",
+					furniture: "Classroom-Movable Tables & Chairs",
+					href: "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/BUCH-B141"
+				},
 			]]
 		]);
-
-		it("should throw InsightError on referencing nonexistent dataset", () => {
-			try {
-				queryValidator.checkNewQuery({
-					WHERE: {
-						NOT: {
-							IS: {
-								section_dept: "math"
-							}
-						}
-					},
-					OPTIONS: {
-					}
-				}, sampleDatasetTypes);
-				queryValidator.checkWhere();
-			} catch (err) {
-				assert.fail("unexpected error checking valid WHERE body: " + err);
-			}
-			try {
-				queryEngine.importQueryObject(queryValidator.makeQueryObj());
-				queryEngine.executeQuery(testMap);
-			} catch (err) {
-				expect(err).to.be.instanceof(InsightError);
-			}
-		});
 
 		it("should successfully add sections meeting valid query", () => {
 			try {
@@ -597,11 +624,12 @@ describe("QueryEngine", () => {
 				}, sampleDatasetTypes);
 				queryValidator.checkWhere();
 				queryValidator.checkColumns(["sections_dept"]);
+				queryValidator.checkTransformations();
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE and OPTIONS body: " + err);
 			}
 			try {
-				queryEngine.importQueryObject(queryValidator.makeQueryObj());
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 				let result = queryEngine.executeQuery(testMap);
 				expect(result).to.deep.contain.members([
 					{sections_dept: "biol"},
@@ -625,12 +653,13 @@ describe("QueryEngine", () => {
 					"sections_dept",
 					"sections_instructor"
 				]);
+				queryValidator.checkTransformations();
 				queryValidator.checkOrder("sections_instructor");
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE, OPTIONS body: " + err);
 			}
 			try {
-				queryEngine.importQueryObject(queryValidator.makeQueryObj());
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 				let result = queryEngine.executeQuery(testMap);
 				expect(result).to.deep.equals([
 					{sections_dept: "crwr", sections_instructor: ""},
@@ -655,17 +684,379 @@ describe("QueryEngine", () => {
 					"sections_dept",
 					"sections_avg"
 				]);
+				queryValidator.checkTransformations();
 				queryValidator.checkOrder("sections_avg");
 			} catch (err) {
 				assert.fail("unexpected error checking valid WHERE, OPTIONS body: " + err);
 			}
 			try {
-				queryEngine.importQueryObject(queryValidator.makeQueryObj());
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
 				let result = queryEngine.executeQuery(testMap);
 				expect(result).to.deep.equals([
 					{sections_dept: "cpsc", sections_avg: 71.07},
 					{sections_dept: "biol", sections_avg: 71.1},
 					{sections_dept: "crwr", sections_avg: 98}
+				]);
+			} catch (err) {
+				assert.fail("unexpected error: " + err);
+			}
+		});
+
+		it("should group properly with apply COUNT", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+					},
+					OPTIONS: {
+					},
+					TRANSFORMATIONS: {
+						GROUP: [
+							"rooms_seats"
+						],
+						APPLY: [
+							{
+								uniqueLat: {
+									COUNT: "rooms_lat"
+								}
+							}
+						]
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+				queryValidator.checkColumns(["rooms_seats", "uniqueLat"]);
+				queryValidator.checkTransformations();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE and OPTIONS body: " + err);
+			}
+			try {
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
+				let result = queryEngine.executeQuery(testMap);
+				expect(result).to.deep.contain.members([
+					{rooms_seats: 240, uniqueLat: 2},
+					{rooms_seats: 42, uniqueLat: 1}
+				]);
+			} catch (err) {
+				assert.fail("unexpected error: " + err);
+			}
+		});
+
+		it("should group properly with apply SUM", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+					},
+					OPTIONS: {
+					},
+					TRANSFORMATIONS: {
+						GROUP: [
+							"rooms_seats"
+						],
+						APPLY: [
+							{
+								sumLat: {
+									SUM: "rooms_lat"
+								}
+							}
+						]
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+				queryValidator.checkColumns(["rooms_seats", "sumLat"]);
+				queryValidator.checkTransformations();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE and OPTIONS body: " + err);
+			}
+			try {
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
+				let result = queryEngine.executeQuery(testMap);
+				expect(result).to.deep.contain.members([
+					{rooms_seats: 240, sumLat: 98.53},
+					{rooms_seats: 42, sumLat: 49.27}
+				]);
+			} catch (err) {
+				assert.fail("unexpected error: " + err);
+			}
+		});
+
+		it("should group properly with apply MIN", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+					},
+					OPTIONS: {
+					},
+					TRANSFORMATIONS: {
+						GROUP: [
+							"rooms_seats"
+						],
+						APPLY: [
+							{
+								minLat: {
+									MIN: "rooms_lat"
+								}
+							}
+						]
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+				queryValidator.checkColumns(["rooms_seats", "minLat"]);
+				queryValidator.checkTransformations();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE and OPTIONS body: " + err);
+			}
+			try {
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
+				let result = queryEngine.executeQuery(testMap);
+				expect(result).to.deep.contain.members([
+					{rooms_seats: 240, minLat: 49.2659},
+					{rooms_seats: 42, minLat: 49.26826}
+				]);
+			} catch (err) {
+				assert.fail("unexpected error: " + err);
+			}
+		});
+
+		it("should group properly with apply MAX", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+					},
+					OPTIONS: {
+					},
+					TRANSFORMATIONS: {
+						GROUP: [
+							"rooms_seats"
+						],
+						APPLY: [
+							{
+								maxLat: {
+									MAX: "rooms_lat"
+								}
+							}
+						]
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+				queryValidator.checkColumns(["rooms_seats", "maxLat"]);
+				queryValidator.checkTransformations();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE and OPTIONS body: " + err);
+			}
+			try {
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
+				let result = queryEngine.executeQuery(testMap);
+				expect(result).to.deep.contain.members([
+					{rooms_seats: 240, maxLat: 49.266463},
+					{rooms_seats: 42, maxLat: 49.26826}
+				]);
+			} catch (err) {
+				assert.fail("unexpected error: " + err);
+			}
+		});
+
+		it("should group properly with apply AVG", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+					},
+					OPTIONS: {
+					},
+					TRANSFORMATIONS: {
+						GROUP: [
+							"rooms_seats"
+						],
+						APPLY: [
+							{
+								avgLat: {
+									AVG: "rooms_lat"
+								}
+							}
+						]
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+				queryValidator.checkColumns(["rooms_seats", "avgLat"]);
+				queryValidator.checkTransformations();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE and OPTIONS body: " + err);
+			}
+			try {
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
+				let result = queryEngine.executeQuery(testMap);
+				expect(result).to.deep.contain.members([
+					{rooms_seats: 240, avgLat: 49.27},
+					{rooms_seats: 42, avgLat: 49.27}
+				]);
+			} catch (err) {
+				assert.fail("unexpected error: " + err);
+			}
+		});
+
+		it("should group properly on multiple keys without applying any calculations", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+					},
+					OPTIONS: {
+					},
+					TRANSFORMATIONS: {
+						GROUP: [
+							"rooms_seats",
+							"rooms_shortname"
+						],
+						APPLY: []
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+				queryValidator.checkColumns(["rooms_seats", "rooms_shortname"]);
+				queryValidator.checkTransformations();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE and OPTIONS body: " + err);
+			}
+			try {
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
+				let result = queryEngine.executeQuery(testMap);
+				expect(result).to.deep.contain.members([
+					{rooms_seats: 240, rooms_shortname: "MATH"},
+					{rooms_seats: 240, rooms_shortname: "CHEM"},
+					{rooms_seats: 42, rooms_shortname: "BUCH"}
+				]);
+			} catch (err) {
+				assert.fail("unexpected error: " + err);
+			}
+		});
+
+		it("should group properly without applying any calculations", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+					},
+					OPTIONS: {
+					},
+					TRANSFORMATIONS: {
+						GROUP: [
+							"rooms_seats"
+						],
+						APPLY: []
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+				queryValidator.checkColumns(["rooms_seats"]);
+				queryValidator.checkTransformations();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE and OPTIONS body: " + err);
+			}
+			try {
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
+				let result = queryEngine.executeQuery(testMap);
+				expect(result).to.deep.contain.members([
+					{rooms_seats: 240},
+					{rooms_seats: 42}
+				]);
+			} catch (err) {
+				assert.fail("unexpected error: " + err);
+			}
+		});
+
+		it("should successfully query rooms", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+						NOT: {
+							IS: {
+								rooms_shortname: "BUCH"
+							}
+						}
+					},
+					OPTIONS: {
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+				queryValidator.checkColumns(["rooms_number"]);
+				queryValidator.checkTransformations();
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE and OPTIONS body: " + err);
+			}
+			try {
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
+				let result = queryEngine.executeQuery(testMap);
+				expect(result).to.deep.contain.members([
+					{rooms_number: "100"},
+					{rooms_number: "B250"}
+				]);
+			} catch (err) {
+				assert.fail("unexpected error: " + err);
+			}
+		});
+
+		it("should successfully add rooms meeting valid query with ORDER DOWN", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+					},
+					OPTIONS: {
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+				queryValidator.checkColumns([
+					"rooms_fullname",
+					"rooms_seats"
+				]);
+				queryValidator.checkTransformations();
+				queryValidator.checkOrder({
+					dir: "DOWN",
+					keys: [
+						"rooms_seats",
+						"rooms_fullname"
+					]
+				});
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE, OPTIONS body: " + err);
+			}
+			try {
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
+				let result = queryEngine.executeQuery(testMap);
+				expect(result).to.deep.equals([
+					{rooms_fullname: "Mathematics", rooms_seats: 240},
+					{rooms_fullname: "Chemistry", rooms_seats: 240},
+					{rooms_fullname: "Buchanan", rooms_seats: 42}
+				]);
+			} catch (err) {
+				assert.fail("unexpected error: " + err);
+			}
+		});
+
+		it("should successfully add rooms meeting valid query with ORDER UP", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+					},
+					OPTIONS: {
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+				queryValidator.checkColumns([
+					"rooms_address",
+					"rooms_seats"
+				]);
+				queryValidator.checkTransformations();
+				queryValidator.checkOrder({
+					dir: "UP",
+					keys: [
+						"rooms_seats",
+						"rooms_address"
+					]
+				});
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE, OPTIONS body: " + err);
+			}
+			try {
+				queryEngine = new QueryEngine(queryValidator.makeQueryObj());
+				let result = queryEngine.executeQuery(testMap);
+				expect(result).to.deep.equals([
+					{rooms_address: "1866 Main Mall", rooms_seats: 42},
+					{rooms_address: "1984 Mathematics Road", rooms_seats: 240},
+					{rooms_address: "2036 Main Mall", rooms_seats: 240}
 				]);
 			} catch (err) {
 				assert.fail("unexpected error: " + err);

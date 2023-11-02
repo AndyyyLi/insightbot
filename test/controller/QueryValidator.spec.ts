@@ -347,6 +347,25 @@ describe("QueryValidator", () => {
 				expect(err).to.be.instanceof(InsightError);
 			}
 		});
+
+		it("should throw error on referencing nonexistent dataset", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+						NOT: {
+							IS: {
+								section_dept: "math"
+							}
+						}
+					},
+					OPTIONS: {
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+			} catch (err) {
+				expect(err).to.be.instanceof(InsightError);
+			}
+		});
 	});
 
 	describe("Check Options, Columns, and Sort Order", () => {
