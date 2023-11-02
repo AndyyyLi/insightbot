@@ -133,7 +133,7 @@ export default class QueryValidator {
 	// checks if id matches currDataset, sets it if currDataset empty
 	private checkDatasetID(id: string) {
 		if (!this.datasetTypes.get(id)) {
-			throw new InsightError("Dataset not found");
+			throw new InsightError("Cannot find dataset: " + id);
 		}
 		if (this.currDataset === "") {
 			this.currDataset = id;

@@ -1266,6 +1266,43 @@ describe("QueryValidator", () => {
 			}
 		});
 
+		it("should throw error on APPLYKEY with underscore", () => {
+			try {
+				queryValidator.checkNewQuery({
+					WHERE: {
+						EQ: {
+							sections_avg: 98
+						}
+					},
+					OPTIONS: {
+					},
+					TRANSFORMATIONS: {
+						GROUP: ["sections_avg"],
+						APPLY: [
+							{
+								sections_pass: {
+									SUM: "sections_pass"
+								}
+							}
+						]
+					}
+				}, sampleDatasetTypes);
+				queryValidator.checkWhere();
+				queryValidator.checkColumns([
+					"sections_avg",
+					"sections_pass"
+				]);
+			} catch (err) {
+				assert.fail("unexpected error checking valid WHERE and COLUMNS: " + err);
+			}
+			try {
+				queryValidator.checkTransformations();
+				assert.fail("expected error checking APPLYKEY with underscore");
+			} catch (err) {
+				expect(err).to.be.instanceof(InsightError);
+			}
+		});
+
 		it("should accept valid TRANSFORMATIONS", () => {
 			try {
 				queryValidator.checkNewQuery({
