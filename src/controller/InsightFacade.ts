@@ -188,7 +188,7 @@ export default class InsightFacade implements IInsightFacade {
 
 					try {
 						const datasetID = dataFileName.split("-")[0];
-						const datasetKind = dataFileName.split("-")[1];
+						const datasetKind = dataFileName.split("-")[1].replace(".json", "");
 						const datasetSectionsArray = JSON.parse(dataFileContent) as InsightResult[];
 						if (!this.currentDatasets.includes(datasetID)) {
 							this.currentDatasets.push(datasetID);
