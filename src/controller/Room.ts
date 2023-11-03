@@ -59,7 +59,7 @@ export class Room {
 			address: addressValue,
 			lat: latValue,
 			lon: lonValue,
-			seat: Number(seatValue),
+			seats: Number(seatValue),
 			type: typeValue,
 			furniture: furnitureValue,
 			href: hrefValue

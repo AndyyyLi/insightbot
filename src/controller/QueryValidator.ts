@@ -104,8 +104,7 @@ export default class QueryValidator {
 				}
 				this.queryParsed.push(new QueryNode(filter, comp === "IS" ? 2 : 1, compObj[compKeys[0]]));
 			} else if (keys[0] === "NOT") {
-				let NOTobj = curr[keys[0]];
-				let key = Object.keys(NOTobj);
+				let NOTobj = curr[keys[0]], key = Object.keys(NOTobj);
 				if (key.length !== 1) {
 					throw new InsightError("Negation body length not 1");
 				}
@@ -193,9 +192,8 @@ export default class QueryValidator {
 			}
 			transformKeys[i] = parts[1];
 		}
-		let groupKeys: string[] = [...transformKeys];
+		let groupKeys: string[] = [...transformKeys], apply = transformations.APPLY, applyRules: string[] = [];
 		this.transformations.push(groupKeys);
-		let apply = transformations.APPLY, applyRules: string[] = [];
 		if (!Array.isArray(apply) || (apply.length > 0 && typeof apply[0] !== "object")) {
 			throw new InsightError("APPLY invalid array");
 		}
@@ -240,7 +238,6 @@ export default class QueryValidator {
 	}
 
 	// checks syntax, adds filtered columns to queryCols
-	// can throw InsightError
 	public checkColumns(columns: any) {
 		if (!Array.isArray(columns) || columns.length === 0 || typeof columns[0] !== "string") {
 			throw new InsightError("Invalid COLUMNS format");
@@ -285,11 +282,15 @@ export default class QueryValidator {
 				throw new InsightError("invalid keys array");
 			}
 			for (let key of order.keys) {
-				let components = key.split("_");
-				if (!this.queryCols.includes(components[1])) {
-					throw new InsightError("invalid key: " + components[1]);
+				if (key.includes("_")) {
+					let components = key.split("_");
+					if (!this.queryCols.includes(components[1])) {
+						throw new InsightError("invalid key: " + components[1]);
+					}
+					fullOrder += "_" + components[1];
+				} else {
+					fullOrder += "_" + key;
 				}
-				fullOrder += "_" + components[1];
 			}
 			this.order = fullOrder;
 		} else {

@@ -1181,7 +1181,7 @@ describe("InsightFacade", function () {
 		});
 	});
 
-	describe("PerformQuery", function () {
+	describe.only("PerformQuery", function () {
 		/*
 		 * This test suite dynamically generates tests from the JSON files in test/resources/queries.
 		 * You should not need to modify it; instead, add additional files to the queries directory.
@@ -1196,6 +1196,7 @@ describe("InsightFacade", function () {
 				// Will *fail* if there is a problem reading ANY dataset.
 				const loadDatasetPromises = [
 					facade.addDataset("sections", sections, InsightDatasetKind.Sections),
+					facade.addDataset("rooms", rooms, InsightDatasetKind.Rooms)
 				];
 
 				return Promise.all(loadDatasetPromises);
