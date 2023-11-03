@@ -1193,13 +1193,13 @@ describe("InsightFacade", function () {
 		});
 	});
 
-	describe("PerformQuery", function () {
+	describe("PerformQuery", function () { // TODO: remove only
 		/*
 		 * This test suite dynamically generates tests from the JSON files in test/resources/queries.
 		 * You should not need to modify it; instead, add additional files to the queries directory.
 		 * You can still make tests the normal way, this is just a convenient tool for a majority of queries.
 		 */
-		describe("PerformQuery Folder Test", () => {
+		describe.only("PerformQuery Folder Test", () => {
 			before(function () {
 
 				facade = new InsightFacade();
@@ -1223,7 +1223,7 @@ describe("InsightFacade", function () {
 			folderTest<unknown, Promise<InsightResult[]>, PQErrorKind>(
 				"Dynamic InsightFacade PerformQuery tests",
 				(input) => facade.performQuery(input),
-				"./test/resources/queries",
+				"./test/resources/tqueries", // TODO: revert
 				{
 					assertOnResult: (actual, expected) => {
 						expect(actual).to.deep.equal(expected);

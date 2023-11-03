@@ -116,16 +116,12 @@ export default class QueryValidator {
 		}
 	}
 
-	// checks filter validity if present, calls appropriate filter method
-	// calls checkLogic, checkComparison, checkSComparison, or checkNegation
-	// can throw InsightError
 	public checkWhere() {
 		let where = this.parsedRawQuery.WHERE, key = Object.keys(where);
 		if (key.length === 0) {
 			return;
 		}
-		let queue: object[] = [];
-		queue.push(where);
+		let queue: object[] = [where];
 		this.handleFilters(queue);
 	}
 
@@ -157,7 +153,6 @@ export default class QueryValidator {
 	}
 
 	// checks syntax, calls checkColumns, and checkOrder if it exists
-	// can throw InsightError
 	public checkOptions() {
 		let options = this.parsedRawQuery.OPTIONS, keys = Object.keys(options);
 		if (keys.length === 0 || keys.length > 2 || keys[0] !== "COLUMNS" ||
@@ -185,8 +180,7 @@ export default class QueryValidator {
 			throw new InsightError("GROUP invalid array");
 		}
 		for (let i = 0; i < transformKeys.length; i++) {
-			let curr = transformKeys[i];
-			let parts = curr.split("_");
+			let curr = transformKeys[i], parts = curr.split("_");
 			if (parts.length !== 2) {
 				throw new InsightError("invalid GROUP array key: " + i);
 			}
@@ -210,9 +204,10 @@ export default class QueryValidator {
 			applyRules.push((key as string) + "__" + this.checkApplyKey(rule[key]));
 		}
 		this.transformations.push(applyRules);
-		let queryKeys = this.queryCols;
-		if (transformKeys.sort().join() !== queryKeys.sort().join()) {
-			throw new InsightError("COLUMNS keys do not match TRANSFORMATION keys");
+		for (let columnKey of this.queryCols) {
+			if (!transformKeys.includes(columnKey)) {
+				throw new InsightError("COLUMNS key " + columnKey + " not part of TRANSFORMATION keys");
+			}
 		}
 	}
 
@@ -263,12 +258,17 @@ export default class QueryValidator {
 	// checks syntax, sets order, order must be type string
 	public checkOrder(order: any) {
 		if (typeof order === "string") {
-			let components = order.split("_");
-			if (components.length !== 2 || components[0] !== this.currDataset ||
-				!this.queryCols.includes(components[1])) {
-				throw new InsightError("Invalid ORDER format");
+			if (order.includes("_")) {
+				let components = order.split("_");
+				if (components.length !== 2 || components[0] !== this.currDataset) {
+					throw new InsightError("Invalid ORDER format");
+				}
+				order = components[1];
 			}
-			this.order = components[1];
+			if (!this.queryCols.includes(order)) {
+				throw new InsightError("ORDER key not in COLUMNS");
+			}
+			this.order = order;
 		} else if (typeof order === "object") {
 			let keys = Object.keys(order);
 			if (keys.length !== 2 || keys[0] !== "dir" || keys[1] !== "keys") {

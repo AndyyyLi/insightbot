@@ -1,0 +1,14396 @@
+{
+	"title": "multi APPLYKEYS in COLUMNS, SORT DOWN by all COLUMNS",
+	"input": {
+		"WHERE": {},
+		"OPTIONS": {
+			"COLUMNS": [
+				"overallAvg",
+				"maxPass"
+			],
+			"ORDER": {
+				"dir": "DOWN",
+				"keys": [
+					"overallAvg",
+					"maxPass"
+				]
+			}
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_dept",
+				"sections_id"
+			],
+			"APPLY": [
+				{
+					"overallAvg": {
+						"AVG": "sections_avg"
+					}
+				},
+				{
+					"maxPass": {
+						"MAX": "sections_pass"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"overallAvg": 98.98,
+			"maxPass": 82
+		},
+		{
+			"overallAvg": 96.36,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 95.54,
+			"maxPass": 92
+		},
+		{
+			"overallAvg": 95.07,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 94.48,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 94.47,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 94.44,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 94.3,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 94.3,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 94.23,
+			"maxPass": 218
+		},
+		{
+			"overallAvg": 94.14,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 94.03,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 93.91,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 93.86,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 93.75,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 93.71,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 93.7,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 93.64,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 93.52,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 93.45,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 93.43,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 93.35,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 93.33,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 93.19,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 93.16,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 93.04,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 93,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 93,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 93,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 93,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 92.89,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 92.88,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 92.83,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 92.68,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 92.67,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 92.51,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 92.5,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 92.5,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 92.34,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 92.34,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 92.31,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 92.27,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 92.27,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 92.26,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 92.21,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 92.19,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 92.18,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 92.15,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 92.09,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 92.08,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 92.06,
+			"maxPass": 218
+		},
+		{
+			"overallAvg": 92.04,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 92.03,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 92.01,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 92,
+			"maxPass": 3
+		},
+		{
+			"overallAvg": 91.96,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 91.95,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 91.94,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 91.91,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 91.91,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 91.91,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 91.88,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 91.88,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 91.83,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 91.75,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 91.67,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 91.66,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 91.61,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 91.61,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 91.6,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 91.6,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 91.6,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 91.57,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 91.55,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 91.52,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 91.47,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 91.46,
+			"maxPass": 61
+		},
+		{
+			"overallAvg": 91.39,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 91.34,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 91.34,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 91.22,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 91.14,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 91.14,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 91.14,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 91.13,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 91.11,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 91.1,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 91.09,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 91.06,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 91.06,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 91.06,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 91,
+			"maxPass": 2
+		},
+		{
+			"overallAvg": 90.97,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 90.96,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 90.93,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 90.93,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 90.9,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 90.88,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 90.87,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 90.83,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 90.81,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 90.81,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 90.8,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 90.8,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 90.8,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 90.79,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 90.78,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 90.75,
+			"maxPass": 61
+		},
+		{
+			"overallAvg": 90.72,
+			"maxPass": 185
+		},
+		{
+			"overallAvg": 90.69,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 90.68,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 90.68,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 90.68,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 90.68,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 90.65,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 90.63,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 90.62,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 90.59,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 90.55,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 90.54,
+			"maxPass": 107
+		},
+		{
+			"overallAvg": 90.54,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 90.52,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 90.47,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 90.46,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 90.45,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 90.44,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 90.44,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 90.39,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 90.39,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 90.38,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 90.38,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 90.36,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 90.34,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 90.33,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 90.33,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 90.31,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 90.3,
+			"maxPass": 139
+		},
+		{
+			"overallAvg": 90.26,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 90.25,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 90.25,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 90.24,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 90.23,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 90.18,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 90.17,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 90.13,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 90.1,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 90.09,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 90.08,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 90.08,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 90.05,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 90.04,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 90.03,
+			"maxPass": 131
+		},
+		{
+			"overallAvg": 90.03,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 90.03,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 90,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 90,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 90,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 90,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 90,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 89.99,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 89.98,
+			"maxPass": 102
+		},
+		{
+			"overallAvg": 89.97,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 89.95,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 89.95,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 89.92,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 89.92,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 89.92,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 89.91,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 89.87,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 89.85,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 89.84,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 89.83,
+			"maxPass": 118
+		},
+		{
+			"overallAvg": 89.83,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 89.83,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 89.82,
+			"maxPass": 131
+		},
+		{
+			"overallAvg": 89.82,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 89.82,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 89.81,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 89.81,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 89.81,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 89.77,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 89.77,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 89.77,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 89.76,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 89.75,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 89.75,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 89.74,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 89.73,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 89.7,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 89.69,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 89.69,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 89.68,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 89.63,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 89.63,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 89.6,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 89.6,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 89.59,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 89.57,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 89.57,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 89.54,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 89.53,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 89.53,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 89.52,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 89.5,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 89.5,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 89.48,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 89.48,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 89.47,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 89.46,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 89.45,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 89.42,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 89.42,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 89.42,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 89.42,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 89.4,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 89.38,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 89.37,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 89.35,
+			"maxPass": 130
+		},
+		{
+			"overallAvg": 89.35,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 89.35,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 89.31,
+			"maxPass": 113
+		},
+		{
+			"overallAvg": 89.31,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 89.31,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 89.29,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 89.29,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 89.28,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 89.27,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 89.24,
+			"maxPass": 90
+		},
+		{
+			"overallAvg": 89.21,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 89.18,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 89.18,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 89.17,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 89.17,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 89.15,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 89.15,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 89.14,
+			"maxPass": 124
+		},
+		{
+			"overallAvg": 89.14,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 89.12,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 89.1,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 89.1,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 89.09,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 89.07,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 89.04,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 89.04,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 89.03,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 89,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 89,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 89,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 88.98,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 88.95,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 88.94,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 88.94,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 88.93,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 88.92,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 88.91,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 88.9,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 88.9,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 88.9,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 88.89,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 88.88,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 88.88,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 88.87,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 88.87,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 88.87,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 88.86,
+			"maxPass": 100
+		},
+		{
+			"overallAvg": 88.86,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 88.85,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 88.85,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 88.81,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 88.8,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 88.8,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 88.8,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 88.77,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 88.77,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 88.76,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 88.75,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 88.75,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 88.74,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 88.74,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 88.74,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 88.7,
+			"maxPass": 202
+		},
+		{
+			"overallAvg": 88.68,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 88.67,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 88.67,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 88.67,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 88.67,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 88.65,
+			"maxPass": 88
+		},
+		{
+			"overallAvg": 88.65,
+			"maxPass": 72
+		},
+		{
+			"overallAvg": 88.63,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 88.62,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 88.62,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 88.62,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 88.62,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 88.6,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 88.59,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 88.58,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 88.58,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 88.57,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 88.57,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 88.57,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 88.55,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 88.54,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 88.53,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 88.5,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 88.5,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 88.48,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 88.47,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 88.47,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 88.47,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 88.46,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 88.46,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 88.44,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 88.43,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 88.43,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 88.42,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 88.42,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 88.42,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 88.41,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 88.41,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 88.41,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 88.41,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 88.4,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 88.4,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 88.4,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 88.4,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 88.39,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 88.38,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 88.38,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 88.38,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 88.36,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 88.36,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 88.36,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 88.35,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 88.35,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 88.34,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 88.33,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 88.33,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 88.33,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 88.33,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 88.33,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 88.33,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 88.33,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 88.31,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 88.3,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 88.3,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 88.29,
+			"maxPass": 115
+		},
+		{
+			"overallAvg": 88.27,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 88.27,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 88.25,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 88.25,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 88.25,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 88.24,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 88.23,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 88.23,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 88.23,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 88.22,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 88.22,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 88.21,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 88.2,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 88.19,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 88.19,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 88.18,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 88.18,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 88.18,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 88.17,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 88.17,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 88.17,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 88.16,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 88.15,
+			"maxPass": 119
+		},
+		{
+			"overallAvg": 88.15,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 88.14,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 88.14,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 88.13,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 88.12,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 88.11,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 88.1,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 88.1,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 88.09,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 88.08,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 88.07,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 88.06,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 88.03,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 88.02,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 88.01,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 88.01,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 88,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 88,
+			"maxPass": 2
+		},
+		{
+			"overallAvg": 87.99,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 87.99,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 87.97,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 87.97,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 87.96,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 87.96,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 87.94,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 87.93,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 87.92,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 87.92,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 87.92,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 87.88,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 87.88,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 87.87,
+			"maxPass": 82
+		},
+		{
+			"overallAvg": 87.86,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 87.83,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 87.83,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 87.83,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 87.83,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 87.82,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 87.82,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 87.81,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 87.8,
+			"maxPass": 72
+		},
+		{
+			"overallAvg": 87.8,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 87.8,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 87.8,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 87.78,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 87.76,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 87.75,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 87.75,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 87.75,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 87.72,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 87.72,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 87.72,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 87.72,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 87.72,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 87.72,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 87.72,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 87.71,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 87.69,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 87.68,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 87.67,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 87.67,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 87.67,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 87.67,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 87.65,
+			"maxPass": 74
+		},
+		{
+			"overallAvg": 87.63,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 87.62,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 87.61,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 87.61,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 87.61,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 87.6,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 87.6,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 87.59,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 87.59,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 87.58,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 87.58,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 87.56,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 87.56,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 87.56,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 87.53,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 87.53,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 87.52,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 87.5,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 87.5,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 87.5,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 87.5,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 87.49,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 87.48,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 87.47,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 87.46,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 87.45,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 87.44,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 87.44,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 87.44,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 87.43,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 87.43,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 87.43,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 87.41,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 87.41,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 87.41,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 87.41,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 87.41,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 87.4,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 87.4,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 87.4,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 87.39,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 87.39,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 87.39,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 87.38,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 87.37,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 87.37,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 87.36,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 87.36,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 87.33,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 87.33,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 87.33,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 87.33,
+			"maxPass": 3
+		},
+		{
+			"overallAvg": 87.33,
+			"maxPass": 3
+		},
+		{
+			"overallAvg": 87.32,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 87.31,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 87.31,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 87.3,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 87.29,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 87.29,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 87.28,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 87.28,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 87.28,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 87.27,
+			"maxPass": 83
+		},
+		{
+			"overallAvg": 87.26,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 87.25,
+			"maxPass": 73
+		},
+		{
+			"overallAvg": 87.25,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 87.25,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 87.25,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 87.25,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 87.23,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 87.22,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 87.22,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 87.21,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 87.21,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 87.2,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 87.2,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 87.18,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 87.18,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 87.18,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 87.17,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 87.17,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 87.15,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 87.15,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 87.14,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 87.14,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 87.13,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 87.12,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 87.11,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 87.1,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 87.09,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 87.09,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 87.08,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 87.07,
+			"maxPass": 87
+		},
+		{
+			"overallAvg": 87.06,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 87.06,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 87.06,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 87.05,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 87.05,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 87.03,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 87.02,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 87.02,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 87.02,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 87.02,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 87.01,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 87.01,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 87,
+			"maxPass": 142
+		},
+		{
+			"overallAvg": 87,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 87,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 87,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 86.99,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 86.99,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 86.98,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 86.97,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 86.95,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 86.95,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 86.95,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 86.94,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 86.94,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 86.93,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 86.92,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 86.92,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 86.92,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 86.91,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 86.91,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 86.91,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 86.91,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 86.9,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 86.89,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 86.89,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 86.89,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 86.85,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 86.84,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 86.84,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 86.83,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 86.81,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 86.8,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 86.79,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 86.79,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 86.78,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 86.78,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 86.78,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 86.78,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 86.77,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 86.76,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 86.75,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 86.75,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 86.75,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 86.73,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 86.73,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 86.72,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 86.71,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 86.71,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 86.69,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 86.67,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 86.67,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 86.67,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 86.66,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 86.65,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 86.65,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 86.64,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 86.64,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 86.64,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 86.63,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 86.63,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 86.63,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 86.62,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 86.62,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 86.61,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 86.61,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 86.59,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 86.59,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 86.59,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 86.58,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 86.58,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 86.58,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 86.57,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 86.57,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 86.57,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 86.56,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 86.55,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 86.54,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 86.52,
+			"maxPass": 149
+		},
+		{
+			"overallAvg": 86.52,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 86.51,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 86.5,
+			"maxPass": 119
+		},
+		{
+			"overallAvg": 86.5,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 86.5,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 86.5,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 86.5,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 86.5,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 86.49,
+			"maxPass": 82
+		},
+		{
+			"overallAvg": 86.47,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 86.47,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 86.43,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 86.42,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 86.4,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 86.39,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 86.39,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 86.38,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 86.35,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 86.35,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 86.35,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 86.35,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 86.35,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 86.34,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 86.34,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 86.33,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 86.33,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 86.32,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 86.31,
+			"maxPass": 88
+		},
+		{
+			"overallAvg": 86.31,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 86.3,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 86.3,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 86.28,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 86.27,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 86.27,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 86.25,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 86.25,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 86.25,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 86.24,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 86.23,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 86.23,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 86.22,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 86.22,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 86.22,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 86.21,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 86.2,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 86.19,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 86.19,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 86.18,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 86.18,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 86.18,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 86.18,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 86.17,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 86.17,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 86.17,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 86.16,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 86.16,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 86.15,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 86.15,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 86.15,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 86.14,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 86.14,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 86.13,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 86.12,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 86.1,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 86.09,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 86.08,
+			"maxPass": 222
+		},
+		{
+			"overallAvg": 86.08,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 86.08,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 86.08,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 86.08,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 86.06,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 86.05,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 86.05,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 86.03,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 86.03,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 86.02,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 86.01,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 86.01,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 86.01,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 86,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 86,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 86,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 86,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 86,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 85.99,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 85.99,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 85.99,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 85.99,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 85.98,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 85.98,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 85.97,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 85.97,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 85.96,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 85.95,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 85.95,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 85.95,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 85.94,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 85.94,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 85.94,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 85.93,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 85.92,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 85.92,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 85.92,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 85.92,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 85.91,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 85.91,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 85.91,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 85.9,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 85.9,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 85.89,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 85.88,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 85.87,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 85.87,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 85.87,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 85.87,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 85.86,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 85.85,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 85.85,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 85.84,
+			"maxPass": 174
+		},
+		{
+			"overallAvg": 85.83,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 85.82,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 85.81,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 85.79,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 85.79,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 85.79,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 85.78,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 85.78,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 85.76,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 85.76,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 85.75,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 85.75,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 85.75,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 85.75,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 85.74,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 85.73,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 85.73,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 85.72,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 85.7,
+			"maxPass": 82
+		},
+		{
+			"overallAvg": 85.69,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 85.69,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 85.69,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 85.68,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 85.67,
+			"maxPass": 223
+		},
+		{
+			"overallAvg": 85.67,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 85.67,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 85.66,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 85.66,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 85.65,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 85.65,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 85.65,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 85.64,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 85.64,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 85.64,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 85.61,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 85.61,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 85.61,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 85.61,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 85.6,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 85.6,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 85.6,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 85.6,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 85.58,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 85.58,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 85.58,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 85.57,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 85.57,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 85.56,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 85.56,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 85.55,
+			"maxPass": 104
+		},
+		{
+			"overallAvg": 85.55,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 85.54,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 85.54,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 85.53,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 85.53,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 85.53,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 85.53,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 85.53,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 85.52,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 85.51,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 85.5,
+			"maxPass": 2
+		},
+		{
+			"overallAvg": 85.48,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 85.47,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 85.47,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 85.45,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 85.45,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 85.45,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 85.45,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 85.44,
+			"maxPass": 61
+		},
+		{
+			"overallAvg": 85.44,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 85.44,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 85.43,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 85.43,
+			"maxPass": 214
+		},
+		{
+			"overallAvg": 85.43,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 85.43,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 85.42,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 85.42,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 85.41,
+			"maxPass": 82
+		},
+		{
+			"overallAvg": 85.41,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 85.4,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 85.4,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 85.4,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 85.4,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 85.38,
+			"maxPass": 82
+		},
+		{
+			"overallAvg": 85.38,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 85.37,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 85.37,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 85.36,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 85.36,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 85.36,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 85.36,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 85.34,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 85.34,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 85.33,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 85.33,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 85.33,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 85.33,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 85.32,
+			"maxPass": 148
+		},
+		{
+			"overallAvg": 85.32,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 85.32,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 85.31,
+			"maxPass": 134
+		},
+		{
+			"overallAvg": 85.31,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 85.31,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 85.3,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 85.3,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 85.29,
+			"maxPass": 93
+		},
+		{
+			"overallAvg": 85.29,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 85.29,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 85.28,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 85.27,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 85.26,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 85.26,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 85.26,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 85.26,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 85.25,
+			"maxPass": 185
+		},
+		{
+			"overallAvg": 85.25,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 85.25,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 85.24,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 85.23,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 85.23,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 85.23,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 85.22,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 85.22,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 85.21,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 85.21,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 85.2,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 85.2,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 85.19,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 85.19,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 85.18,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 85.18,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 85.18,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 85.18,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 85.18,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 85.18,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 85.17,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 85.16,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 85.16,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 85.16,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 85.16,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 85.15,
+			"maxPass": 116
+		},
+		{
+			"overallAvg": 85.15,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 85.15,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 85.14,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 85.14,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 85.14,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 85.13,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 85.12,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 85.11,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 85.1,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 85.08,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 85.06,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 85.06,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 85.06,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 85.05,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 85.05,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 85.04,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 85.04,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 85.04,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 85.04,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 85.04,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 85.02,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 85,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 85,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 85,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 85,
+			"maxPass": 3
+		},
+		{
+			"overallAvg": 84.98,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 84.97,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 84.96,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 84.96,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 84.95,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 84.95,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 84.95,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 84.94,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 84.93,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 84.93,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 84.91,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 84.9,
+			"maxPass": 136
+		},
+		{
+			"overallAvg": 84.89,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 84.89,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 84.89,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 84.88,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 84.88,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 84.86,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 84.86,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 84.86,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 84.84,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 84.84,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 84.83,
+			"maxPass": 142
+		},
+		{
+			"overallAvg": 84.83,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 84.83,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 84.82,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 84.8,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 84.8,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 84.8,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 84.79,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 84.78,
+			"maxPass": 213
+		},
+		{
+			"overallAvg": 84.78,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 84.78,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 84.78,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 84.77,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 84.77,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 84.76,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 84.76,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 84.75,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 84.75,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 84.75,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 84.72,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 84.71,
+			"maxPass": 140
+		},
+		{
+			"overallAvg": 84.71,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 84.71,
+			"maxPass": 72
+		},
+		{
+			"overallAvg": 84.7,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 84.7,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 84.68,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 84.67,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 84.67,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 84.67,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 84.66,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 84.65,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 84.65,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 84.64,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 84.63,
+			"maxPass": 102
+		},
+		{
+			"overallAvg": 84.62,
+			"maxPass": 222
+		},
+		{
+			"overallAvg": 84.62,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 84.61,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 84.6,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 84.59,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 84.59,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 84.59,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 84.59,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 84.59,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 84.58,
+			"maxPass": 108
+		},
+		{
+			"overallAvg": 84.58,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 84.57,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 84.57,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 84.57,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 84.56,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 84.55,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 84.54,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 84.53,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 84.53,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 84.52,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 84.51,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 84.51,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 84.51,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 84.51,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 84.49,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 84.49,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 84.49,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 84.48,
+			"maxPass": 118
+		},
+		{
+			"overallAvg": 84.47,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 84.47,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 84.47,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 84.44,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 84.44,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 84.44,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 84.43,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 84.43,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 84.42,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 84.42,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 84.42,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 84.39,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 84.39,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 84.38,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 84.38,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 84.38,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 84.37,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 84.37,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 84.37,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 84.36,
+			"maxPass": 112
+		},
+		{
+			"overallAvg": 84.36,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 84.36,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 84.35,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 84.34,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 84.33,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 84.33,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 84.33,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 84.33,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 84.33,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 84.33,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 84.31,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 84.31,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 84.31,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 84.3,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 84.28,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 84.28,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 84.28,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 84.26,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 84.25,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 84.25,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 84.25,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 84.25,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 84.23,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 84.19,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 84.19,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 84.18,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 84.18,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 84.18,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 84.18,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 84.17,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 84.16,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 84.16,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 84.15,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 84.15,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 84.15,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 84.14,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 84.14,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 84.14,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 84.14,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 84.14,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 84.13,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 84.12,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 84.12,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 84.11,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 84.08,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 84.08,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 84.08,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 84.06,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 84.06,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 84.05,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 84.03,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 84.03,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 84.02,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 84.01,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 84.01,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 84.01,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 84,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 84,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 84,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 84,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 84,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 84,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 84,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 84,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 84,
+			"maxPass": 3
+		},
+		{
+			"overallAvg": 83.99,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 83.98,
+			"maxPass": 302
+		},
+		{
+			"overallAvg": 83.98,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 83.97,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 83.97,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 83.97,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 83.96,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 83.95,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 83.93,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 83.93,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 83.93,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 83.92,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 83.92,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 83.92,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 83.91,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 83.91,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 83.89,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 83.88,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 83.88,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 83.88,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 83.88,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 83.88,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 83.87,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 83.87,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 83.86,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 83.86,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 83.86,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 83.83,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 83.82,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 83.81,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 83.8,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 83.79,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 83.79,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 83.79,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 83.78,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 83.77,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 83.77,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 83.76,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 83.76,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 83.75,
+			"maxPass": 342
+		},
+		{
+			"overallAvg": 83.75,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 83.75,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 83.74,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 83.73,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 83.73,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 83.73,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 83.72,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 83.72,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 83.71,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 83.7,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 83.7,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 83.69,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 83.69,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 83.68,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 83.68,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 83.68,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 83.67,
+			"maxPass": 163
+		},
+		{
+			"overallAvg": 83.67,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 83.67,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 83.67,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 83.66,
+			"maxPass": 134
+		},
+		{
+			"overallAvg": 83.66,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 83.65,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 83.64,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 83.63,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 83.63,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 83.61,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 83.61,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 83.6,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 83.6,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 83.58,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 83.58,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 83.57,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 83.57,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 83.56,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 83.55,
+			"maxPass": 73
+		},
+		{
+			"overallAvg": 83.55,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 83.54,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 83.54,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 83.53,
+			"maxPass": 82
+		},
+		{
+			"overallAvg": 83.53,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 83.53,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 83.53,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 83.52,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 83.52,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 83.51,
+			"maxPass": 224
+		},
+		{
+			"overallAvg": 83.5,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 83.5,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 83.48,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 83.47,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 83.47,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 83.47,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 83.45,
+			"maxPass": 169
+		},
+		{
+			"overallAvg": 83.42,
+			"maxPass": 221
+		},
+		{
+			"overallAvg": 83.42,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 83.42,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 83.4,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 83.4,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 83.39,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 83.39,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 83.38,
+			"maxPass": 87
+		},
+		{
+			"overallAvg": 83.38,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 83.38,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 83.38,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 83.37,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 83.36,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 83.35,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 83.34,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 83.33,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 83.33,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 83.33,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 83.32,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 83.32,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 83.32,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 83.32,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 83.31,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 83.31,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 83.3,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 83.3,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 83.29,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 83.29,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 83.29,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 83.28,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 83.28,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 83.28,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 83.27,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 83.26,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 83.25,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 83.25,
+			"maxPass": 74
+		},
+		{
+			"overallAvg": 83.25,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 83.25,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 83.24,
+			"maxPass": 218
+		},
+		{
+			"overallAvg": 83.24,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 83.24,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 83.24,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 83.24,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 83.23,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 83.22,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 83.21,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 83.21,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 83.21,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 83.2,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 83.2,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 83.19,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 83.19,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 83.18,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 83.17,
+			"maxPass": 148
+		},
+		{
+			"overallAvg": 83.17,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 83.16,
+			"maxPass": 121
+		},
+		{
+			"overallAvg": 83.15,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 83.15,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 83.15,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 83.14,
+			"maxPass": 148
+		},
+		{
+			"overallAvg": 83.14,
+			"maxPass": 147
+		},
+		{
+			"overallAvg": 83.14,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 83.13,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 83.12,
+			"maxPass": 90
+		},
+		{
+			"overallAvg": 83.12,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 83.11,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 83.11,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 83.11,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 83.11,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 83.11,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 83.1,
+			"maxPass": 101
+		},
+		{
+			"overallAvg": 83.1,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 83.1,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 83.09,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 83.08,
+			"maxPass": 221
+		},
+		{
+			"overallAvg": 83.08,
+			"maxPass": 105
+		},
+		{
+			"overallAvg": 83.08,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 83.08,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 83.07,
+			"maxPass": 105
+		},
+		{
+			"overallAvg": 83.07,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 83.07,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 83.06,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 83.06,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 83.06,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 83.05,
+			"maxPass": 193
+		},
+		{
+			"overallAvg": 83.05,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 83.05,
+			"maxPass": 83
+		},
+		{
+			"overallAvg": 83.04,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 83.04,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 83.04,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 83.03,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 83.03,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 83.02,
+			"maxPass": 118
+		},
+		{
+			"overallAvg": 83.02,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 83.01,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 83.01,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 83.01,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 83,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 83,
+			"maxPass": 1
+		},
+		{
+			"overallAvg": 82.99,
+			"maxPass": 72
+		},
+		{
+			"overallAvg": 82.99,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 82.98,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 82.97,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 82.97,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 82.96,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 82.96,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 82.95,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 82.95,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 82.94,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 82.93,
+			"maxPass": 105
+		},
+		{
+			"overallAvg": 82.93,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 82.93,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 82.92,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 82.91,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 82.9,
+			"maxPass": 179
+		},
+		{
+			"overallAvg": 82.9,
+			"maxPass": 90
+		},
+		{
+			"overallAvg": 82.9,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 82.9,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 82.88,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 82.88,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 82.87,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 82.86,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 82.86,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 82.85,
+			"maxPass": 78
+		},
+		{
+			"overallAvg": 82.85,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 82.84,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 82.83,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 82.83,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 82.83,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 82.81,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 82.8,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 82.79,
+			"maxPass": 149
+		},
+		{
+			"overallAvg": 82.79,
+			"maxPass": 72
+		},
+		{
+			"overallAvg": 82.78,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 82.76,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 82.75,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 82.75,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 82.74,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 82.74,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 82.73,
+			"maxPass": 83
+		},
+		{
+			"overallAvg": 82.73,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 82.73,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 82.73,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 82.72,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 82.72,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 82.72,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 82.71,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 82.71,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 82.71,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 82.7,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 82.69,
+			"maxPass": 162
+		},
+		{
+			"overallAvg": 82.69,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 82.68,
+			"maxPass": 188
+		},
+		{
+			"overallAvg": 82.68,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 82.68,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 82.67,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 82.67,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 82.67,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 82.67,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 82.66,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 82.65,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 82.64,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 82.63,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 82.63,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 82.62,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 82.62,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 82.62,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 82.61,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 82.61,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 82.61,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 82.59,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 82.59,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 82.58,
+			"maxPass": 92
+		},
+		{
+			"overallAvg": 82.57,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 82.57,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 82.55,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 82.54,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 82.53,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 82.53,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 82.52,
+			"maxPass": 78
+		},
+		{
+			"overallAvg": 82.52,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 82.52,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 82.51,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 82.51,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 82.51,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 82.5,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 82.49,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 82.47,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 82.46,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 82.44,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 82.44,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 82.42,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 82.41,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 82.4,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 82.4,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 82.39,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 82.39,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 82.39,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 82.39,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 82.38,
+			"maxPass": 209
+		},
+		{
+			"overallAvg": 82.38,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 82.37,
+			"maxPass": 135
+		},
+		{
+			"overallAvg": 82.37,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 82.37,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 82.35,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 82.31,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 82.3,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 82.27,
+			"maxPass": 159
+		},
+		{
+			"overallAvg": 82.27,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 82.27,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 82.26,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 82.26,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 82.26,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 82.25,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 82.24,
+			"maxPass": 157
+		},
+		{
+			"overallAvg": 82.24,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 82.24,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 82.22,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 82.21,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 82.21,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 82.2,
+			"maxPass": 211
+		},
+		{
+			"overallAvg": 82.2,
+			"maxPass": 154
+		},
+		{
+			"overallAvg": 82.2,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 82.19,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 82.19,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 82.18,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 82.18,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 82.17,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 82.16,
+			"maxPass": 88
+		},
+		{
+			"overallAvg": 82.16,
+			"maxPass": 82
+		},
+		{
+			"overallAvg": 82.16,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 82.16,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 82.14,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 82.14,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 82.13,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 82.13,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 82.13,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 82.13,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 82.13,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 82.12,
+			"maxPass": 110
+		},
+		{
+			"overallAvg": 82.11,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 82.11,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 82.1,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 82.09,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 82.09,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 82.09,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 82.09,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 82.09,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 82.08,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 82.07,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 82.06,
+			"maxPass": 195
+		},
+		{
+			"overallAvg": 82.05,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 82.04,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 82.04,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 82.03,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 82.02,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 82.02,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 82.02,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 82.01,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 82.01,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 82,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 82,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 82,
+			"maxPass": 2
+		},
+		{
+			"overallAvg": 82,
+			"maxPass": 1
+		},
+		{
+			"overallAvg": 81.99,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 81.99,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 81.99,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 81.98,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 81.98,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 81.97,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 81.97,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 81.96,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 81.95,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 81.94,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 81.94,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 81.94,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 81.93,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 81.93,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 81.92,
+			"maxPass": 97
+		},
+		{
+			"overallAvg": 81.92,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 81.91,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 81.9,
+			"maxPass": 127
+		},
+		{
+			"overallAvg": 81.9,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 81.9,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 81.9,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 81.89,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 81.89,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 81.88,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 81.88,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 81.88,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 81.87,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 81.86,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 81.86,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 81.85,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 81.84,
+			"maxPass": 151
+		},
+		{
+			"overallAvg": 81.84,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 81.82,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 81.82,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 81.8,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 81.78,
+			"maxPass": 205
+		},
+		{
+			"overallAvg": 81.78,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 81.78,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 81.78,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 81.77,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 81.77,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 81.77,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 81.77,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 81.75,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 81.74,
+			"maxPass": 122
+		},
+		{
+			"overallAvg": 81.74,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 81.74,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 81.74,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 81.73,
+			"maxPass": 140
+		},
+		{
+			"overallAvg": 81.73,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 81.71,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 81.69,
+			"maxPass": 107
+		},
+		{
+			"overallAvg": 81.69,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 81.69,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 81.69,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 81.69,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 81.68,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 81.68,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 81.68,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 81.67,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 81.66,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 81.66,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 81.65,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 81.64,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 81.64,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 81.64,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 81.63,
+			"maxPass": 88
+		},
+		{
+			"overallAvg": 81.63,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 81.63,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 81.62,
+			"maxPass": 254
+		},
+		{
+			"overallAvg": 81.62,
+			"maxPass": 233
+		},
+		{
+			"overallAvg": 81.62,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 81.61,
+			"maxPass": 160
+		},
+		{
+			"overallAvg": 81.61,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 81.61,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 81.6,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 81.59,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 81.58,
+			"maxPass": 97
+		},
+		{
+			"overallAvg": 81.58,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 81.58,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 81.58,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 81.57,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 81.57,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 81.57,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 81.57,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 81.56,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 81.56,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 81.55,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 81.55,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 81.54,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 81.54,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 81.53,
+			"maxPass": 221
+		},
+		{
+			"overallAvg": 81.53,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 81.53,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 81.52,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 81.52,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 81.52,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 81.51,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 81.51,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 81.5,
+			"maxPass": 93
+		},
+		{
+			"overallAvg": 81.5,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 81.5,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 81.49,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 81.49,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 81.49,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 81.46,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 81.46,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 81.45,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 81.45,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 81.44,
+			"maxPass": 144
+		},
+		{
+			"overallAvg": 81.44,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 81.42,
+			"maxPass": 147
+		},
+		{
+			"overallAvg": 81.42,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 81.42,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 81.42,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 81.41,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 81.4,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 81.39,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 81.39,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 81.38,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 81.37,
+			"maxPass": 135
+		},
+		{
+			"overallAvg": 81.36,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 81.35,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 81.34,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 81.34,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 81.33,
+			"maxPass": 89
+		},
+		{
+			"overallAvg": 81.33,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 81.33,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 81.32,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 81.3,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 81.29,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 81.29,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 81.28,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 81.28,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 81.27,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 81.26,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 81.25,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 81.25,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 81.24,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 81.23,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 81.22,
+			"maxPass": 149
+		},
+		{
+			"overallAvg": 81.22,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 81.21,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 81.21,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 81.2,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 81.19,
+			"maxPass": 154
+		},
+		{
+			"overallAvg": 81.19,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 81.19,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 81.18,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 81.18,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 81.17,
+			"maxPass": 61
+		},
+		{
+			"overallAvg": 81.17,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 81.17,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 81.14,
+			"maxPass": 102
+		},
+		{
+			"overallAvg": 81.14,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 81.14,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 81.13,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 81.12,
+			"maxPass": 78
+		},
+		{
+			"overallAvg": 81.12,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 81.12,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 81.12,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 81.11,
+			"maxPass": 108
+		},
+		{
+			"overallAvg": 81.11,
+			"maxPass": 97
+		},
+		{
+			"overallAvg": 81.11,
+			"maxPass": 61
+		},
+		{
+			"overallAvg": 81.11,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 81.1,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 81.1,
+			"maxPass": 208
+		},
+		{
+			"overallAvg": 81.1,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 81.08,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 81.07,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 81.07,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 81.07,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 81.06,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 81.05,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 81.05,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 81.05,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 81.05,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 81.04,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 81.04,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 81.04,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 81.04,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 81.02,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 81.01,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 81,
+			"maxPass": 96
+		},
+		{
+			"overallAvg": 81,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 81,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 80.99,
+			"maxPass": 222
+		},
+		{
+			"overallAvg": 80.99,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 80.99,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 80.98,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 80.98,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 80.98,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 80.98,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 80.97,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 80.96,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 80.95,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 80.94,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 80.92,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 80.92,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 80.91,
+			"maxPass": 146
+		},
+		{
+			"overallAvg": 80.91,
+			"maxPass": 132
+		},
+		{
+			"overallAvg": 80.91,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 80.9,
+			"maxPass": 166
+		},
+		{
+			"overallAvg": 80.9,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 80.9,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 80.9,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 80.89,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 80.87,
+			"maxPass": 114
+		},
+		{
+			"overallAvg": 80.87,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 80.86,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 80.86,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 80.85,
+			"maxPass": 224
+		},
+		{
+			"overallAvg": 80.85,
+			"maxPass": 221
+		},
+		{
+			"overallAvg": 80.85,
+			"maxPass": 73
+		},
+		{
+			"overallAvg": 80.85,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 80.84,
+			"maxPass": 186
+		},
+		{
+			"overallAvg": 80.84,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 80.83,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 80.82,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 80.81,
+			"maxPass": 102
+		},
+		{
+			"overallAvg": 80.81,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 80.81,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 80.8,
+			"maxPass": 810
+		},
+		{
+			"overallAvg": 80.8,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 80.79,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 80.79,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 80.78,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 80.78,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 80.76,
+			"maxPass": 222
+		},
+		{
+			"overallAvg": 80.76,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 80.76,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 80.76,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 80.75,
+			"maxPass": 258
+		},
+		{
+			"overallAvg": 80.75,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 80.75,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 80.75,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 80.74,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 80.74,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 80.74,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 80.74,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 80.73,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 80.73,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 80.73,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 80.73,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 80.72,
+			"maxPass": 108
+		},
+		{
+			"overallAvg": 80.71,
+			"maxPass": 158
+		},
+		{
+			"overallAvg": 80.71,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 80.71,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 80.71,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 80.69,
+			"maxPass": 132
+		},
+		{
+			"overallAvg": 80.69,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 80.69,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 80.69,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 80.67,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 80.66,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 80.66,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 80.65,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 80.65,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 80.65,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 80.65,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 80.65,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 80.64,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 80.64,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 80.63,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 80.63,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 80.63,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 80.62,
+			"maxPass": 78
+		},
+		{
+			"overallAvg": 80.62,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 80.61,
+			"maxPass": 101
+		},
+		{
+			"overallAvg": 80.61,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 80.61,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 80.6,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 80.59,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 80.57,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 80.54,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 80.54,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 80.54,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 80.53,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 80.53,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 80.52,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 80.52,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 80.51,
+			"maxPass": 131
+		},
+		{
+			"overallAvg": 80.51,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 80.51,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 80.51,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 80.5,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 80.5,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 80.49,
+			"maxPass": 116
+		},
+		{
+			"overallAvg": 80.48,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 80.48,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 80.47,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 80.47,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 80.45,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 80.45,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 80.44,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 80.44,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 80.44,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 80.43,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 80.42,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 80.42,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 80.42,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 80.41,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 80.41,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 80.4,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 80.4,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 80.39,
+			"maxPass": 223
+		},
+		{
+			"overallAvg": 80.38,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 80.37,
+			"maxPass": 202
+		},
+		{
+			"overallAvg": 80.37,
+			"maxPass": 151
+		},
+		{
+			"overallAvg": 80.37,
+			"maxPass": 106
+		},
+		{
+			"overallAvg": 80.36,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 80.36,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 80.36,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 80.36,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 80.35,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 80.34,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 80.34,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 80.34,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 80.34,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 80.33,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 80.32,
+			"maxPass": 201
+		},
+		{
+			"overallAvg": 80.32,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 80.32,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 80.32,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 80.32,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 80.31,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 80.31,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 80.3,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 80.29,
+			"maxPass": 151
+		},
+		{
+			"overallAvg": 80.28,
+			"maxPass": 203
+		},
+		{
+			"overallAvg": 80.28,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 80.27,
+			"maxPass": 597
+		},
+		{
+			"overallAvg": 80.27,
+			"maxPass": 138
+		},
+		{
+			"overallAvg": 80.27,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 80.27,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 80.25,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 80.25,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 80.25,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 80.23,
+			"maxPass": 140
+		},
+		{
+			"overallAvg": 80.23,
+			"maxPass": 109
+		},
+		{
+			"overallAvg": 80.23,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 80.23,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 80.21,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 80.21,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 80.21,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 80.2,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 80.2,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 80.19,
+			"maxPass": 78
+		},
+		{
+			"overallAvg": 80.19,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 80.19,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 80.19,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 80.18,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 80.17,
+			"maxPass": 121
+		},
+		{
+			"overallAvg": 80.17,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 80.17,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 80.17,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 80.17,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 80.16,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 80.15,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 80.15,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 80.15,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 80.14,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 80.14,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 80.14,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 80.13,
+			"maxPass": 213
+		},
+		{
+			"overallAvg": 80.13,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 80.12,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 80.1,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 80.1,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 80.1,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 80.1,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 80.09,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 80.09,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 80.08,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 80.05,
+			"maxPass": 121
+		},
+		{
+			"overallAvg": 80.05,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 80.04,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 80.04,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 80.03,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 80.03,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 80.02,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 80.01,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 80,
+			"maxPass": 131
+		},
+		{
+			"overallAvg": 80,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 80,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 79.99,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 79.98,
+			"maxPass": 103
+		},
+		{
+			"overallAvg": 79.98,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 79.98,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 79.97,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 79.97,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 79.97,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 79.96,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 79.95,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 79.95,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 79.95,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 79.93,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 79.93,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 79.92,
+			"maxPass": 153
+		},
+		{
+			"overallAvg": 79.91,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 79.9,
+			"maxPass": 142
+		},
+		{
+			"overallAvg": 79.9,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 79.89,
+			"maxPass": 224
+		},
+		{
+			"overallAvg": 79.88,
+			"maxPass": 208
+		},
+		{
+			"overallAvg": 79.87,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 79.87,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 79.86,
+			"maxPass": 147
+		},
+		{
+			"overallAvg": 79.86,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 79.86,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 79.85,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 79.84,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 79.84,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 79.84,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 79.84,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 79.84,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 79.83,
+			"maxPass": 221
+		},
+		{
+			"overallAvg": 79.83,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 79.82,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 79.82,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 79.82,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 79.81,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 79.81,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 79.8,
+			"maxPass": 162
+		},
+		{
+			"overallAvg": 79.79,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 79.77,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 79.75,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 79.74,
+			"maxPass": 279
+		},
+		{
+			"overallAvg": 79.74,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 79.74,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 79.74,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 79.73,
+			"maxPass": 86
+		},
+		{
+			"overallAvg": 79.72,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 79.71,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 79.71,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 79.71,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 79.7,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 79.7,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 79.7,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 79.69,
+			"maxPass": 83
+		},
+		{
+			"overallAvg": 79.69,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 79.68,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 79.68,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 79.67,
+			"maxPass": 127
+		},
+		{
+			"overallAvg": 79.67,
+			"maxPass": 92
+		},
+		{
+			"overallAvg": 79.67,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 79.66,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 79.66,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 79.65,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 79.64,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 79.64,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 79.63,
+			"maxPass": 117
+		},
+		{
+			"overallAvg": 79.63,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 79.63,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 79.63,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 79.62,
+			"maxPass": 89
+		},
+		{
+			"overallAvg": 79.62,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 79.61,
+			"maxPass": 255
+		},
+		{
+			"overallAvg": 79.6,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 79.6,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 79.59,
+			"maxPass": 387
+		},
+		{
+			"overallAvg": 79.59,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 79.59,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 79.59,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 79.58,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 79.57,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 79.57,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 79.55,
+			"maxPass": 239
+		},
+		{
+			"overallAvg": 79.55,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 79.54,
+			"maxPass": 181
+		},
+		{
+			"overallAvg": 79.54,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 79.54,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 79.53,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 79.53,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 79.52,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 79.52,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 79.51,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 79.5,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 79.5,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 79.49,
+			"maxPass": 96
+		},
+		{
+			"overallAvg": 79.49,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 79.49,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 79.49,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 79.48,
+			"maxPass": 155
+		},
+		{
+			"overallAvg": 79.48,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 79.47,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 79.47,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 79.46,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 79.46,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 79.45,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 79.44,
+			"maxPass": 117
+		},
+		{
+			"overallAvg": 79.44,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 79.43,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 79.42,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 79.42,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 79.4,
+			"maxPass": 221
+		},
+		{
+			"overallAvg": 79.39,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 79.37,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 79.37,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 79.37,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 79.37,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 79.36,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 79.36,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 79.36,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 79.36,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 79.35,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 79.34,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 79.34,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 79.33,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 79.32,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 79.32,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 79.31,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 79.3,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 79.3,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 79.29,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 79.29,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 79.28,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 79.28,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 79.25,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 79.23,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 79.23,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 79.23,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 79.22,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 79.22,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 79.22,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 79.22,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 79.22,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 79.21,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 79.2,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 79.2,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 79.2,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 79.2,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 79.2,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 79.19,
+			"maxPass": 76
+		},
+		{
+			"overallAvg": 79.19,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 79.19,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 79.19,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 79.18,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 79.17,
+			"maxPass": 252
+		},
+		{
+			"overallAvg": 79.17,
+			"maxPass": 109
+		},
+		{
+			"overallAvg": 79.17,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 79.16,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 79.16,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 79.16,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 79.15,
+			"maxPass": 82
+		},
+		{
+			"overallAvg": 79.15,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 79.14,
+			"maxPass": 221
+		},
+		{
+			"overallAvg": 79.14,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 79.14,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 79.13,
+			"maxPass": 187
+		},
+		{
+			"overallAvg": 79.13,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 79.11,
+			"maxPass": 90
+		},
+		{
+			"overallAvg": 79.11,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 79.11,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 79.1,
+			"maxPass": 181
+		},
+		{
+			"overallAvg": 79.1,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 79.1,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 79.1,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 79.09,
+			"maxPass": 130
+		},
+		{
+			"overallAvg": 79.09,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 79.08,
+			"maxPass": 100
+		},
+		{
+			"overallAvg": 79.08,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 79.08,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 79.07,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 79.06,
+			"maxPass": 104
+		},
+		{
+			"overallAvg": 79.06,
+			"maxPass": 99
+		},
+		{
+			"overallAvg": 79.05,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 79.05,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 79.05,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 79.04,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 79.03,
+			"maxPass": 132
+		},
+		{
+			"overallAvg": 79.03,
+			"maxPass": 110
+		},
+		{
+			"overallAvg": 79.02,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 79.01,
+			"maxPass": 151
+		},
+		{
+			"overallAvg": 79.01,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 79,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 78.97,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 78.96,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 78.96,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 78.95,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 78.94,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 78.93,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 78.92,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 78.91,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 78.91,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 78.89,
+			"maxPass": 874
+		},
+		{
+			"overallAvg": 78.89,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 78.88,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 78.86,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 78.85,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 78.84,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 78.84,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 78.84,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 78.84,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 78.84,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 78.83,
+			"maxPass": 88
+		},
+		{
+			"overallAvg": 78.83,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 78.83,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 78.83,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 78.83,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 78.79,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 78.78,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 78.78,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 78.77,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 78.76,
+			"maxPass": 718
+		},
+		{
+			"overallAvg": 78.76,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 78.76,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 78.75,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 78.74,
+			"maxPass": 192
+		},
+		{
+			"overallAvg": 78.74,
+			"maxPass": 124
+		},
+		{
+			"overallAvg": 78.74,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 78.73,
+			"maxPass": 160
+		},
+		{
+			"overallAvg": 78.73,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 78.72,
+			"maxPass": 173
+		},
+		{
+			"overallAvg": 78.72,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 78.7,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 78.7,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 78.69,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 78.68,
+			"maxPass": 126
+		},
+		{
+			"overallAvg": 78.68,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 78.68,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 78.66,
+			"maxPass": 105
+		},
+		{
+			"overallAvg": 78.66,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 78.66,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 78.65,
+			"maxPass": 215
+		},
+		{
+			"overallAvg": 78.65,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 78.64,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 78.64,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 78.63,
+			"maxPass": 346
+		},
+		{
+			"overallAvg": 78.62,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 78.62,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 78.61,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 78.6,
+			"maxPass": 89
+		},
+		{
+			"overallAvg": 78.6,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 78.58,
+			"maxPass": 151
+		},
+		{
+			"overallAvg": 78.58,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 78.58,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 78.58,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 78.57,
+			"maxPass": 143
+		},
+		{
+			"overallAvg": 78.56,
+			"maxPass": 1111
+		},
+		{
+			"overallAvg": 78.55,
+			"maxPass": 719
+		},
+		{
+			"overallAvg": 78.55,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 78.55,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 78.54,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 78.53,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 78.53,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 78.53,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 78.51,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 78.5,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 78.5,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 78.49,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 78.48,
+			"maxPass": 223
+		},
+		{
+			"overallAvg": 78.48,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 78.47,
+			"maxPass": 147
+		},
+		{
+			"overallAvg": 78.47,
+			"maxPass": 93
+		},
+		{
+			"overallAvg": 78.47,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 78.46,
+			"maxPass": 159
+		},
+		{
+			"overallAvg": 78.46,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 78.45,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 78.44,
+			"maxPass": 234
+		},
+		{
+			"overallAvg": 78.43,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 78.42,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 78.42,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 78.42,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 78.42,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 78.42,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 78.41,
+			"maxPass": 213
+		},
+		{
+			"overallAvg": 78.41,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 78.41,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 78.41,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 78.41,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 78.4,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 78.39,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 78.37,
+			"maxPass": 73
+		},
+		{
+			"overallAvg": 78.36,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 78.35,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 78.34,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 78.34,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 78.32,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 78.31,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 78.31,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 78.3,
+			"maxPass": 126
+		},
+		{
+			"overallAvg": 78.3,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 78.3,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 78.29,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 78.28,
+			"maxPass": 143
+		},
+		{
+			"overallAvg": 78.28,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 78.27,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 78.27,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 78.26,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 78.26,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 78.26,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 78.25,
+			"maxPass": 347
+		},
+		{
+			"overallAvg": 78.25,
+			"maxPass": 214
+		},
+		{
+			"overallAvg": 78.25,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 78.24,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 78.24,
+			"maxPass": 74
+		},
+		{
+			"overallAvg": 78.24,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 78.24,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 78.23,
+			"maxPass": 123
+		},
+		{
+			"overallAvg": 78.23,
+			"maxPass": 83
+		},
+		{
+			"overallAvg": 78.23,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 78.22,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 78.22,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 78.21,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 78.2,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 78.2,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 78.19,
+			"maxPass": 221
+		},
+		{
+			"overallAvg": 78.18,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 78.18,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 78.17,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 78.16,
+			"maxPass": 245
+		},
+		{
+			"overallAvg": 78.16,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 78.16,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 78.13,
+			"maxPass": 98
+		},
+		{
+			"overallAvg": 78.13,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 78.12,
+			"maxPass": 118
+		},
+		{
+			"overallAvg": 78.12,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 78.11,
+			"maxPass": 268
+		},
+		{
+			"overallAvg": 78.11,
+			"maxPass": 91
+		},
+		{
+			"overallAvg": 78.11,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 78.1,
+			"maxPass": 114
+		},
+		{
+			"overallAvg": 78.1,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 78.09,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 78.09,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 78.08,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 78.07,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 78.07,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 78.06,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 78.06,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 78.04,
+			"maxPass": 159
+		},
+		{
+			"overallAvg": 78.04,
+			"maxPass": 74
+		},
+		{
+			"overallAvg": 78.03,
+			"maxPass": 443
+		},
+		{
+			"overallAvg": 78.03,
+			"maxPass": 442
+		},
+		{
+			"overallAvg": 78.03,
+			"maxPass": 151
+		},
+		{
+			"overallAvg": 78.03,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 78.02,
+			"maxPass": 191
+		},
+		{
+			"overallAvg": 78.01,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 78,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 78,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 78,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 78,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 78,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 78,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 77.99,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 77.98,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 77.98,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 77.97,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 77.96,
+			"maxPass": 96
+		},
+		{
+			"overallAvg": 77.96,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 77.95,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 77.94,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 77.94,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 77.93,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 77.93,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 77.92,
+			"maxPass": 84
+		},
+		{
+			"overallAvg": 77.92,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 77.92,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 77.91,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 77.9,
+			"maxPass": 238
+		},
+		{
+			"overallAvg": 77.9,
+			"maxPass": 127
+		},
+		{
+			"overallAvg": 77.9,
+			"maxPass": 121
+		},
+		{
+			"overallAvg": 77.9,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 77.9,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 77.9,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 77.89,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 77.89,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 77.89,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 77.89,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 77.88,
+			"maxPass": 313
+		},
+		{
+			"overallAvg": 77.88,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 77.87,
+			"maxPass": 436
+		},
+		{
+			"overallAvg": 77.84,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 77.83,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 77.82,
+			"maxPass": 403
+		},
+		{
+			"overallAvg": 77.82,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 77.82,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 77.82,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 77.81,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 77.8,
+			"maxPass": 114
+		},
+		{
+			"overallAvg": 77.77,
+			"maxPass": 256
+		},
+		{
+			"overallAvg": 77.77,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 77.77,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 77.77,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 77.76,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 77.76,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 77.76,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 77.76,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 77.75,
+			"maxPass": 208
+		},
+		{
+			"overallAvg": 77.75,
+			"maxPass": 103
+		},
+		{
+			"overallAvg": 77.75,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 77.75,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 77.75,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 77.75,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 77.74,
+			"maxPass": 107
+		},
+		{
+			"overallAvg": 77.74,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 77.74,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 77.73,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 77.73,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 77.72,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 77.72,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 77.72,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 77.7,
+			"maxPass": 221
+		},
+		{
+			"overallAvg": 77.7,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 77.69,
+			"maxPass": 86
+		},
+		{
+			"overallAvg": 77.69,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 77.69,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 77.68,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 77.67,
+			"maxPass": 269
+		},
+		{
+			"overallAvg": 77.65,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 77.64,
+			"maxPass": 92
+		},
+		{
+			"overallAvg": 77.64,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 77.64,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 77.64,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 77.63,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 77.62,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 77.62,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 77.59,
+			"maxPass": 195
+		},
+		{
+			"overallAvg": 77.59,
+			"maxPass": 84
+		},
+		{
+			"overallAvg": 77.59,
+			"maxPass": 73
+		},
+		{
+			"overallAvg": 77.58,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 77.57,
+			"maxPass": 948
+		},
+		{
+			"overallAvg": 77.57,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 77.56,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 77.55,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 77.54,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 77.54,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 77.53,
+			"maxPass": 214
+		},
+		{
+			"overallAvg": 77.53,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 77.53,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 77.53,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 77.53,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 77.52,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 77.51,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 77.51,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 77.5,
+			"maxPass": 90
+		},
+		{
+			"overallAvg": 77.5,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 77.49,
+			"maxPass": 360
+		},
+		{
+			"overallAvg": 77.49,
+			"maxPass": 218
+		},
+		{
+			"overallAvg": 77.49,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 77.49,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 77.49,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 77.46,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 77.46,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 77.45,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 77.44,
+			"maxPass": 233
+		},
+		{
+			"overallAvg": 77.43,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 77.42,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 77.42,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 77.42,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 77.41,
+			"maxPass": 129
+		},
+		{
+			"overallAvg": 77.41,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 77.4,
+			"maxPass": 97
+		},
+		{
+			"overallAvg": 77.4,
+			"maxPass": 61
+		},
+		{
+			"overallAvg": 77.4,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 77.39,
+			"maxPass": 104
+		},
+		{
+			"overallAvg": 77.39,
+			"maxPass": 104
+		},
+		{
+			"overallAvg": 77.39,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 77.39,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 77.38,
+			"maxPass": 117
+		},
+		{
+			"overallAvg": 77.38,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 77.37,
+			"maxPass": 139
+		},
+		{
+			"overallAvg": 77.36,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 77.35,
+			"maxPass": 205
+		},
+		{
+			"overallAvg": 77.35,
+			"maxPass": 82
+		},
+		{
+			"overallAvg": 77.35,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 77.34,
+			"maxPass": 153
+		},
+		{
+			"overallAvg": 77.34,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 77.34,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 77.33,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 77.32,
+			"maxPass": 254
+		},
+		{
+			"overallAvg": 77.32,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 77.32,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 77.31,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 77.3,
+			"maxPass": 91
+		},
+		{
+			"overallAvg": 77.3,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 77.28,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 77.28,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 77.28,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 77.28,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 77.27,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 77.26,
+			"maxPass": 122
+		},
+		{
+			"overallAvg": 77.25,
+			"maxPass": 105
+		},
+		{
+			"overallAvg": 77.25,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 77.25,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 77.24,
+			"maxPass": 272
+		},
+		{
+			"overallAvg": 77.24,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 77.23,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 77.22,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 77.21,
+			"maxPass": 369
+		},
+		{
+			"overallAvg": 77.21,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 77.2,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 77.19,
+			"maxPass": 239
+		},
+		{
+			"overallAvg": 77.19,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 77.19,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 77.19,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 77.18,
+			"maxPass": 778
+		},
+		{
+			"overallAvg": 77.18,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 77.18,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 77.18,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 77.17,
+			"maxPass": 194
+		},
+		{
+			"overallAvg": 77.17,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 77.15,
+			"maxPass": 212
+		},
+		{
+			"overallAvg": 77.15,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 77.15,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 77.14,
+			"maxPass": 215
+		},
+		{
+			"overallAvg": 77.14,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 77.14,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 77.13,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 77.13,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 77.13,
+			"maxPass": 61
+		},
+		{
+			"overallAvg": 77.13,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 77.11,
+			"maxPass": 135
+		},
+		{
+			"overallAvg": 77.1,
+			"maxPass": 777
+		},
+		{
+			"overallAvg": 77.1,
+			"maxPass": 90
+		},
+		{
+			"overallAvg": 77.1,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 77.09,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 77.08,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 77.08,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 77.08,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 77.06,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 77.05,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 77.05,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 77.04,
+			"maxPass": 98
+		},
+		{
+			"overallAvg": 77.03,
+			"maxPass": 83
+		},
+		{
+			"overallAvg": 77.02,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 77.02,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 77.02,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 77.01,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 77,
+			"maxPass": 109
+		},
+		{
+			"overallAvg": 77,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 77,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 76.99,
+			"maxPass": 182
+		},
+		{
+			"overallAvg": 76.99,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 76.99,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 76.98,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 76.97,
+			"maxPass": 113
+		},
+		{
+			"overallAvg": 76.97,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 76.94,
+			"maxPass": 518
+		},
+		{
+			"overallAvg": 76.94,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 76.93,
+			"maxPass": 177
+		},
+		{
+			"overallAvg": 76.93,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 76.92,
+			"maxPass": 240
+		},
+		{
+			"overallAvg": 76.92,
+			"maxPass": 222
+		},
+		{
+			"overallAvg": 76.9,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 76.89,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 76.89,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 76.89,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 76.87,
+			"maxPass": 177
+		},
+		{
+			"overallAvg": 76.87,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 76.86,
+			"maxPass": 78
+		},
+		{
+			"overallAvg": 76.86,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 76.85,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 76.85,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 76.85,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 76.81,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 76.8,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 76.8,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 76.79,
+			"maxPass": 203
+		},
+		{
+			"overallAvg": 76.79,
+			"maxPass": 159
+		},
+		{
+			"overallAvg": 76.79,
+			"maxPass": 109
+		},
+		{
+			"overallAvg": 76.78,
+			"maxPass": 139
+		},
+		{
+			"overallAvg": 76.78,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 76.78,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 76.78,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 76.77,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 76.76,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 76.75,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 76.75,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 76.74,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 76.73,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 76.72,
+			"maxPass": 129
+		},
+		{
+			"overallAvg": 76.72,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 76.71,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 76.71,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 76.7,
+			"maxPass": 343
+		},
+		{
+			"overallAvg": 76.7,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 76.68,
+			"maxPass": 816
+		},
+		{
+			"overallAvg": 76.68,
+			"maxPass": 240
+		},
+		{
+			"overallAvg": 76.67,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 76.67,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 76.66,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 76.66,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 76.66,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 76.66,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 76.65,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 76.65,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 76.64,
+			"maxPass": 124
+		},
+		{
+			"overallAvg": 76.63,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 76.63,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 76.62,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 76.6,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 76.59,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 76.59,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 76.58,
+			"maxPass": 246
+		},
+		{
+			"overallAvg": 76.58,
+			"maxPass": 141
+		},
+		{
+			"overallAvg": 76.58,
+			"maxPass": 72
+		},
+		{
+			"overallAvg": 76.58,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 76.57,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 76.56,
+			"maxPass": 190
+		},
+		{
+			"overallAvg": 76.56,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 76.54,
+			"maxPass": 127
+		},
+		{
+			"overallAvg": 76.54,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 76.53,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 76.52,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 76.51,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 76.5,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 76.5,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 76.5,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 76.49,
+			"maxPass": 73
+		},
+		{
+			"overallAvg": 76.49,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 76.48,
+			"maxPass": 84
+		},
+		{
+			"overallAvg": 76.48,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 76.47,
+			"maxPass": 1367
+		},
+		{
+			"overallAvg": 76.47,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 76.47,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 76.45,
+			"maxPass": 128
+		},
+		{
+			"overallAvg": 76.45,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 76.45,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 76.44,
+			"maxPass": 91
+		},
+		{
+			"overallAvg": 76.42,
+			"maxPass": 115
+		},
+		{
+			"overallAvg": 76.42,
+			"maxPass": 109
+		},
+		{
+			"overallAvg": 76.41,
+			"maxPass": 162
+		},
+		{
+			"overallAvg": 76.41,
+			"maxPass": 78
+		},
+		{
+			"overallAvg": 76.41,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 76.41,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 76.4,
+			"maxPass": 500
+		},
+		{
+			"overallAvg": 76.4,
+			"maxPass": 247
+		},
+		{
+			"overallAvg": 76.4,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 76.4,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 76.39,
+			"maxPass": 229
+		},
+		{
+			"overallAvg": 76.39,
+			"maxPass": 83
+		},
+		{
+			"overallAvg": 76.39,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 76.39,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 76.38,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 76.38,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 76.37,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 76.36,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 76.36,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 76.36,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 76.36,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 76.34,
+			"maxPass": 112
+		},
+		{
+			"overallAvg": 76.34,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 76.33,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 76.32,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 76.32,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 76.31,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 76.31,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 76.3,
+			"maxPass": 310
+		},
+		{
+			"overallAvg": 76.3,
+			"maxPass": 109
+		},
+		{
+			"overallAvg": 76.3,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 76.29,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 76.28,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 76.28,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 76.28,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 76.28,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 76.28,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 76.25,
+			"maxPass": 149
+		},
+		{
+			"overallAvg": 76.25,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 76.25,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 76.24,
+			"maxPass": 832
+		},
+		{
+			"overallAvg": 76.24,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 76.24,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 76.23,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 76.23,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 76.22,
+			"maxPass": 106
+		},
+		{
+			"overallAvg": 76.22,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 76.22,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 76.21,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 76.2,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 76.2,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 76.18,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 76.18,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 76.17,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 76.16,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 76.15,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 76.14,
+			"maxPass": 96
+		},
+		{
+			"overallAvg": 76.14,
+			"maxPass": 72
+		},
+		{
+			"overallAvg": 76.14,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 76.13,
+			"maxPass": 208
+		},
+		{
+			"overallAvg": 76.13,
+			"maxPass": 92
+		},
+		{
+			"overallAvg": 76.13,
+			"maxPass": 78
+		},
+		{
+			"overallAvg": 76.13,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 76.13,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 76.12,
+			"maxPass": 192
+		},
+		{
+			"overallAvg": 76.1,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 76.1,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 76.09,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 76.08,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 76.06,
+			"maxPass": 730
+		},
+		{
+			"overallAvg": 76.05,
+			"maxPass": 172
+		},
+		{
+			"overallAvg": 76.05,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 76.04,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 76.03,
+			"maxPass": 89
+		},
+		{
+			"overallAvg": 76.03,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 76.02,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 76.01,
+			"maxPass": 315
+		},
+		{
+			"overallAvg": 76.01,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 76,
+			"maxPass": 101
+		},
+		{
+			"overallAvg": 76,
+			"maxPass": 2
+		},
+		{
+			"overallAvg": 75.99,
+			"maxPass": 583
+		},
+		{
+			"overallAvg": 75.99,
+			"maxPass": 234
+		},
+		{
+			"overallAvg": 75.99,
+			"maxPass": 184
+		},
+		{
+			"overallAvg": 75.99,
+			"maxPass": 163
+		},
+		{
+			"overallAvg": 75.99,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 75.98,
+			"maxPass": 172
+		},
+		{
+			"overallAvg": 75.98,
+			"maxPass": 83
+		},
+		{
+			"overallAvg": 75.98,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 75.98,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 75.97,
+			"maxPass": 212
+		},
+		{
+			"overallAvg": 75.97,
+			"maxPass": 145
+		},
+		{
+			"overallAvg": 75.96,
+			"maxPass": 191
+		},
+		{
+			"overallAvg": 75.95,
+			"maxPass": 98
+		},
+		{
+			"overallAvg": 75.94,
+			"maxPass": 86
+		},
+		{
+			"overallAvg": 75.94,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 75.93,
+			"maxPass": 86
+		},
+		{
+			"overallAvg": 75.93,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 75.93,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 75.93,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 75.92,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 75.91,
+			"maxPass": 104
+		},
+		{
+			"overallAvg": 75.91,
+			"maxPass": 78
+		},
+		{
+			"overallAvg": 75.91,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 75.9,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 75.89,
+			"maxPass": 123
+		},
+		{
+			"overallAvg": 75.88,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 75.86,
+			"maxPass": 92
+		},
+		{
+			"overallAvg": 75.86,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 75.85,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 75.85,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 75.84,
+			"maxPass": 521
+		},
+		{
+			"overallAvg": 75.84,
+			"maxPass": 134
+		},
+		{
+			"overallAvg": 75.84,
+			"maxPass": 105
+		},
+		{
+			"overallAvg": 75.84,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 75.83,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 75.82,
+			"maxPass": 823
+		},
+		{
+			"overallAvg": 75.82,
+			"maxPass": 217
+		},
+		{
+			"overallAvg": 75.82,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 75.81,
+			"maxPass": 168
+		},
+		{
+			"overallAvg": 75.8,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 75.8,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 75.78,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 75.76,
+			"maxPass": 115
+		},
+		{
+			"overallAvg": 75.75,
+			"maxPass": 188
+		},
+		{
+			"overallAvg": 75.75,
+			"maxPass": 107
+		},
+		{
+			"overallAvg": 75.74,
+			"maxPass": 274
+		},
+		{
+			"overallAvg": 75.74,
+			"maxPass": 216
+		},
+		{
+			"overallAvg": 75.73,
+			"maxPass": 404
+		},
+		{
+			"overallAvg": 75.72,
+			"maxPass": 118
+		},
+		{
+			"overallAvg": 75.72,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 75.71,
+			"maxPass": 121
+		},
+		{
+			"overallAvg": 75.7,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 75.7,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 75.7,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 75.69,
+			"maxPass": 171
+		},
+		{
+			"overallAvg": 75.67,
+			"maxPass": 87
+		},
+		{
+			"overallAvg": 75.67,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 75.66,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 75.66,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 75.66,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 75.65,
+			"maxPass": 533
+		},
+		{
+			"overallAvg": 75.62,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 75.62,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 75.61,
+			"maxPass": 107
+		},
+		{
+			"overallAvg": 75.61,
+			"maxPass": 102
+		},
+		{
+			"overallAvg": 75.61,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 75.6,
+			"maxPass": 211
+		},
+		{
+			"overallAvg": 75.6,
+			"maxPass": 191
+		},
+		{
+			"overallAvg": 75.6,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 75.59,
+			"maxPass": 163
+		},
+		{
+			"overallAvg": 75.59,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 75.58,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 75.58,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 75.57,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 75.57,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 75.56,
+			"maxPass": 208
+		},
+		{
+			"overallAvg": 75.56,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 75.56,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 75.55,
+			"maxPass": 235
+		},
+		{
+			"overallAvg": 75.54,
+			"maxPass": 701
+		},
+		{
+			"overallAvg": 75.54,
+			"maxPass": 92
+		},
+		{
+			"overallAvg": 75.54,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 75.53,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 75.51,
+			"maxPass": 362
+		},
+		{
+			"overallAvg": 75.51,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 75.51,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 75.51,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 75.51,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 75.5,
+			"maxPass": 231
+		},
+		{
+			"overallAvg": 75.5,
+			"maxPass": 131
+		},
+		{
+			"overallAvg": 75.5,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 75.5,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 75.5,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 75.5,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 75.5,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 75.49,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 75.49,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 75.48,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 75.48,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 75.48,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 75.47,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 75.47,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 75.47,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 75.46,
+			"maxPass": 771
+		},
+		{
+			"overallAvg": 75.46,
+			"maxPass": 222
+		},
+		{
+			"overallAvg": 75.46,
+			"maxPass": 118
+		},
+		{
+			"overallAvg": 75.46,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 75.45,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 75.44,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 75.44,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 75.43,
+			"maxPass": 86
+		},
+		{
+			"overallAvg": 75.42,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 75.42,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 75.41,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 75.41,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 75.41,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 75.4,
+			"maxPass": 95
+		},
+		{
+			"overallAvg": 75.4,
+			"maxPass": 87
+		},
+		{
+			"overallAvg": 75.39,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 75.38,
+			"maxPass": 409
+		},
+		{
+			"overallAvg": 75.37,
+			"maxPass": 177
+		},
+		{
+			"overallAvg": 75.37,
+			"maxPass": 111
+		},
+		{
+			"overallAvg": 75.37,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 75.37,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 75.37,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 75.36,
+			"maxPass": 151
+		},
+		{
+			"overallAvg": 75.36,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 75.34,
+			"maxPass": 106
+		},
+		{
+			"overallAvg": 75.34,
+			"maxPass": 102
+		},
+		{
+			"overallAvg": 75.34,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 75.33,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 75.32,
+			"maxPass": 137
+		},
+		{
+			"overallAvg": 75.32,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 75.31,
+			"maxPass": 134
+		},
+		{
+			"overallAvg": 75.31,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 75.31,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 75.31,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 75.31,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 75.31,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 75.3,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 75.29,
+			"maxPass": 90
+		},
+		{
+			"overallAvg": 75.28,
+			"maxPass": 112
+		},
+		{
+			"overallAvg": 75.27,
+			"maxPass": 168
+		},
+		{
+			"overallAvg": 75.27,
+			"maxPass": 73
+		},
+		{
+			"overallAvg": 75.26,
+			"maxPass": 91
+		},
+		{
+			"overallAvg": 75.24,
+			"maxPass": 225
+		},
+		{
+			"overallAvg": 75.23,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 75.23,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 75.22,
+			"maxPass": 208
+		},
+		{
+			"overallAvg": 75.22,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 75.2,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 75.2,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 75.2,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 75.19,
+			"maxPass": 1059
+		},
+		{
+			"overallAvg": 75.19,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 75.19,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 75.18,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 75.18,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 75.17,
+			"maxPass": 93
+		},
+		{
+			"overallAvg": 75.16,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 75.15,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 75.14,
+			"maxPass": 641
+		},
+		{
+			"overallAvg": 75.14,
+			"maxPass": 154
+		},
+		{
+			"overallAvg": 75.14,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 75.13,
+			"maxPass": 254
+		},
+		{
+			"overallAvg": 75.13,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 75.12,
+			"maxPass": 148
+		},
+		{
+			"overallAvg": 75.12,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 75.11,
+			"maxPass": 109
+		},
+		{
+			"overallAvg": 75.1,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 75.1,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 75.09,
+			"maxPass": 190
+		},
+		{
+			"overallAvg": 75.09,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 75.08,
+			"maxPass": 337
+		},
+		{
+			"overallAvg": 75.05,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 75.05,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 75.05,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 75.02,
+			"maxPass": 380
+		},
+		{
+			"overallAvg": 75.02,
+			"maxPass": 93
+		},
+		{
+			"overallAvg": 75.02,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 75.01,
+			"maxPass": 283
+		},
+		{
+			"overallAvg": 75.01,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 75,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 75,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 75,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 75,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 75,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 74.99,
+			"maxPass": 305
+		},
+		{
+			"overallAvg": 74.99,
+			"maxPass": 76
+		},
+		{
+			"overallAvg": 74.99,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 74.99,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 74.98,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 74.98,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 74.97,
+			"maxPass": 182
+		},
+		{
+			"overallAvg": 74.97,
+			"maxPass": 122
+		},
+		{
+			"overallAvg": 74.97,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 74.96,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 74.95,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 74.94,
+			"maxPass": 156
+		},
+		{
+			"overallAvg": 74.94,
+			"maxPass": 153
+		},
+		{
+			"overallAvg": 74.94,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 74.93,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 74.93,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 74.92,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 74.91,
+			"maxPass": 110
+		},
+		{
+			"overallAvg": 74.91,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 74.91,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 74.91,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 74.9,
+			"maxPass": 740
+		},
+		{
+			"overallAvg": 74.9,
+			"maxPass": 308
+		},
+		{
+			"overallAvg": 74.9,
+			"maxPass": 78
+		},
+		{
+			"overallAvg": 74.9,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 74.9,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 74.86,
+			"maxPass": 184
+		},
+		{
+			"overallAvg": 74.86,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 74.86,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 74.86,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 74.85,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 74.85,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 74.84,
+			"maxPass": 159
+		},
+		{
+			"overallAvg": 74.84,
+			"maxPass": 76
+		},
+		{
+			"overallAvg": 74.83,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 74.83,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 74.82,
+			"maxPass": 177
+		},
+		{
+			"overallAvg": 74.82,
+			"maxPass": 175
+		},
+		{
+			"overallAvg": 74.82,
+			"maxPass": 92
+		},
+		{
+			"overallAvg": 74.82,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 74.81,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 74.81,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 74.8,
+			"maxPass": 156
+		},
+		{
+			"overallAvg": 74.8,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 74.79,
+			"maxPass": 208
+		},
+		{
+			"overallAvg": 74.79,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 74.78,
+			"maxPass": 227
+		},
+		{
+			"overallAvg": 74.78,
+			"maxPass": 74
+		},
+		{
+			"overallAvg": 74.78,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 74.78,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 74.77,
+			"maxPass": 76
+		},
+		{
+			"overallAvg": 74.77,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 74.76,
+			"maxPass": 121
+		},
+		{
+			"overallAvg": 74.76,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 74.75,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 74.75,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 74.75,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 74.75,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 74.74,
+			"maxPass": 511
+		},
+		{
+			"overallAvg": 74.74,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 74.74,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 74.73,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 74.73,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 74.72,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 74.71,
+			"maxPass": 83
+		},
+		{
+			"overallAvg": 74.71,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 74.7,
+			"maxPass": 324
+		},
+		{
+			"overallAvg": 74.7,
+			"maxPass": 180
+		},
+		{
+			"overallAvg": 74.69,
+			"maxPass": 99
+		},
+		{
+			"overallAvg": 74.68,
+			"maxPass": 96
+		},
+		{
+			"overallAvg": 74.68,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 74.68,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 74.66,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 74.66,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 74.65,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 74.65,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 74.64,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 74.63,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 74.62,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 74.62,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 74.61,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 74.61,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 74.6,
+			"maxPass": 230
+		},
+		{
+			"overallAvg": 74.6,
+			"maxPass": 129
+		},
+		{
+			"overallAvg": 74.6,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 74.6,
+			"maxPass": 10
+		},
+		{
+			"overallAvg": 74.57,
+			"maxPass": 104
+		},
+		{
+			"overallAvg": 74.57,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 74.55,
+			"maxPass": 179
+		},
+		{
+			"overallAvg": 74.55,
+			"maxPass": 8
+		},
+		{
+			"overallAvg": 74.54,
+			"maxPass": 274
+		},
+		{
+			"overallAvg": 74.54,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 74.54,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 74.53,
+			"maxPass": 215
+		},
+		{
+			"overallAvg": 74.53,
+			"maxPass": 181
+		},
+		{
+			"overallAvg": 74.53,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 74.52,
+			"maxPass": 911
+		},
+		{
+			"overallAvg": 74.5,
+			"maxPass": 808
+		},
+		{
+			"overallAvg": 74.5,
+			"maxPass": 477
+		},
+		{
+			"overallAvg": 74.5,
+			"maxPass": 202
+		},
+		{
+			"overallAvg": 74.5,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 74.5,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 74.5,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 74.49,
+			"maxPass": 497
+		},
+		{
+			"overallAvg": 74.49,
+			"maxPass": 181
+		},
+		{
+			"overallAvg": 74.49,
+			"maxPass": 114
+		},
+		{
+			"overallAvg": 74.49,
+			"maxPass": 112
+		},
+		{
+			"overallAvg": 74.49,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 74.49,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 74.48,
+			"maxPass": 122
+		},
+		{
+			"overallAvg": 74.48,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 74.48,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 74.47,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 74.47,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 74.46,
+			"maxPass": 206
+		},
+		{
+			"overallAvg": 74.46,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 74.46,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 74.44,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 74.42,
+			"maxPass": 374
+		},
+		{
+			"overallAvg": 74.42,
+			"maxPass": 95
+		},
+		{
+			"overallAvg": 74.42,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 74.41,
+			"maxPass": 966
+		},
+		{
+			"overallAvg": 74.41,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 74.41,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 74.4,
+			"maxPass": 387
+		},
+		{
+			"overallAvg": 74.4,
+			"maxPass": 98
+		},
+		{
+			"overallAvg": 74.39,
+			"maxPass": 277
+		},
+		{
+			"overallAvg": 74.39,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 74.39,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 74.38,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 74.37,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 74.37,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 74.36,
+			"maxPass": 499
+		},
+		{
+			"overallAvg": 74.36,
+			"maxPass": 268
+		},
+		{
+			"overallAvg": 74.36,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 74.35,
+			"maxPass": 127
+		},
+		{
+			"overallAvg": 74.35,
+			"maxPass": 76
+		},
+		{
+			"overallAvg": 74.34,
+			"maxPass": 103
+		},
+		{
+			"overallAvg": 74.34,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 74.34,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 74.33,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 74.33,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 74.32,
+			"maxPass": 186
+		},
+		{
+			"overallAvg": 74.32,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 74.3,
+			"maxPass": 206
+		},
+		{
+			"overallAvg": 74.3,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 74.29,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 74.29,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 74.29,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 74.28,
+			"maxPass": 353
+		},
+		{
+			"overallAvg": 74.26,
+			"maxPass": 183
+		},
+		{
+			"overallAvg": 74.26,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 74.26,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 74.25,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 74.25,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 74.25,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 74.24,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 74.23,
+			"maxPass": 84
+		},
+		{
+			"overallAvg": 74.22,
+			"maxPass": 196
+		},
+		{
+			"overallAvg": 74.22,
+			"maxPass": 131
+		},
+		{
+			"overallAvg": 74.21,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 74.21,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 74.2,
+			"maxPass": 148
+		},
+		{
+			"overallAvg": 74.19,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 74.15,
+			"maxPass": 136
+		},
+		{
+			"overallAvg": 74.15,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 74.14,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 74.13,
+			"maxPass": 584
+		},
+		{
+			"overallAvg": 74.13,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 74.11,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 74.11,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 74.1,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 74.09,
+			"maxPass": 135
+		},
+		{
+			"overallAvg": 74.07,
+			"maxPass": 98
+		},
+		{
+			"overallAvg": 74.07,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 74.06,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 74.05,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 74.04,
+			"maxPass": 411
+		},
+		{
+			"overallAvg": 74.04,
+			"maxPass": 293
+		},
+		{
+			"overallAvg": 74.03,
+			"maxPass": 190
+		},
+		{
+			"overallAvg": 74.01,
+			"maxPass": 472
+		},
+		{
+			"overallAvg": 74.01,
+			"maxPass": 249
+		},
+		{
+			"overallAvg": 74.01,
+			"maxPass": 150
+		},
+		{
+			"overallAvg": 74.01,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 74,
+			"maxPass": 232
+		},
+		{
+			"overallAvg": 74,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 73.99,
+			"maxPass": 696
+		},
+		{
+			"overallAvg": 73.99,
+			"maxPass": 310
+		},
+		{
+			"overallAvg": 73.98,
+			"maxPass": 554
+		},
+		{
+			"overallAvg": 73.98,
+			"maxPass": 326
+		},
+		{
+			"overallAvg": 73.98,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 73.98,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 73.98,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 73.98,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 73.97,
+			"maxPass": 170
+		},
+		{
+			"overallAvg": 73.96,
+			"maxPass": 122
+		},
+		{
+			"overallAvg": 73.96,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 73.96,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 73.96,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 73.96,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 73.95,
+			"maxPass": 212
+		},
+		{
+			"overallAvg": 73.95,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 73.94,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 73.93,
+			"maxPass": 884
+		},
+		{
+			"overallAvg": 73.93,
+			"maxPass": 112
+		},
+		{
+			"overallAvg": 73.91,
+			"maxPass": 132
+		},
+		{
+			"overallAvg": 73.91,
+			"maxPass": 61
+		},
+		{
+			"overallAvg": 73.9,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 73.9,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 73.89,
+			"maxPass": 1156
+		},
+		{
+			"overallAvg": 73.89,
+			"maxPass": 154
+		},
+		{
+			"overallAvg": 73.87,
+			"maxPass": 236
+		},
+		{
+			"overallAvg": 73.87,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 73.87,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 73.87,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 73.86,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 73.85,
+			"maxPass": 310
+		},
+		{
+			"overallAvg": 73.85,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 73.85,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 73.83,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 73.82,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 73.81,
+			"maxPass": 256
+		},
+		{
+			"overallAvg": 73.81,
+			"maxPass": 167
+		},
+		{
+			"overallAvg": 73.81,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 73.79,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 73.77,
+			"maxPass": 252
+		},
+		{
+			"overallAvg": 73.77,
+			"maxPass": 194
+		},
+		{
+			"overallAvg": 73.77,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 73.76,
+			"maxPass": 285
+		},
+		{
+			"overallAvg": 73.76,
+			"maxPass": 86
+		},
+		{
+			"overallAvg": 73.76,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 73.75,
+			"maxPass": 1159
+		},
+		{
+			"overallAvg": 73.75,
+			"maxPass": 21
+		},
+		{
+			"overallAvg": 73.75,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 73.74,
+			"maxPass": 127
+		},
+		{
+			"overallAvg": 73.73,
+			"maxPass": 269
+		},
+		{
+			"overallAvg": 73.72,
+			"maxPass": 131
+		},
+		{
+			"overallAvg": 73.71,
+			"maxPass": 133
+		},
+		{
+			"overallAvg": 73.7,
+			"maxPass": 764
+		},
+		{
+			"overallAvg": 73.7,
+			"maxPass": 757
+		},
+		{
+			"overallAvg": 73.7,
+			"maxPass": 261
+		},
+		{
+			"overallAvg": 73.7,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 73.69,
+			"maxPass": 221
+		},
+		{
+			"overallAvg": 73.69,
+			"maxPass": 117
+		},
+		{
+			"overallAvg": 73.69,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 73.68,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 73.68,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 73.68,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 73.67,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 73.67,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 73.66,
+			"maxPass": 221
+		},
+		{
+			"overallAvg": 73.66,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 73.66,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 73.65,
+			"maxPass": 314
+		},
+		{
+			"overallAvg": 73.65,
+			"maxPass": 162
+		},
+		{
+			"overallAvg": 73.65,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 73.64,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 73.63,
+			"maxPass": 92
+		},
+		{
+			"overallAvg": 73.63,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 73.62,
+			"maxPass": 222
+		},
+		{
+			"overallAvg": 73.62,
+			"maxPass": 182
+		},
+		{
+			"overallAvg": 73.62,
+			"maxPass": 102
+		},
+		{
+			"overallAvg": 73.62,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 73.62,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 73.61,
+			"maxPass": 72
+		},
+		{
+			"overallAvg": 73.61,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 73.61,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 73.6,
+			"maxPass": 103
+		},
+		{
+			"overallAvg": 73.6,
+			"maxPass": 94
+		},
+		{
+			"overallAvg": 73.6,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 73.6,
+			"maxPass": 37
+		},
+		{
+			"overallAvg": 73.59,
+			"maxPass": 2016
+		},
+		{
+			"overallAvg": 73.58,
+			"maxPass": 224
+		},
+		{
+			"overallAvg": 73.58,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 73.55,
+			"maxPass": 161
+		},
+		{
+			"overallAvg": 73.55,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 73.54,
+			"maxPass": 1558
+		},
+		{
+			"overallAvg": 73.54,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 73.53,
+			"maxPass": 435
+		},
+		{
+			"overallAvg": 73.53,
+			"maxPass": 212
+		},
+		{
+			"overallAvg": 73.53,
+			"maxPass": 154
+		},
+		{
+			"overallAvg": 73.53,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 73.52,
+			"maxPass": 89
+		},
+		{
+			"overallAvg": 73.52,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 73.52,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 73.51,
+			"maxPass": 412
+		},
+		{
+			"overallAvg": 73.51,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 73.51,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 73.5,
+			"maxPass": 270
+		},
+		{
+			"overallAvg": 73.5,
+			"maxPass": 145
+		},
+		{
+			"overallAvg": 73.49,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 73.48,
+			"maxPass": 178
+		},
+		{
+			"overallAvg": 73.47,
+			"maxPass": 251
+		},
+		{
+			"overallAvg": 73.47,
+			"maxPass": 96
+		},
+		{
+			"overallAvg": 73.46,
+			"maxPass": 402
+		},
+		{
+			"overallAvg": 73.46,
+			"maxPass": 34
+		},
+		{
+			"overallAvg": 73.45,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 73.45,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 73.45,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 73.44,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 73.44,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 73.43,
+			"maxPass": 163
+		},
+		{
+			"overallAvg": 73.43,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 73.42,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 73.42,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 73.41,
+			"maxPass": 239
+		},
+		{
+			"overallAvg": 73.4,
+			"maxPass": 233
+		},
+		{
+			"overallAvg": 73.39,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 73.38,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 73.38,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 73.37,
+			"maxPass": 502
+		},
+		{
+			"overallAvg": 73.34,
+			"maxPass": 102
+		},
+		{
+			"overallAvg": 73.34,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 73.33,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 73.33,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 73.32,
+			"maxPass": 249
+		},
+		{
+			"overallAvg": 73.32,
+			"maxPass": 131
+		},
+		{
+			"overallAvg": 73.32,
+			"maxPass": 105
+		},
+		{
+			"overallAvg": 73.32,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 73.32,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 73.3,
+			"maxPass": 132
+		},
+		{
+			"overallAvg": 73.3,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 73.27,
+			"maxPass": 174
+		},
+		{
+			"overallAvg": 73.26,
+			"maxPass": 89
+		},
+		{
+			"overallAvg": 73.25,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 73.25,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 73.24,
+			"maxPass": 154
+		},
+		{
+			"overallAvg": 73.24,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 73.23,
+			"maxPass": 194
+		},
+		{
+			"overallAvg": 73.23,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 73.22,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 73.21,
+			"maxPass": 333
+		},
+		{
+			"overallAvg": 73.21,
+			"maxPass": 186
+		},
+		{
+			"overallAvg": 73.2,
+			"maxPass": 236
+		},
+		{
+			"overallAvg": 73.2,
+			"maxPass": 225
+		},
+		{
+			"overallAvg": 73.2,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 73.2,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 73.19,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 73.18,
+			"maxPass": 194
+		},
+		{
+			"overallAvg": 73.18,
+			"maxPass": 140
+		},
+		{
+			"overallAvg": 73.17,
+			"maxPass": 325
+		},
+		{
+			"overallAvg": 73.16,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 73.15,
+			"maxPass": 721
+		},
+		{
+			"overallAvg": 73.14,
+			"maxPass": 1571
+		},
+		{
+			"overallAvg": 73.14,
+			"maxPass": 146
+		},
+		{
+			"overallAvg": 73.13,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 73.12,
+			"maxPass": 508
+		},
+		{
+			"overallAvg": 73.12,
+			"maxPass": 61
+		},
+		{
+			"overallAvg": 73.11,
+			"maxPass": 827
+		},
+		{
+			"overallAvg": 73.11,
+			"maxPass": 247
+		},
+		{
+			"overallAvg": 73.11,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 73.11,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 73.11,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 73.1,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 73.08,
+			"maxPass": 118
+		},
+		{
+			"overallAvg": 73.08,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 73.06,
+			"maxPass": 723
+		},
+		{
+			"overallAvg": 73.06,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 73.06,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 73.05,
+			"maxPass": 106
+		},
+		{
+			"overallAvg": 73.05,
+			"maxPass": 72
+		},
+		{
+			"overallAvg": 73.04,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 73.04,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 73.03,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 73.03,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 73.02,
+			"maxPass": 86
+		},
+		{
+			"overallAvg": 73.01,
+			"maxPass": 302
+		},
+		{
+			"overallAvg": 73.01,
+			"maxPass": 134
+		},
+		{
+			"overallAvg": 73.01,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 73,
+			"maxPass": 374
+		},
+		{
+			"overallAvg": 73,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 72.98,
+			"maxPass": 88
+		},
+		{
+			"overallAvg": 72.97,
+			"maxPass": 159
+		},
+		{
+			"overallAvg": 72.97,
+			"maxPass": 92
+		},
+		{
+			"overallAvg": 72.94,
+			"maxPass": 379
+		},
+		{
+			"overallAvg": 72.94,
+			"maxPass": 274
+		},
+		{
+			"overallAvg": 72.93,
+			"maxPass": 113
+		},
+		{
+			"overallAvg": 72.92,
+			"maxPass": 869
+		},
+		{
+			"overallAvg": 72.92,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 72.91,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 72.9,
+			"maxPass": 649
+		},
+		{
+			"overallAvg": 72.9,
+			"maxPass": 462
+		},
+		{
+			"overallAvg": 72.9,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 72.88,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 72.88,
+			"maxPass": 23
+		},
+		{
+			"overallAvg": 72.87,
+			"maxPass": 99
+		},
+		{
+			"overallAvg": 72.87,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 72.86,
+			"maxPass": 554
+		},
+		{
+			"overallAvg": 72.85,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 72.84,
+			"maxPass": 205
+		},
+		{
+			"overallAvg": 72.84,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 72.84,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 72.83,
+			"maxPass": 774
+		},
+		{
+			"overallAvg": 72.83,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 72.81,
+			"maxPass": 1288
+		},
+		{
+			"overallAvg": 72.81,
+			"maxPass": 149
+		},
+		{
+			"overallAvg": 72.8,
+			"maxPass": 550
+		},
+		{
+			"overallAvg": 72.8,
+			"maxPass": 127
+		},
+		{
+			"overallAvg": 72.79,
+			"maxPass": 140
+		},
+		{
+			"overallAvg": 72.78,
+			"maxPass": 93
+		},
+		{
+			"overallAvg": 72.78,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 72.77,
+			"maxPass": 272
+		},
+		{
+			"overallAvg": 72.77,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 72.76,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 72.76,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 72.76,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 72.74,
+			"maxPass": 600
+		},
+		{
+			"overallAvg": 72.74,
+			"maxPass": 394
+		},
+		{
+			"overallAvg": 72.72,
+			"maxPass": 162
+		},
+		{
+			"overallAvg": 72.71,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 72.69,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 72.68,
+			"maxPass": 89
+		},
+		{
+			"overallAvg": 72.68,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 72.67,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 72.67,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 72.67,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 72.66,
+			"maxPass": 364
+		},
+		{
+			"overallAvg": 72.63,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 72.62,
+			"maxPass": 198
+		},
+		{
+			"overallAvg": 72.6,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 72.58,
+			"maxPass": 220
+		},
+		{
+			"overallAvg": 72.57,
+			"maxPass": 236
+		},
+		{
+			"overallAvg": 72.55,
+			"maxPass": 1309
+		},
+		{
+			"overallAvg": 72.54,
+			"maxPass": 382
+		},
+		{
+			"overallAvg": 72.54,
+			"maxPass": 182
+		},
+		{
+			"overallAvg": 72.54,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 72.54,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 72.52,
+			"maxPass": 106
+		},
+		{
+			"overallAvg": 72.5,
+			"maxPass": 111
+		},
+		{
+			"overallAvg": 72.5,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 72.5,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 72.49,
+			"maxPass": 313
+		},
+		{
+			"overallAvg": 72.49,
+			"maxPass": 121
+		},
+		{
+			"overallAvg": 72.47,
+			"maxPass": 204
+		},
+		{
+			"overallAvg": 72.47,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 72.46,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 72.43,
+			"maxPass": 213
+		},
+		{
+			"overallAvg": 72.41,
+			"maxPass": 442
+		},
+		{
+			"overallAvg": 72.41,
+			"maxPass": 380
+		},
+		{
+			"overallAvg": 72.4,
+			"maxPass": 112
+		},
+		{
+			"overallAvg": 72.4,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 72.4,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 72.37,
+			"maxPass": 312
+		},
+		{
+			"overallAvg": 72.36,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 72.35,
+			"maxPass": 54
+		},
+		{
+			"overallAvg": 72.34,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 72.33,
+			"maxPass": 872
+		},
+		{
+			"overallAvg": 72.33,
+			"maxPass": 128
+		},
+		{
+			"overallAvg": 72.33,
+			"maxPass": 123
+		},
+		{
+			"overallAvg": 72.33,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 72.32,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 72.3,
+			"maxPass": 239
+		},
+		{
+			"overallAvg": 72.29,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 72.29,
+			"maxPass": 33
+		},
+		{
+			"overallAvg": 72.29,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 72.27,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 72.27,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 72.26,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 72.25,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 72.24,
+			"maxPass": 500
+		},
+		{
+			"overallAvg": 72.24,
+			"maxPass": 204
+		},
+		{
+			"overallAvg": 72.24,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 72.23,
+			"maxPass": 1990
+		},
+		{
+			"overallAvg": 72.23,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 72.23,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 72.23,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 72.22,
+			"maxPass": 118
+		},
+		{
+			"overallAvg": 72.21,
+			"maxPass": 705
+		},
+		{
+			"overallAvg": 72.21,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 72.21,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 72.2,
+			"maxPass": 492
+		},
+		{
+			"overallAvg": 72.2,
+			"maxPass": 127
+		},
+		{
+			"overallAvg": 72.2,
+			"maxPass": 116
+		},
+		{
+			"overallAvg": 72.19,
+			"maxPass": 107
+		},
+		{
+			"overallAvg": 72.19,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 72.18,
+			"maxPass": 223
+		},
+		{
+			"overallAvg": 72.18,
+			"maxPass": 100
+		},
+		{
+			"overallAvg": 72.18,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 72.16,
+			"maxPass": 534
+		},
+		{
+			"overallAvg": 72.16,
+			"maxPass": 186
+		},
+		{
+			"overallAvg": 72.15,
+			"maxPass": 105
+		},
+		{
+			"overallAvg": 72.14,
+			"maxPass": 2994
+		},
+		{
+			"overallAvg": 72.14,
+			"maxPass": 284
+		},
+		{
+			"overallAvg": 72.14,
+			"maxPass": 43
+		},
+		{
+			"overallAvg": 72.14,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 72.13,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 72.11,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 72.1,
+			"maxPass": 183
+		},
+		{
+			"overallAvg": 72.1,
+			"maxPass": 93
+		},
+		{
+			"overallAvg": 72.09,
+			"maxPass": 319
+		},
+		{
+			"overallAvg": 72.09,
+			"maxPass": 124
+		},
+		{
+			"overallAvg": 72.09,
+			"maxPass": 108
+		},
+		{
+			"overallAvg": 72.09,
+			"maxPass": 99
+		},
+		{
+			"overallAvg": 72.07,
+			"maxPass": 182
+		},
+		{
+			"overallAvg": 72.07,
+			"maxPass": 27
+		},
+		{
+			"overallAvg": 72.06,
+			"maxPass": 466
+		},
+		{
+			"overallAvg": 72.06,
+			"maxPass": 315
+		},
+		{
+			"overallAvg": 72.04,
+			"maxPass": 273
+		},
+		{
+			"overallAvg": 72.04,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 72.04,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 72.03,
+			"maxPass": 40
+		},
+		{
+			"overallAvg": 72.03,
+			"maxPass": 20
+		},
+		{
+			"overallAvg": 72.01,
+			"maxPass": 117
+		},
+		{
+			"overallAvg": 72,
+			"maxPass": 3
+		},
+		{
+			"overallAvg": 71.98,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 71.93,
+			"maxPass": 394
+		},
+		{
+			"overallAvg": 71.92,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 71.88,
+			"maxPass": 96
+		},
+		{
+			"overallAvg": 71.87,
+			"maxPass": 1710
+		},
+		{
+			"overallAvg": 71.87,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 71.86,
+			"maxPass": 757
+		},
+		{
+			"overallAvg": 71.85,
+			"maxPass": 77
+		},
+		{
+			"overallAvg": 71.85,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 71.84,
+			"maxPass": 222
+		},
+		{
+			"overallAvg": 71.84,
+			"maxPass": 120
+		},
+		{
+			"overallAvg": 71.83,
+			"maxPass": 149
+		},
+		{
+			"overallAvg": 71.83,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 71.83,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 71.82,
+			"maxPass": 345
+		},
+		{
+			"overallAvg": 71.82,
+			"maxPass": 89
+		},
+		{
+			"overallAvg": 71.82,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 71.81,
+			"maxPass": 317
+		},
+		{
+			"overallAvg": 71.79,
+			"maxPass": 369
+		},
+		{
+			"overallAvg": 71.79,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 71.78,
+			"maxPass": 74
+		},
+		{
+			"overallAvg": 71.77,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 71.76,
+			"maxPass": 917
+		},
+		{
+			"overallAvg": 71.75,
+			"maxPass": 86
+		},
+		{
+			"overallAvg": 71.74,
+			"maxPass": 99
+		},
+		{
+			"overallAvg": 71.74,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 71.72,
+			"maxPass": 229
+		},
+		{
+			"overallAvg": 71.72,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 71.71,
+			"maxPass": 112
+		},
+		{
+			"overallAvg": 71.7,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 71.69,
+			"maxPass": 157
+		},
+		{
+			"overallAvg": 71.68,
+			"maxPass": 450
+		},
+		{
+			"overallAvg": 71.68,
+			"maxPass": 321
+		},
+		{
+			"overallAvg": 71.68,
+			"maxPass": 202
+		},
+		{
+			"overallAvg": 71.68,
+			"maxPass": 118
+		},
+		{
+			"overallAvg": 71.68,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 71.67,
+			"maxPass": 142
+		},
+		{
+			"overallAvg": 71.67,
+			"maxPass": 115
+		},
+		{
+			"overallAvg": 71.66,
+			"maxPass": 122
+		},
+		{
+			"overallAvg": 71.65,
+			"maxPass": 107
+		},
+		{
+			"overallAvg": 71.65,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 71.64,
+			"maxPass": 192
+		},
+		{
+			"overallAvg": 71.64,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 71.63,
+			"maxPass": 88
+		},
+		{
+			"overallAvg": 71.63,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 71.62,
+			"maxPass": 294
+		},
+		{
+			"overallAvg": 71.62,
+			"maxPass": 276
+		},
+		{
+			"overallAvg": 71.59,
+			"maxPass": 70
+		},
+		{
+			"overallAvg": 71.58,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 71.58,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 71.57,
+			"maxPass": 203
+		},
+		{
+			"overallAvg": 71.57,
+			"maxPass": 7
+		},
+		{
+			"overallAvg": 71.56,
+			"maxPass": 98
+		},
+		{
+			"overallAvg": 71.55,
+			"maxPass": 112
+		},
+		{
+			"overallAvg": 71.55,
+			"maxPass": 58
+		},
+		{
+			"overallAvg": 71.54,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 71.53,
+			"maxPass": 63
+		},
+		{
+			"overallAvg": 71.52,
+			"maxPass": 451
+		},
+		{
+			"overallAvg": 71.5,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 71.49,
+			"maxPass": 264
+		},
+		{
+			"overallAvg": 71.49,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 71.48,
+			"maxPass": 240
+		},
+		{
+			"overallAvg": 71.47,
+			"maxPass": 90
+		},
+		{
+			"overallAvg": 71.47,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 71.46,
+			"maxPass": 191
+		},
+		{
+			"overallAvg": 71.46,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 71.45,
+			"maxPass": 84
+		},
+		{
+			"overallAvg": 71.45,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 71.44,
+			"maxPass": 161
+		},
+		{
+			"overallAvg": 71.44,
+			"maxPass": 130
+		},
+		{
+			"overallAvg": 71.41,
+			"maxPass": 259
+		},
+		{
+			"overallAvg": 71.4,
+			"maxPass": 45
+		},
+		{
+			"overallAvg": 71.38,
+			"maxPass": 79
+		},
+		{
+			"overallAvg": 71.38,
+			"maxPass": 16
+		},
+		{
+			"overallAvg": 71.37,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 71.36,
+			"maxPass": 122
+		},
+		{
+			"overallAvg": 71.36,
+			"maxPass": 117
+		},
+		{
+			"overallAvg": 71.36,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 71.35,
+			"maxPass": 270
+		},
+		{
+			"overallAvg": 71.35,
+			"maxPass": 142
+		},
+		{
+			"overallAvg": 71.33,
+			"maxPass": 664
+		},
+		{
+			"overallAvg": 71.33,
+			"maxPass": 279
+		},
+		{
+			"overallAvg": 71.32,
+			"maxPass": 684
+		},
+		{
+			"overallAvg": 71.32,
+			"maxPass": 156
+		},
+		{
+			"overallAvg": 71.32,
+			"maxPass": 91
+		},
+		{
+			"overallAvg": 71.32,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 71.31,
+			"maxPass": 83
+		},
+		{
+			"overallAvg": 71.3,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 71.3,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 71.29,
+			"maxPass": 137
+		},
+		{
+			"overallAvg": 71.28,
+			"maxPass": 72
+		},
+		{
+			"overallAvg": 71.28,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 71.28,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 71.27,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 71.26,
+			"maxPass": 208
+		},
+		{
+			"overallAvg": 71.26,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 71.24,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 71.18,
+			"maxPass": 160
+		},
+		{
+			"overallAvg": 71.18,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 71.18,
+			"maxPass": 24
+		},
+		{
+			"overallAvg": 71.14,
+			"maxPass": 117
+		},
+		{
+			"overallAvg": 71.13,
+			"maxPass": 184
+		},
+		{
+			"overallAvg": 71.13,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 71.13,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 71.12,
+			"maxPass": 566
+		},
+		{
+			"overallAvg": 71.12,
+			"maxPass": 395
+		},
+		{
+			"overallAvg": 71.12,
+			"maxPass": 261
+		},
+		{
+			"overallAvg": 71.11,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 71.09,
+			"maxPass": 535
+		},
+		{
+			"overallAvg": 71.07,
+			"maxPass": 78
+		},
+		{
+			"overallAvg": 71,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 70.99,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 70.95,
+			"maxPass": 106
+		},
+		{
+			"overallAvg": 70.94,
+			"maxPass": 86
+		},
+		{
+			"overallAvg": 70.93,
+			"maxPass": 95
+		},
+		{
+			"overallAvg": 70.92,
+			"maxPass": 165
+		},
+		{
+			"overallAvg": 70.91,
+			"maxPass": 314
+		},
+		{
+			"overallAvg": 70.89,
+			"maxPass": 641
+		},
+		{
+			"overallAvg": 70.89,
+			"maxPass": 330
+		},
+		{
+			"overallAvg": 70.88,
+			"maxPass": 1245
+		},
+		{
+			"overallAvg": 70.88,
+			"maxPass": 469
+		},
+		{
+			"overallAvg": 70.86,
+			"maxPass": 90
+		},
+		{
+			"overallAvg": 70.86,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 70.86,
+			"maxPass": 46
+		},
+		{
+			"overallAvg": 70.84,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 70.8,
+			"maxPass": 257
+		},
+		{
+			"overallAvg": 70.77,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 70.74,
+			"maxPass": 189
+		},
+		{
+			"overallAvg": 70.74,
+			"maxPass": 123
+		},
+		{
+			"overallAvg": 70.74,
+			"maxPass": 55
+		},
+		{
+			"overallAvg": 70.72,
+			"maxPass": 50
+		},
+		{
+			"overallAvg": 70.7,
+			"maxPass": 83
+		},
+		{
+			"overallAvg": 70.66,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 70.66,
+			"maxPass": 35
+		},
+		{
+			"overallAvg": 70.66,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 70.65,
+			"maxPass": 268
+		},
+		{
+			"overallAvg": 70.64,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 70.63,
+			"maxPass": 175
+		},
+		{
+			"overallAvg": 70.62,
+			"maxPass": 211
+		},
+		{
+			"overallAvg": 70.62,
+			"maxPass": 126
+		},
+		{
+			"overallAvg": 70.61,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 70.6,
+			"maxPass": 264
+		},
+		{
+			"overallAvg": 70.56,
+			"maxPass": 136
+		},
+		{
+			"overallAvg": 70.56,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 70.55,
+			"maxPass": 1545
+		},
+		{
+			"overallAvg": 70.55,
+			"maxPass": 119
+		},
+		{
+			"overallAvg": 70.53,
+			"maxPass": 223
+		},
+		{
+			"overallAvg": 70.53,
+			"maxPass": 29
+		},
+		{
+			"overallAvg": 70.53,
+			"maxPass": 26
+		},
+		{
+			"overallAvg": 70.52,
+			"maxPass": 119
+		},
+		{
+			"overallAvg": 70.5,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 70.48,
+			"maxPass": 351
+		},
+		{
+			"overallAvg": 70.48,
+			"maxPass": 335
+		},
+		{
+			"overallAvg": 70.48,
+			"maxPass": 59
+		},
+		{
+			"overallAvg": 70.47,
+			"maxPass": 117
+		},
+		{
+			"overallAvg": 70.47,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 70.46,
+			"maxPass": 289
+		},
+		{
+			"overallAvg": 70.46,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 70.45,
+			"maxPass": 804
+		},
+		{
+			"overallAvg": 70.45,
+			"maxPass": 780
+		},
+		{
+			"overallAvg": 70.45,
+			"maxPass": 406
+		},
+		{
+			"overallAvg": 70.45,
+			"maxPass": 9
+		},
+		{
+			"overallAvg": 70.43,
+			"maxPass": 76
+		},
+		{
+			"overallAvg": 70.39,
+			"maxPass": 92
+		},
+		{
+			"overallAvg": 70.36,
+			"maxPass": 201
+		},
+		{
+			"overallAvg": 70.34,
+			"maxPass": 270
+		},
+		{
+			"overallAvg": 70.33,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 70.31,
+			"maxPass": 86
+		},
+		{
+			"overallAvg": 70.3,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 70.28,
+			"maxPass": 1856
+		},
+		{
+			"overallAvg": 70.23,
+			"maxPass": 32
+		},
+		{
+			"overallAvg": 70.2,
+			"maxPass": 341
+		},
+		{
+			"overallAvg": 70.2,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 70.17,
+			"maxPass": 138
+		},
+		{
+			"overallAvg": 70.16,
+			"maxPass": 188
+		},
+		{
+			"overallAvg": 70.15,
+			"maxPass": 336
+		},
+		{
+			"overallAvg": 70.13,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 70.1,
+			"maxPass": 892
+		},
+		{
+			"overallAvg": 70.09,
+			"maxPass": 351
+		},
+		{
+			"overallAvg": 70.07,
+			"maxPass": 180
+		},
+		{
+			"overallAvg": 70.04,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 70.03,
+			"maxPass": 116
+		},
+		{
+			"overallAvg": 70.01,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 70.01,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 70,
+			"maxPass": 103
+		},
+		{
+			"overallAvg": 70,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 69.98,
+			"maxPass": 225
+		},
+		{
+			"overallAvg": 69.97,
+			"maxPass": 262
+		},
+		{
+			"overallAvg": 69.97,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 69.96,
+			"maxPass": 756
+		},
+		{
+			"overallAvg": 69.96,
+			"maxPass": 245
+		},
+		{
+			"overallAvg": 69.96,
+			"maxPass": 121
+		},
+		{
+			"overallAvg": 69.94,
+			"maxPass": 239
+		},
+		{
+			"overallAvg": 69.94,
+			"maxPass": 198
+		},
+		{
+			"overallAvg": 69.94,
+			"maxPass": 93
+		},
+		{
+			"overallAvg": 69.91,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 69.89,
+			"maxPass": 146
+		},
+		{
+			"overallAvg": 69.88,
+			"maxPass": 129
+		},
+		{
+			"overallAvg": 69.86,
+			"maxPass": 1171
+		},
+		{
+			"overallAvg": 69.83,
+			"maxPass": 736
+		},
+		{
+			"overallAvg": 69.82,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 69.8,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 69.8,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 69.79,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 69.77,
+			"maxPass": 42
+		},
+		{
+			"overallAvg": 69.74,
+			"maxPass": 175
+		},
+		{
+			"overallAvg": 69.72,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 69.71,
+			"maxPass": 384
+		},
+		{
+			"overallAvg": 69.71,
+			"maxPass": 207
+		},
+		{
+			"overallAvg": 69.7,
+			"maxPass": 56
+		},
+		{
+			"overallAvg": 69.69,
+			"maxPass": 145
+		},
+		{
+			"overallAvg": 69.69,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 69.66,
+			"maxPass": 385
+		},
+		{
+			"overallAvg": 69.65,
+			"maxPass": 390
+		},
+		{
+			"overallAvg": 69.58,
+			"maxPass": 565
+		},
+		{
+			"overallAvg": 69.54,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 69.53,
+			"maxPass": 156
+		},
+		{
+			"overallAvg": 69.51,
+			"maxPass": 181
+		},
+		{
+			"overallAvg": 69.51,
+			"maxPass": 105
+		},
+		{
+			"overallAvg": 69.47,
+			"maxPass": 96
+		},
+		{
+			"overallAvg": 69.46,
+			"maxPass": 169
+		},
+		{
+			"overallAvg": 69.45,
+			"maxPass": 668
+		},
+		{
+			"overallAvg": 69.45,
+			"maxPass": 561
+		},
+		{
+			"overallAvg": 69.45,
+			"maxPass": 232
+		},
+		{
+			"overallAvg": 69.45,
+			"maxPass": 114
+		},
+		{
+			"overallAvg": 69.42,
+			"maxPass": 542
+		},
+		{
+			"overallAvg": 69.42,
+			"maxPass": 36
+		},
+		{
+			"overallAvg": 69.41,
+			"maxPass": 99
+		},
+		{
+			"overallAvg": 69.4,
+			"maxPass": 67
+		},
+		{
+			"overallAvg": 69.39,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 69.38,
+			"maxPass": 733
+		},
+		{
+			"overallAvg": 69.38,
+			"maxPass": 173
+		},
+		{
+			"overallAvg": 69.33,
+			"maxPass": 247
+		},
+		{
+			"overallAvg": 69.31,
+			"maxPass": 64
+		},
+		{
+			"overallAvg": 69.3,
+			"maxPass": 236
+		},
+		{
+			"overallAvg": 69.3,
+			"maxPass": 126
+		},
+		{
+			"overallAvg": 69.29,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 69.28,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 69.26,
+			"maxPass": 433
+		},
+		{
+			"overallAvg": 69.21,
+			"maxPass": 205
+		},
+		{
+			"overallAvg": 69.2,
+			"maxPass": 330
+		},
+		{
+			"overallAvg": 69.2,
+			"maxPass": 115
+		},
+		{
+			"overallAvg": 69.18,
+			"maxPass": 1817
+		},
+		{
+			"overallAvg": 69.17,
+			"maxPass": 118
+		},
+		{
+			"overallAvg": 69.15,
+			"maxPass": 98
+		},
+		{
+			"overallAvg": 69.14,
+			"maxPass": 171
+		},
+		{
+			"overallAvg": 69.11,
+			"maxPass": 874
+		},
+		{
+			"overallAvg": 69.11,
+			"maxPass": 123
+		},
+		{
+			"overallAvg": 69.11,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 69.1,
+			"maxPass": 811
+		},
+		{
+			"overallAvg": 69.05,
+			"maxPass": 75
+		},
+		{
+			"overallAvg": 69.03,
+			"maxPass": 2438
+		},
+		{
+			"overallAvg": 69.03,
+			"maxPass": 223
+		},
+		{
+			"overallAvg": 69.01,
+			"maxPass": 565
+		},
+		{
+			"overallAvg": 69.01,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 69,
+			"maxPass": 5
+		},
+		{
+			"overallAvg": 68.98,
+			"maxPass": 71
+		},
+		{
+			"overallAvg": 68.94,
+			"maxPass": 1762
+		},
+		{
+			"overallAvg": 68.94,
+			"maxPass": 472
+		},
+		{
+			"overallAvg": 68.94,
+			"maxPass": 47
+		},
+		{
+			"overallAvg": 68.92,
+			"maxPass": 835
+		},
+		{
+			"overallAvg": 68.89,
+			"maxPass": 19
+		},
+		{
+			"overallAvg": 68.87,
+			"maxPass": 396
+		},
+		{
+			"overallAvg": 68.86,
+			"maxPass": 327
+		},
+		{
+			"overallAvg": 68.84,
+			"maxPass": 90
+		},
+		{
+			"overallAvg": 68.83,
+			"maxPass": 255
+		},
+		{
+			"overallAvg": 68.76,
+			"maxPass": 97
+		},
+		{
+			"overallAvg": 68.75,
+			"maxPass": 407
+		},
+		{
+			"overallAvg": 68.74,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 68.73,
+			"maxPass": 18
+		},
+		{
+			"overallAvg": 68.71,
+			"maxPass": 2169
+		},
+		{
+			"overallAvg": 68.66,
+			"maxPass": 304
+		},
+		{
+			"overallAvg": 68.66,
+			"maxPass": 60
+		},
+		{
+			"overallAvg": 68.61,
+			"maxPass": 169
+		},
+		{
+			"overallAvg": 68.6,
+			"maxPass": 39
+		},
+		{
+			"overallAvg": 68.58,
+			"maxPass": 235
+		},
+		{
+			"overallAvg": 68.57,
+			"maxPass": 442
+		},
+		{
+			"overallAvg": 68.56,
+			"maxPass": 164
+		},
+		{
+			"overallAvg": 68.55,
+			"maxPass": 131
+		},
+		{
+			"overallAvg": 68.54,
+			"maxPass": 13
+		},
+		{
+			"overallAvg": 68.51,
+			"maxPass": 2289
+		},
+		{
+			"overallAvg": 68.46,
+			"maxPass": 48
+		},
+		{
+			"overallAvg": 68.38,
+			"maxPass": 52
+		},
+		{
+			"overallAvg": 68.36,
+			"maxPass": 2201
+		},
+		{
+			"overallAvg": 68.36,
+			"maxPass": 239
+		},
+		{
+			"overallAvg": 68.36,
+			"maxPass": 65
+		},
+		{
+			"overallAvg": 68.33,
+			"maxPass": 17
+		},
+		{
+			"overallAvg": 68.24,
+			"maxPass": 527
+		},
+		{
+			"overallAvg": 68.24,
+			"maxPass": 455
+		},
+		{
+			"overallAvg": 68.21,
+			"maxPass": 49
+		},
+		{
+			"overallAvg": 68.19,
+			"maxPass": 115
+		},
+		{
+			"overallAvg": 68.18,
+			"maxPass": 15
+		},
+		{
+			"overallAvg": 68.12,
+			"maxPass": 31
+		},
+		{
+			"overallAvg": 68.08,
+			"maxPass": 103
+		},
+		{
+			"overallAvg": 68.06,
+			"maxPass": 146
+		},
+		{
+			"overallAvg": 68.01,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 67.98,
+			"maxPass": 44
+		},
+		{
+			"overallAvg": 67.94,
+			"maxPass": 303
+		},
+		{
+			"overallAvg": 67.93,
+			"maxPass": 116
+		},
+		{
+			"overallAvg": 67.92,
+			"maxPass": 139
+		},
+		{
+			"overallAvg": 67.92,
+			"maxPass": 85
+		},
+		{
+			"overallAvg": 67.89,
+			"maxPass": 95
+		},
+		{
+			"overallAvg": 67.84,
+			"maxPass": 107
+		},
+		{
+			"overallAvg": 67.81,
+			"maxPass": 228
+		},
+		{
+			"overallAvg": 67.77,
+			"maxPass": 367
+		},
+		{
+			"overallAvg": 67.72,
+			"maxPass": 224
+		},
+		{
+			"overallAvg": 67.68,
+			"maxPass": 145
+		},
+		{
+			"overallAvg": 67.67,
+			"maxPass": 739
+		},
+		{
+			"overallAvg": 67.67,
+			"maxPass": 214
+		},
+		{
+			"overallAvg": 67.65,
+			"maxPass": 128
+		},
+		{
+			"overallAvg": 67.59,
+			"maxPass": 598
+		},
+		{
+			"overallAvg": 67.58,
+			"maxPass": 698
+		},
+		{
+			"overallAvg": 67.56,
+			"maxPass": 38
+		},
+		{
+			"overallAvg": 67.53,
+			"maxPass": 170
+		},
+		{
+			"overallAvg": 67.48,
+			"maxPass": 192
+		},
+		{
+			"overallAvg": 67.45,
+			"maxPass": 203
+		},
+		{
+			"overallAvg": 67.41,
+			"maxPass": 80
+		},
+		{
+			"overallAvg": 67.34,
+			"maxPass": 237
+		},
+		{
+			"overallAvg": 67.25,
+			"maxPass": 41
+		},
+		{
+			"overallAvg": 67.24,
+			"maxPass": 107
+		},
+		{
+			"overallAvg": 67.2,
+			"maxPass": 62
+		},
+		{
+			"overallAvg": 67.18,
+			"maxPass": 944
+		},
+		{
+			"overallAvg": 67.07,
+			"maxPass": 84
+		},
+		{
+			"overallAvg": 67,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 66.92,
+			"maxPass": 1065
+		},
+		{
+			"overallAvg": 66.91,
+			"maxPass": 668
+		},
+		{
+			"overallAvg": 66.79,
+			"maxPass": 68
+		},
+		{
+			"overallAvg": 66.78,
+			"maxPass": 81
+		},
+		{
+			"overallAvg": 66.67,
+			"maxPass": 73
+		},
+		{
+			"overallAvg": 66.56,
+			"maxPass": 1257
+		},
+		{
+			"overallAvg": 66.41,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 66.24,
+			"maxPass": 209
+		},
+		{
+			"overallAvg": 66.19,
+			"maxPass": 30
+		},
+		{
+			"overallAvg": 66.13,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 66.12,
+			"maxPass": 142
+		},
+		{
+			"overallAvg": 66.03,
+			"maxPass": 91
+		},
+		{
+			"overallAvg": 65.99,
+			"maxPass": 14
+		},
+		{
+			"overallAvg": 65.83,
+			"maxPass": 11
+		},
+		{
+			"overallAvg": 65.81,
+			"maxPass": 717
+		},
+		{
+			"overallAvg": 65.68,
+			"maxPass": 189
+		},
+		{
+			"overallAvg": 65.47,
+			"maxPass": 104
+		},
+		{
+			"overallAvg": 65.36,
+			"maxPass": 1073
+		},
+		{
+			"overallAvg": 65.33,
+			"maxPass": 1390
+		},
+		{
+			"overallAvg": 65.33,
+			"maxPass": 28
+		},
+		{
+			"overallAvg": 65.23,
+			"maxPass": 95
+		},
+		{
+			"overallAvg": 64.91,
+			"maxPass": 279
+		},
+		{
+			"overallAvg": 64.74,
+			"maxPass": 113
+		},
+		{
+			"overallAvg": 64.44,
+			"maxPass": 172
+		},
+		{
+			"overallAvg": 64.43,
+			"maxPass": 481
+		},
+		{
+			"overallAvg": 64.42,
+			"maxPass": 66
+		},
+		{
+			"overallAvg": 64.34,
+			"maxPass": 12
+		},
+		{
+			"overallAvg": 64.28,
+			"maxPass": 69
+		},
+		{
+			"overallAvg": 64.28,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 63.78,
+			"maxPass": 145
+		},
+		{
+			"overallAvg": 63.55,
+			"maxPass": 196
+		},
+		{
+			"overallAvg": 63.45,
+			"maxPass": 22
+		},
+		{
+			"overallAvg": 63.26,
+			"maxPass": 307
+		},
+		{
+			"overallAvg": 63.01,
+			"maxPass": 608
+		},
+		{
+			"overallAvg": 62.85,
+			"maxPass": 238
+		},
+		{
+			"overallAvg": 62.74,
+			"maxPass": 53
+		},
+		{
+			"overallAvg": 62.55,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 62.43,
+			"maxPass": 147
+		},
+		{
+			"overallAvg": 62.23,
+			"maxPass": 295
+		},
+		{
+			"overallAvg": 61.74,
+			"maxPass": 304
+		},
+		{
+			"overallAvg": 61.24,
+			"maxPass": 155
+		},
+		{
+			"overallAvg": 61.09,
+			"maxPass": 401
+		},
+		{
+			"overallAvg": 60,
+			"maxPass": 3
+		},
+		{
+			"overallAvg": 58.97,
+			"maxPass": 4
+		},
+		{
+			"overallAvg": 58.57,
+			"maxPass": 51
+		},
+		{
+			"overallAvg": 58.05,
+			"maxPass": 25
+		},
+		{
+			"overallAvg": 57.57,
+			"maxPass": 6
+		},
+		{
+			"overallAvg": 54.02,
+			"maxPass": 57
+		},
+		{
+			"overallAvg": 52.67,
+			"maxPass": 4
+		}
+	]
+}
