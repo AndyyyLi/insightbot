@@ -1,0 +1,594 @@
+{
+	"title": "APPLYKEYS only in COLUMNS, ORDER by APPLYKEY",
+	"input": {
+		"WHERE": {},
+		"OPTIONS": {
+			"COLUMNS": [
+				"overallAvg"
+			],
+			"ORDER": "overallAvg"
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_dept"
+			],
+			"APPLY": [
+				{
+					"overallAvg": {
+						"AVG": "sections_avg"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"overallAvg": 60
+		},
+		{
+			"overallAvg": 68.31
+		},
+		{
+			"overallAvg": 69.93
+		},
+		{
+			"overallAvg": 70.28
+		},
+		{
+			"overallAvg": 70.63
+		},
+		{
+			"overallAvg": 72.03
+		},
+		{
+			"overallAvg": 72.27
+		},
+		{
+			"overallAvg": 72.58
+		},
+		{
+			"overallAvg": 72.59
+		},
+		{
+			"overallAvg": 72.75
+		},
+		{
+			"overallAvg": 73.18
+		},
+		{
+			"overallAvg": 73.32
+		},
+		{
+			"overallAvg": 73.52
+		},
+		{
+			"overallAvg": 73.56
+		},
+		{
+			"overallAvg": 73.66
+		},
+		{
+			"overallAvg": 73.96
+		},
+		{
+			"overallAvg": 74.06
+		},
+		{
+			"overallAvg": 74.18
+		},
+		{
+			"overallAvg": 74.29
+		},
+		{
+			"overallAvg": 74.31
+		},
+		{
+			"overallAvg": 74.31
+		},
+		{
+			"overallAvg": 74.34
+		},
+		{
+			"overallAvg": 74.53
+		},
+		{
+			"overallAvg": 74.54
+		},
+		{
+			"overallAvg": 74.71
+		},
+		{
+			"overallAvg": 74.88
+		},
+		{
+			"overallAvg": 74.89
+		},
+		{
+			"overallAvg": 75.19
+		},
+		{
+			"overallAvg": 75.19
+		},
+		{
+			"overallAvg": 75.35
+		},
+		{
+			"overallAvg": 75.47
+		},
+		{
+			"overallAvg": 75.75
+		},
+		{
+			"overallAvg": 75.79
+		},
+		{
+			"overallAvg": 75.84
+		},
+		{
+			"overallAvg": 75.93
+		},
+		{
+			"overallAvg": 75.93
+		},
+		{
+			"overallAvg": 75.99
+		},
+		{
+			"overallAvg": 76.21
+		},
+		{
+			"overallAvg": 76.26
+		},
+		{
+			"overallAvg": 76.34
+		},
+		{
+			"overallAvg": 76.36
+		},
+		{
+			"overallAvg": 76.36
+		},
+		{
+			"overallAvg": 76.39
+		},
+		{
+			"overallAvg": 76.45
+		},
+		{
+			"overallAvg": 76.46
+		},
+		{
+			"overallAvg": 76.62
+		},
+		{
+			"overallAvg": 76.7
+		},
+		{
+			"overallAvg": 76.92
+		},
+		{
+			"overallAvg": 76.93
+		},
+		{
+			"overallAvg": 77.05
+		},
+		{
+			"overallAvg": 77.06
+		},
+		{
+			"overallAvg": 77.26
+		},
+		{
+			"overallAvg": 77.54
+		},
+		{
+			"overallAvg": 77.55
+		},
+		{
+			"overallAvg": 77.58
+		},
+		{
+			"overallAvg": 77.62
+		},
+		{
+			"overallAvg": 77.64
+		},
+		{
+			"overallAvg": 77.72
+		},
+		{
+			"overallAvg": 77.74
+		},
+		{
+			"overallAvg": 77.74
+		},
+		{
+			"overallAvg": 77.76
+		},
+		{
+			"overallAvg": 77.87
+		},
+		{
+			"overallAvg": 77.9
+		},
+		{
+			"overallAvg": 77.94
+		},
+		{
+			"overallAvg": 77.98
+		},
+		{
+			"overallAvg": 78.08
+		},
+		{
+			"overallAvg": 78.12
+		},
+		{
+			"overallAvg": 78.21
+		},
+		{
+			"overallAvg": 78.28
+		},
+		{
+			"overallAvg": 78.38
+		},
+		{
+			"overallAvg": 78.41
+		},
+		{
+			"overallAvg": 78.68
+		},
+		{
+			"overallAvg": 78.83
+		},
+		{
+			"overallAvg": 78.97
+		},
+		{
+			"overallAvg": 78.99
+		},
+		{
+			"overallAvg": 79
+		},
+		{
+			"overallAvg": 79.05
+		},
+		{
+			"overallAvg": 79.07
+		},
+		{
+			"overallAvg": 79.33
+		},
+		{
+			"overallAvg": 79.49
+		},
+		{
+			"overallAvg": 79.53
+		},
+		{
+			"overallAvg": 79.69
+		},
+		{
+			"overallAvg": 79.73
+		},
+		{
+			"overallAvg": 79.77
+		},
+		{
+			"overallAvg": 79.86
+		},
+		{
+			"overallAvg": 79.95
+		},
+		{
+			"overallAvg": 79.99
+		},
+		{
+			"overallAvg": 80
+		},
+		{
+			"overallAvg": 80.08
+		},
+		{
+			"overallAvg": 80.26
+		},
+		{
+			"overallAvg": 80.36
+		},
+		{
+			"overallAvg": 80.61
+		},
+		{
+			"overallAvg": 80.7
+		},
+		{
+			"overallAvg": 81
+		},
+		{
+			"overallAvg": 81.04
+		},
+		{
+			"overallAvg": 81.11
+		},
+		{
+			"overallAvg": 81.16
+		},
+		{
+			"overallAvg": 81.24
+		},
+		{
+			"overallAvg": 81.25
+		},
+		{
+			"overallAvg": 81.26
+		},
+		{
+			"overallAvg": 81.27
+		},
+		{
+			"overallAvg": 81.3
+		},
+		{
+			"overallAvg": 81.34
+		},
+		{
+			"overallAvg": 81.4
+		},
+		{
+			"overallAvg": 81.51
+		},
+		{
+			"overallAvg": 81.51
+		},
+		{
+			"overallAvg": 81.57
+		},
+		{
+			"overallAvg": 81.64
+		},
+		{
+			"overallAvg": 81.65
+		},
+		{
+			"overallAvg": 81.66
+		},
+		{
+			"overallAvg": 81.7
+		},
+		{
+			"overallAvg": 81.92
+		},
+		{
+			"overallAvg": 82.01
+		},
+		{
+			"overallAvg": 82.02
+		},
+		{
+			"overallAvg": 82.14
+		},
+		{
+			"overallAvg": 82.38
+		},
+		{
+			"overallAvg": 82.42
+		},
+		{
+			"overallAvg": 82.46
+		},
+		{
+			"overallAvg": 82.5
+		},
+		{
+			"overallAvg": 82.51
+		},
+		{
+			"overallAvg": 82.54
+		},
+		{
+			"overallAvg": 82.55
+		},
+		{
+			"overallAvg": 82.56
+		},
+		{
+			"overallAvg": 82.67
+		},
+		{
+			"overallAvg": 82.78
+		},
+		{
+			"overallAvg": 82.79
+		},
+		{
+			"overallAvg": 82.8
+		},
+		{
+			"overallAvg": 82.94
+		},
+		{
+			"overallAvg": 83.04
+		},
+		{
+			"overallAvg": 83.09
+		},
+		{
+			"overallAvg": 83.22
+		},
+		{
+			"overallAvg": 83.57
+		},
+		{
+			"overallAvg": 83.72
+		},
+		{
+			"overallAvg": 83.86
+		},
+		{
+			"overallAvg": 84
+		},
+		{
+			"overallAvg": 84.2
+		},
+		{
+			"overallAvg": 84.22
+		},
+		{
+			"overallAvg": 84.23
+		},
+		{
+			"overallAvg": 84.25
+		},
+		{
+			"overallAvg": 84.28
+		},
+		{
+			"overallAvg": 84.31
+		},
+		{
+			"overallAvg": 84.41
+		},
+		{
+			"overallAvg": 84.48
+		},
+		{
+			"overallAvg": 84.53
+		},
+		{
+			"overallAvg": 84.61
+		},
+		{
+			"overallAvg": 84.63
+		},
+		{
+			"overallAvg": 84.73
+		},
+		{
+			"overallAvg": 84.77
+		},
+		{
+			"overallAvg": 84.83
+		},
+		{
+			"overallAvg": 84.87
+		},
+		{
+			"overallAvg": 84.89
+		},
+		{
+			"overallAvg": 84.9
+		},
+		{
+			"overallAvg": 84.9
+		},
+		{
+			"overallAvg": 84.92
+		},
+		{
+			"overallAvg": 84.93
+		},
+		{
+			"overallAvg": 84.95
+		},
+		{
+			"overallAvg": 84.98
+		},
+		{
+			"overallAvg": 85.07
+		},
+		{
+			"overallAvg": 85.27
+		},
+		{
+			"overallAvg": 85.35
+		},
+		{
+			"overallAvg": 85.39
+		},
+		{
+			"overallAvg": 85.4
+		},
+		{
+			"overallAvg": 85.76
+		},
+		{
+			"overallAvg": 85.99
+		},
+		{
+			"overallAvg": 86.22
+		},
+		{
+			"overallAvg": 86.35
+		},
+		{
+			"overallAvg": 86.36
+		},
+		{
+			"overallAvg": 86.47
+		},
+		{
+			"overallAvg": 86.52
+		},
+		{
+			"overallAvg": 86.53
+		},
+		{
+			"overallAvg": 86.59
+		},
+		{
+			"overallAvg": 86.92
+		},
+		{
+			"overallAvg": 87.04
+		},
+		{
+			"overallAvg": 87.25
+		},
+		{
+			"overallAvg": 87.4
+		},
+		{
+			"overallAvg": 87.4
+		},
+		{
+			"overallAvg": 87.61
+		},
+		{
+			"overallAvg": 87.64
+		},
+		{
+			"overallAvg": 87.66
+		},
+		{
+			"overallAvg": 87.82
+		},
+		{
+			"overallAvg": 88.38
+		},
+		{
+			"overallAvg": 88.92
+		},
+		{
+			"overallAvg": 88.98
+		},
+		{
+			"overallAvg": 89.05
+		},
+		{
+			"overallAvg": 89.14
+		},
+		{
+			"overallAvg": 89.77
+		},
+		{
+			"overallAvg": 89.82
+		},
+		{
+			"overallAvg": 89.94
+		},
+		{
+			"overallAvg": 91.14
+		}
+	]
+}

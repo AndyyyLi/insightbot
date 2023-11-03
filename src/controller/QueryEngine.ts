@@ -39,7 +39,7 @@ export default class QueryEngine {
 
 	// iterate through results, track MAX
 	private calcMax(results: InsightResult[], tokenKey: string): number {
-		let currMax = 0;
+		let currMax = results[0][tokenKey] as number;
 		for (let result of results) {
 			currMax = (result[tokenKey] > currMax ? result[tokenKey] : currMax) as number;
 		}
@@ -48,7 +48,7 @@ export default class QueryEngine {
 
 	// iterate through results, track MIN
 	private calcMin(results: InsightResult[], tokenKey: string): number {
-		let currMin = Number.MAX_SAFE_INTEGER;
+		let currMin = results[0][tokenKey] as number;
 		for (let result of results) {
 			currMin = (result[tokenKey] < currMin ? result[tokenKey] : currMin) as number;
 		}
@@ -94,8 +94,10 @@ export default class QueryEngine {
 				// note that results.length is > 0
 				let newResult: InsightResult = {};
 				for (let group of groups) {
-					let entry = groupResults[0]; // take first element since all elements in same group
-					newResult[this.queryObject.getDatasetID() + "_" + group] = entry[group];
+					if (this.queryObject.getQueryCols().includes(group)) {
+						let entry = groupResults[0]; // take first element since all elements in same group
+						newResult[this.queryObject.getDatasetID() + "_" + group] = entry[group];
+					}
 				}
 				for (let rule of this.queryObject.getApply()) {
 					// rule format: APPLYKEY__APPLYTOKEN__KEY
@@ -130,10 +132,35 @@ export default class QueryEngine {
 		return results;
 	}
 
+	private isMfield(field: string) {
+		return field === "avg" || field === "pass" || field === "fail" || field === "audit" || field === "year" ||
+			field === "lat" || field === "lon" || field === "seats";
+	}
+
 	private isSfield(field: string): boolean {
 		return field === "dept" || field === "id" || field === "instructor" || field === "title" || field === "uuid" ||
 			field === "shortname" || field === "fullname" || field === "number" || field === "name" ||
 			field === "address" || field === "type" || field === "furniture" || field === "href";
+	}
+
+	// attribute = datasetid_order
+	// order = mfield | sfield | applykey
+	private sortHelper(order: string, attribute: string, entryA: any, entryB: any) {
+		if (!this.isSfield(order) && !this.isMfield(order)) {
+			// order is an APPLYKEY, therefore it is also the attribute of the entry
+			attribute = order;
+		}
+		if (this.isSfield(order) || this.queryObject.getOrder().includes("COUNT")) {
+			if (entryA[attribute] < entryB[attribute]) {
+				return -1;
+			} else if (entryA[attribute] > entryB[attribute]) {
+				return 1;
+			} else {
+				return 0;
+			}
+		} else {
+			return entryA[attribute] - entryB[attribute];
+		}
 	}
 
 	private sortMultiKeys(order: string, result: InsightResult[]): InsightResult[] {
@@ -143,21 +170,8 @@ export default class QueryEngine {
 				if (currOrder === "UP" || currOrder === "DOWN") {
 					continue;
 				}
-				let attribute = this.queryObject.getDatasetID() + "_" + currOrder, res;
-				if (!entryA[attribute]) {
-					attribute = currOrder;
-				}
-				if (this.isSfield(currOrder)) {
-					if (entryA[attribute] < entryB[attribute]) {
-						res = -1;
-					} else if (entryA[attribute] > entryB[attribute]) {
-						res = 1;
-					} else {
-						res = 0;
-					}
-				} else {
-					res = entryA[attribute] - entryB[attribute];
-				}
+				let attribute = this.queryObject.getDatasetID() + "_" + currOrder;
+				let res = this.sortHelper(currOrder, attribute, entryA, entryB);
 				if (res !== 0) {
 					return (orderPriorityList[0] === "UP") ? res : res * -1;
 				}
@@ -175,17 +189,7 @@ export default class QueryEngine {
 			} else {
 				result.sort((entryA: any, entryB: any): number => {
 					let attribute = this.queryObject.getDatasetID() + "_" + order;
-					if (this.isSfield(order)) {
-						if (entryA[attribute] < entryB[attribute]) {
-							return -1;
-						} else if (entryA[attribute] > entryB[attribute]) {
-							return 1;
-						} else {
-							return 0;
-						}
-					} else {
-						return entryA[attribute] - entryB[attribute];
-					}
+					return this.sortHelper(order, attribute, entryA, entryB);
 				});
 			}
 		}

@@ -1193,7 +1193,7 @@ describe("InsightFacade", function () {
 		});
 	});
 
-	describe("PerformQuery", function () {
+	describe("PerformQuery", function () { // TODO: remove only
 		/*
 		 * This test suite dynamically generates tests from the JSON files in test/resources/queries.
 		 * You should not need to modify it; instead, add additional files to the queries directory.
