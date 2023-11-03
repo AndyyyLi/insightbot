@@ -30,7 +30,7 @@ export class DatasetSectionRoom {
 		return roomParser.buildRoomsArray(validBuildingRows);
 	}
 
-	private async extractRoomRowFromBuildingRows(buildingRow: Node): Promise<[any, any, any]> {
+	private async extractRoomRowFromBuildingRows(buildingRow: any): Promise<[any, any, any]> {
 		const titleLink = this.extractLinkFromColumnWithClass(buildingRow, "views-field views-field-title");
 		const nothingLink = this.extractLinkFromColumnWithClass(buildingRow, "views-field views-field-nothing");
 		const addressValue = this.extractValueFromColumnWithClass(buildingRow,
@@ -86,7 +86,7 @@ export class DatasetSectionRoom {
 		});
 	}
 
-	private extractValueFromColumnWithClass(trElement: Node, className: string): string | null {
+	private extractValueFromColumnWithClass(trElement: any, className: string): string | null {
 		if (trElement.nodeName === "tr" && trElement.childNodes) {
 			const tdWithClass = this.findTdByClass(trElement, className);
 			if (tdWithClass && tdWithClass.childNodes) {
@@ -113,17 +113,17 @@ export class DatasetSectionRoom {
 		return null;
 	}
 
-	private extractRoomRows(roomTableElement: Node): any {
+	private extractRoomRows(roomTableElement: any): any {
 		if (roomTableElement.nodeName === "tbody") {
 			if (roomTableElement.childNodes) {
-				const childNodesArray = Array.from(roomTableElement.childNodes) as Node[];
+				const childNodesArray = Array.from(roomTableElement.childNodes) as any[];
 				return childNodesArray.filter((childNode) => childNode.nodeName === "tr");
 			}
 			return [];
 		}
 		if (roomTableElement.childNodes) {
 			const childPromises = Array.from(roomTableElement.childNodes).map((childNode) => {
-				return this.extractRoomRows(childNode as Node);
+				return this.extractRoomRows(childNode as any);
 			});
 			return Promise.all(childPromises).then((rows) => rows.flat());
 		}
@@ -132,10 +132,10 @@ export class DatasetSectionRoom {
 
 	private async extractRoomElements(buildingText: string) {
 		const buildingHTML = parse(buildingText) as unknown;
-		return await this.extractRoomTable(buildingHTML as Node);
+		return await this.extractRoomTable(buildingHTML as any);
 	}
 
-	private async extractRoomTable(buildingHTML: Node): Promise<any> {
+	private async extractRoomTable(buildingHTML: any): Promise<any> {
 		if (buildingHTML.nodeName === "table") {
 			if(this.isValidRoomTable(buildingHTML)) {
 				return buildingHTML;
@@ -150,7 +150,7 @@ export class DatasetSectionRoom {
 		return [];
 	}
 
-	private isValidRoomTable(table: Node): boolean {
+	private isValidRoomTable(table: any): boolean {
 		if (table.nodeName === "table" && table.childNodes) {
 			const thNodes = this.getThNodesFromTable(table);
 			const desiredColumns = [
@@ -162,7 +162,7 @@ export class DatasetSectionRoom {
 		return false;
 	}
 
-	private extractLinkFromColumnWithClass(trElement: Node, className: string): string | null {
+	private extractLinkFromColumnWithClass(trElement: any, className: string): string | null {
 		if (trElement.nodeName === "tr" && trElement.childNodes) {
 			const tdWithLink = this.findTdByClass(trElement, className);
 			if (tdWithLink) {
@@ -227,17 +227,17 @@ export class DatasetSectionRoom {
 		});
 	}
 
-	private extractBuildingRows(buildingTableElement: Node): any {
+	private extractBuildingRows(buildingTableElement: any): any {
 		if (buildingTableElement.nodeName === "tbody") {
 			if (buildingTableElement.childNodes) {
-				const childNodesArray = Array.from(buildingTableElement.childNodes) as Node[];
+				const childNodesArray = Array.from(buildingTableElement.childNodes) as any[];
 				return childNodesArray.filter((childNode) => childNode.nodeName === "tr");
 			}
 			return [];
 		}
 		if (buildingTableElement.childNodes) {
 			const childPromises = Array.from(buildingTableElement.childNodes).map((childNode) => {
-				return this.extractBuildingRows(childNode as Node);
+				return this.extractBuildingRows(childNode as any);
 			});
 			return Promise.all(childPromises).then((rows) => rows.flat());
 		}
@@ -246,10 +246,10 @@ export class DatasetSectionRoom {
 
 	private extractIndexElements(htmlText: string): any {
 		const htmlDocument = parse(htmlText) as unknown;
-		return this.extractBuildingTable(htmlDocument as Node);
+		return this.extractBuildingTable(htmlDocument as any);
 	}
 
-	private async extractBuildingTable(html: Node): Promise<any> {
+	private async extractBuildingTable(html: any): Promise<any> {
 		if (html.nodeName === "table") {
 			if(this.isValidBuildingTable(html)) {
 				return html;
@@ -266,7 +266,7 @@ export class DatasetSectionRoom {
 		return "";
 	}
 
-	private isValidBuildingTable(table: Node): boolean {
+	private isValidBuildingTable(table: any): boolean {
 		if (table.nodeName === "table" && table.childNodes) {
 			const thNodes = this.getThNodesFromTable(table);
 			const desiredColumns = ["views-field views-field-field-building-image",
@@ -277,21 +277,19 @@ export class DatasetSectionRoom {
 		return false;
 	}
 
-	private hasDesiredColumns(thNode: Node, desiredColumns: string[]): boolean {
+	private hasDesiredColumns(thNode: any, desiredColumns: string[]): boolean {
 		const node = thNode as any;
 		return ((node.attrs && node.attrs.some(({name, value}: {name: string; value: string}) =>
 			name === "class" && desiredColumns.some((column) => value.includes(column.trim())))) || true);
 	}
 
-	private getThNodesFromTable(table: Node): Node[] {
+	private getThNodesFromTable(table: any): any[] {
 		const theadElement = Array.from(table.childNodes).find(
-			(node) => node.nodeName === "thead"
-		);
+			(node: any) => node.nodeName === "thead") as any;
 		if (theadElement && theadElement.childNodes) {
-			const trElement = Array.from(theadElement.childNodes).find((node) => node.nodeName === "tr");
-
+			const trElement = Array.from(theadElement.childNodes).find((node: any) => node.nodeName === "tr") as any;
 			if (trElement && trElement.childNodes) {
-				return Array.from(trElement.childNodes).filter((node) => node.nodeName === "th");
+				return Array.from(trElement.childNodes).filter((node: any) => node.nodeName === "th");
 			}
 		}
 		return [];

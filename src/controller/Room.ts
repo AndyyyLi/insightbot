@@ -67,7 +67,7 @@ export class Room {
 		return roomResult;
 	}
 
-	private extractDeepValueFromColumnWithClass(trElement: Node, className: string): string | null {
+	private extractDeepValueFromColumnWithClass(trElement: any, className: string): string | null {
 		if (trElement.nodeName === "tr" && trElement.childNodes) {
 			const tdWithClass = this.findTdByClass(trElement, className);
 			if (tdWithClass) {
@@ -84,7 +84,7 @@ export class Room {
 		return null;
 	}
 
-	private extractLinkFromColumnWithClass(trElement: Node, className: string): string | null {
+	private extractLinkFromColumnWithClass(trElement: any, className: string): string | null {
 		if (trElement.nodeName === "tr" && trElement.childNodes) {
 			const tdWithLink = this.findTdByClass(trElement, className);
 			if (tdWithLink) {
@@ -107,7 +107,7 @@ export class Room {
 		return null;
 	}
 
-	private extractValueFromColumnWithClass(trElement: Node, className: string): string | null {
+	private extractValueFromColumnWithClass(trElement: any, className: string): string | null {
 		if (trElement.nodeName === "tr" && trElement.childNodes) {
 			const tdWithClass = this.findTdByClass(trElement, className);
 			if (tdWithClass && tdWithClass.childNodes) {
