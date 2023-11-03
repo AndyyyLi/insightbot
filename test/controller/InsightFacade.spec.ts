@@ -1199,7 +1199,7 @@ describe("InsightFacade", function () {
 		 * You should not need to modify it; instead, add additional files to the queries directory.
 		 * You can still make tests the normal way, this is just a convenient tool for a majority of queries.
 		 */
-		describe.only("PerformQuery Folder Test", () => {
+		describe("PerformQuery Folder Test", () => {
 			before(function () {
 
 				facade = new InsightFacade();
@@ -1223,7 +1223,7 @@ describe("InsightFacade", function () {
 			folderTest<unknown, Promise<InsightResult[]>, PQErrorKind>(
 				"Dynamic InsightFacade PerformQuery tests",
 				(input) => facade.performQuery(input),
-				"./test/resources/tqueries", // TODO: revert
+				"./test/resources/queries",
 				{
 					assertOnResult: (actual, expected) => {
 						expect(actual).to.deep.equal(expected);
