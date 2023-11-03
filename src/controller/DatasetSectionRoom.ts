@@ -16,13 +16,13 @@ export class DatasetSectionRoom {
 	}
 
 	private async processRoomFiles(buildingRowsHTML: object, reject: (reason?: any) => void): Promise<InsightResult[]> {
-		const buildingRowsPromises: Array<Promise<[Node | null, Node[] | null, [number, number] | null]>> = [];
+		const buildingRowsPromises: Array<Promise<[any | null, any[] | null, [number, number] | null]>> = [];
 		for (const buildingRow of buildingRowsHTML as object[]) {
-			buildingRowsPromises.push(this.extractRoomRowFromBuildingRows(buildingRow as Node));
+			buildingRowsPromises.push(this.extractRoomRowFromBuildingRows(buildingRow as any));
 		}
 		const buildingRowsResults = await Promise.all(buildingRowsPromises);
-		const validBuildingRows: Array<[Node, Node[], [number, number]]> = buildingRowsResults.filter(
-			([_, textResult]) => textResult !== null) as Array<[Node, Node[], [number, number]]>;
+		const validBuildingRows: Array<[any, any[], [number, number]]> = buildingRowsResults.filter(
+			([_, textResult]) => textResult !== null) as Array<[any, any[], [number, number]]>;
 		if (validBuildingRows.length === 0) {
 			reject(new InsightError("No valid buildings or tables"));
 		}

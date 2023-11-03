@@ -5,7 +5,7 @@ export class Room {
 		//
 	}
 
-	public buildRoomsArray(validBuildingsAndRooms: Array<[Node, Node[], [number, number]]>): InsightResult[] {
+	public buildRoomsArray(validBuildingsAndRooms: Array<[any, any[], [number, number]]>): InsightResult[] {
 		let roomsArray: InsightResult[] = [];
 		for (const buildingRoomGeolocation of validBuildingsAndRooms) {
 			const buildingRow = buildingRoomGeolocation[0];
