@@ -2,6 +2,7 @@ import {InsightError, InsightResult} from "./IInsightFacade";
 import JSZip from "jszip";
 import {parse} from "parse5";
 import {Room} from "./Room";
+import {get} from "http";
 export class DatasetSectionRoom {
 	private unzippedContents: JSZip | null;
 	constructor() {
@@ -60,10 +61,9 @@ export class DatasetSectionRoom {
 	}
 
 	private getGeoLocation(address: string): Promise<[number | null, number | null]> {
-		const http = require("http");
 		const url = "http://cs310.students.cs.ubc.ca:11316/api/v1/project_team153/" + encodeURI(address);
 		return new Promise<[number | null, number | null]>((resolve) => {
-			http.get(url, (result: {on: (arg0: string, arg1: (chunk: any) => void) => void;}) => {
+			get(url, (result: {on: (arg0: string, arg1: (chunk: any) => void) => void;}) => {
 				let data = "";
 				result.on("data", (chunk) => {
 					data += chunk;
