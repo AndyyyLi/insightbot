@@ -698,12 +698,13 @@ describe("InsightFacade", function () {
 		});
 
 		describe("Load Dataset, Handle Disk and Crashes", function () {
-			beforeEach(function () {
-				facade = new InsightFacade();
-				clearDisk();
-			});
 
 			describe("Kind: Section", function () {
+				beforeEach(function () {
+					facade = new InsightFacade();
+					clearDisk();
+				});
+
 				it("should add small dataset and save it to disk", async function () {
 					try {
 						const result = await facade.addDataset("sections", sectionsSmall, InsightDatasetKind.Sections);
@@ -941,6 +942,15 @@ describe("InsightFacade", function () {
 			});
 
 			describe("Kind: Room", function () {
+				beforeEach(function () {
+					facade = new InsightFacade();
+					clearDisk();
+				});
+
+				afterEach(function () {
+					clearDisk();
+				});
+
 				it("should add small dataset and save it to disk", async function () {
 					try {
 						const result = await facade.addDataset("rooms", roomsOne, InsightDatasetKind.Rooms);
@@ -1001,31 +1011,10 @@ describe("InsightFacade", function () {
 
 						// crash!!
 						const newInstance = new InsightFacade();
-						await newInstance.addDataset("rooms", roomsOne, InsightDatasetKind.Rooms);
-						expect.fail("should have failed to add the same dataset id to a new instance");
+						const failed = await newInstance.addDataset("rooms", roomsOne, InsightDatasetKind.Rooms);
+						return expect.fail("should have failed to add the same dataset id to a new instance");
 					} catch (err) {
 						return expect(err).to.be.instanceOf(InsightError);
-					}
-				});
-
-				it("should be able to add datasets on a new instance", async function () {
-					try {
-						const add1 = await facade.addDataset("rooms1", roomsOne, InsightDatasetKind.Rooms);
-						expect(add1).to.deep.members(["rooms1"]);
-						const filePath1 = path.join(__dirname, "../../data", "rooms1-Rooms.json");
-						const fileExists1 = await fs.access(filePath1).then(() => true).catch(() => false);
-						expect(fileExists1).to.be.true;
-
-						// crash!!
-						const newInstance = new InsightFacade();
-						const add2 = await newInstance.addDataset("rooms2", roomsOne,
-							InsightDatasetKind.Rooms);
-						expect(add2).to.deep.members(["rooms1", "rooms2"]);
-						const filePath2 = path.join(__dirname, "../../data", "rooms2-Rooms.json");
-						const fileExists2 = await fs.access(filePath2).then(() => true).catch(() => false);
-						expect(fileExists2).to.be.true;
-					} catch (err) {
-						return expect.fail("should NOT failed to list after a crash" + err);
 					}
 				});
 
@@ -1041,6 +1030,28 @@ describe("InsightFacade", function () {
 						const newInstance = new InsightFacade();
 						const result = await newInstance.removeDataset("rooms");
 						return expect(result).to.equals("rooms");
+					} catch (err) {
+						return expect.fail("should NOT failed to list after a crash" + err);
+					}
+				});
+
+				it("should be able to add datasets on a new instance", async function () {
+					clearDisk();
+					try {
+						const add1 = await facade.addDataset("rooms1", roomsOne, InsightDatasetKind.Rooms);
+						expect(add1).to.deep.members(["rooms1"]);
+						const filePath1 = path.join(__dirname, "../../data", "rooms1-Rooms.json");
+						const fileExists1 = await fs.access(filePath1).then(() => true).catch(() => false);
+						expect(fileExists1).to.be.true;
+
+						// crash!!
+						const newInstance = new InsightFacade();
+						const add2 = await newInstance.addDataset("rooms2", roomsOne,
+							InsightDatasetKind.Rooms);
+						expect(add2).to.deep.members(["rooms1", "rooms2"]);
+						const filePath2 = path.join(__dirname, "../../data", "rooms2-Rooms.json");
+						const fileExists2 = await fs.access(filePath2).then(() => true).catch(() => false);
+						return expect(fileExists2).to.be.true;
 					} catch (err) {
 						return expect.fail("should NOT failed to list after a crash" + err);
 					}
@@ -1087,15 +1098,16 @@ describe("InsightFacade", function () {
 						// crash!!
 						const newInstance = new InsightFacade();
 						const listFacade = await newInstance.listDatasets();
-						expect(listFacade).to.have.deep.members([{
+						const expected = [{
 							id: "rooms1",
 							kind: InsightDatasetKind.Rooms,
 							numRows: 1
 						}, {
-							id: "room2",
+							id: "rooms2",
 							kind: InsightDatasetKind.Rooms,
 							numRows: 1
-						}]);
+						}];
+						expect(listFacade).to.have.deep.members(expected);
 						expect(listFacade).to.have.lengthOf(2);
 						const remove1 = await newInstance.removeDataset("rooms1");
 						expect(remove1).to.deep.equals("rooms1");
@@ -1155,7 +1167,7 @@ describe("InsightFacade", function () {
 					expect(listFacade).to.have.lengthOf(2);
 					const removeRooms = await newInstance.removeDataset("rooms");
 					expect(removeRooms).to.deep.equals("rooms");
-					const fileExists1Removed = await fs.access(filePath1).then(() => true).catch(() => false);
+					const fileExists1Removed = await fs.access(filePath2).then(() => true).catch(() => false);
 					expect(fileExists1Removed).to.be.false;
 					const addRooms2 = await newInstance.addDataset("rooms2", roomsOne,
 						InsightDatasetKind.Rooms);
