@@ -1,26 +1,299 @@
 import {InsightError, InsightResult} from "./IInsightFacade";
-
+import JSZip from "jszip";
+import {parse} from "parse5";
+import {Room} from "./Room";
 export class DatasetSectionRoom {
+	private unzippedContents: JSZip | null;
 	constructor() {
-		//
+		this.unzippedContents = null;
 	}
 
-	/**
-	 * Extracts and process the room files of the provided content and turn into an InsightResult array of rooms dataset
-	 * Return an array of parsed rooms pertaining to the content
-	 * @param content base64 zip file
-	 */
 	public handleDatasetRoom(content: string): Promise<InsightResult[]> {
 		return new Promise<InsightResult[]>((resolve, reject) => {
-			reject(new InsightError());
+			this.extractBuildingRowsFromContent(content, reject)
+				.then((buildingRowsHTML) => resolve(this.processRoomFiles(buildingRowsHTML, reject)));
 		});
 	}
 
-	private processRoomFiles(roomFiles: string[], reject: (reason?: any) => void): Promise<InsightResult[]> {
-		return Promise.reject(new InsightError());
+	private async processRoomFiles(buildingRowsHTML: object, reject: (reason?: any) => void): Promise<InsightResult[]> {
+		const buildingRowsPromises: Array<Promise<[Node | null, Node[] | null, [number, number] | null]>> = [];
+		for (const buildingRow of buildingRowsHTML as object[]) {
+			buildingRowsPromises.push(this.extractRoomRowFromBuildingRows(buildingRow as Node));
+		}
+		const buildingRowsResults = await Promise.all(buildingRowsPromises);
+		const validBuildingRows: Array<[Node, Node[], [number, number]]> = buildingRowsResults.filter(
+			([_, textResult]) => textResult !== null) as Array<[Node, Node[], [number, number]]>;
+		if (validBuildingRows.length === 0) {
+			reject(new InsightError("No valid buildings or tables"));
+		}
+		let roomParser = new Room();
+		return roomParser.buildRoomsArray(validBuildingRows);
 	}
 
-	private extractRoomFiles(content: string, reject: (reason?: any) => void): Promise<string[]> {
-		return Promise.reject(new InsightError());
+	private async extractRoomRowFromBuildingRows(buildingRow: Node): Promise<[any, any, any]> {
+		const titleLink = this.extractLinkFromColumnWithClass(buildingRow, "views-field views-field-title");
+		const nothingLink = this.extractLinkFromColumnWithClass(buildingRow, "views-field views-field-nothing");
+		const addressValue = this.extractValueFromColumnWithClass(buildingRow,
+			"views-field views-field-field-building-address");
+		if (titleLink && this.unzippedContents && addressValue) {
+			const titleResult = await this.retrieveRoomTextFromLink(titleLink) as unknown;
+			if (titleResult) {
+				const validRoomTable = await this.extractRoomElements(titleResult as string);
+				const roomRows = validRoomTable[0] ? await this.extractRoomRows(validRoomTable[0]) : null;
+				const geoLocation = await this.getGeoLocation(addressValue);
+				if (geoLocation[0] !== null && geoLocation[1] !== null) {
+					return [buildingRow, roomRows, geoLocation];
+				}
+			}
+		} else if (nothingLink && this.unzippedContents && addressValue) {
+			const nothingResult = await this.retrieveRoomTextFromLink(nothingLink) as unknown;
+			if (nothingResult) {
+				const validRoomTable = await this.extractRoomElements(nothingResult as string);
+				const roomRows = validRoomTable[0] ? await this.extractRoomRows(validRoomTable[0]) : null;
+				const geoLocation = await this.getGeoLocation(addressValue);
+				if (geoLocation[0] !== null && geoLocation[1] !== null) {
+					return [buildingRow, roomRows, geoLocation];
+				}
+			}
+		}
+		return [null, null, null];
+	}
+
+	private getGeoLocation(address: string): Promise<[number | null, number | null]> {
+		const http = require("http");
+		const url = "http://cs310.students.cs.ubc.ca:11316/api/v1/project_team153/" + encodeURI(address);
+		return new Promise<[number | null, number | null]>((resolve) => {
+			http.get(url, (result: {on: (arg0: string, arg1: (chunk: any) => void) => void;}) => {
+				let data = "";
+				result.on("data", (chunk) => {
+					data += chunk;
+				});
+				result.on("end", () => {
+					try {
+						const geolocation = JSON.parse(data);
+						if (geolocation.error) {
+							resolve([null , null]);
+						} else {
+							resolve([geolocation.lat, geolocation.lon]);
+						}
+					} catch (e) {
+						resolve([null, null]);
+					}
+				});
+			}).on("error", (err: any) => {
+				resolve([null, null]);
+			});
+		});
+	}
+
+	private extractValueFromColumnWithClass(trElement: Node, className: string): string | null {
+		if (trElement.nodeName === "tr" && trElement.childNodes) {
+			const tdWithClass = this.findTdByClass(trElement, className);
+			if (tdWithClass && tdWithClass.childNodes) {
+				for (const childNode of tdWithClass.childNodes) {
+					if (childNode.nodeName === "#text") { // Check if it's a text node
+						return childNode.value.trim();
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	private async retrieveRoomTextFromLink(link: string | null): Promise<string | null> {
+		if (link && this.unzippedContents) {
+			const matchingFiles = Object.keys(this.unzippedContents.files).filter(
+				(fileName) => link.endsWith(fileName)
+			);
+			if (matchingFiles.length > 0) {
+				const result = await this.unzippedContents.files[matchingFiles[0]].async("text").catch(() => null);
+				return result;
+			}
+		}
+		return null;
+	}
+
+	private extractRoomRows(roomTableElement: Node): any {
+		if (roomTableElement.nodeName === "tbody") {
+			if (roomTableElement.childNodes) {
+				const childNodesArray = Array.from(roomTableElement.childNodes) as Node[];
+				return childNodesArray.filter((childNode) => childNode.nodeName === "tr");
+			}
+			return [];
+		}
+		if (roomTableElement.childNodes) {
+			const childPromises = Array.from(roomTableElement.childNodes).map((childNode) => {
+				return this.extractRoomRows(childNode as Node);
+			});
+			return Promise.all(childPromises).then((rows) => rows.flat());
+		}
+		return [];
+	}
+
+	private async extractRoomElements(buildingText: string) {
+		const buildingHTML = parse(buildingText) as unknown;
+		return await this.extractRoomTable(buildingHTML as Node);
+	}
+
+	private async extractRoomTable(buildingHTML: Node): Promise<any> {
+		if (buildingHTML.nodeName === "table") {
+			if(this.isValidRoomTable(buildingHTML)) {
+				return buildingHTML;
+			}
+		}
+		if (buildingHTML.childNodes) {
+			const childPromises = Array.from(buildingHTML.childNodes).map((childNode) => {
+				return this.extractRoomTable(childNode);
+			});
+			return Promise.all(childPromises).then((rows) => rows.flat());
+		}
+		return [];
+	}
+
+	private isValidRoomTable(table: Node): boolean {
+		if (table.nodeName === "table" && table.childNodes) {
+			const thNodes = this.getThNodesFromTable(table);
+			const desiredColumns = [
+				"views-field views-field-field-room-number", "views-field views-field-field-room-capacity",
+				"views-field views-field-field-room-furniture", "views-field views-field-field-room-type",
+			];
+			return thNodes.every((thNode) => this.hasDesiredColumns(thNode, desiredColumns));
+		}
+		return false;
+	}
+
+	private extractLinkFromColumnWithClass(trElement: Node, className: string): string | null {
+		if (trElement.nodeName === "tr" && trElement.childNodes) {
+			const tdWithLink = this.findTdByClass(trElement, className);
+			if (tdWithLink) {
+				const linkElement = this.findChildByTag(tdWithLink, "a");
+				if (linkElement && linkElement.attrs) {
+					const hrefAttribute = linkElement.attrs.find((attr: {name: string;}) => attr.name === "href");
+					return hrefAttribute ? hrefAttribute.value : null;
+				}
+			}
+		}
+		return null;
+	}
+
+	private findTdByClass(element: any, className: string): any {
+		if (element.tagName === "td" && element.attrs &&
+			element.attrs.some((attr: {name: string, value: string;}) =>
+				attr.name === "class" && attr.value === className)) {
+			return element;
+		}
+		for (const child of element.childNodes) {
+			if (child.tagName) {
+				const result = this.findTdByClass(child, className);
+				if (result) {
+					return result;
+				}
+			}
+		}
+		return null;
+	}
+
+	private findChildByTag(element: any, tag: string): any {
+		for (const child of element.childNodes) {
+			if (child.tagName === tag) {
+				return child;
+			}
+		}
+		return null;
+	}
+
+	private extractBuildingRowsFromContent(content: string, reject: (reason?: any) => void): Promise<object> {
+		let zip = new JSZip();
+		return zip.loadAsync(content, {base64:true}).then((contents) => {
+			this.unzippedContents = contents;
+			const indexPromise = Object.keys(contents.files).map(async (filename) => {
+				if (filename.endsWith("index.htm")) {
+					const indexText = await contents.files[filename].async("text").catch();
+					return this.extractIndexElements(indexText);
+				}
+			});
+			return Promise.all(indexPromise);
+		}).then((extractedElements) => {
+			const validTableHTML = extractedElements.filter((element) => !!element);
+			if (validTableHTML.length !== 1) {
+				reject(new InsightError("No valid building table in index.htm or invalid index.htm"));
+			}
+			return this.extractBuildingRows(validTableHTML[0]);
+		}).then((extractedRows) => {
+			const buildingRows = extractedRows.filter((element: any ) => !!element);
+			return buildingRows;
+		}).catch((error) => {
+			reject(new InsightError("Failed to extract building table from zip file" + error));
+		});
+	}
+
+	private extractBuildingRows(buildingTableElement: Node): any {
+		if (buildingTableElement.nodeName === "tbody") {
+			if (buildingTableElement.childNodes) {
+				const childNodesArray = Array.from(buildingTableElement.childNodes) as Node[];
+				return childNodesArray.filter((childNode) => childNode.nodeName === "tr");
+			}
+			return [];
+		}
+		if (buildingTableElement.childNodes) {
+			const childPromises = Array.from(buildingTableElement.childNodes).map((childNode) => {
+				return this.extractBuildingRows(childNode as Node);
+			});
+			return Promise.all(childPromises).then((rows) => rows.flat());
+		}
+		return [];
+	}
+
+	private extractIndexElements(htmlText: string): any {
+		const htmlDocument = parse(htmlText) as unknown;
+		return this.extractBuildingTable(htmlDocument as Node);
+	}
+
+	private async extractBuildingTable(html: Node): Promise<any> {
+		if (html.nodeName === "table") {
+			if(this.isValidBuildingTable(html)) {
+				return html;
+			}
+		}
+		if (html.childNodes) {
+			const childPromises = Array.from(html.childNodes).map((childNode) => {
+				return this.extractBuildingTable(childNode);
+			});
+			return Promise.all(childPromises).then((tables) =>
+				tables.find((table) =>
+					table !== "") || "");
+		}
+		return "";
+	}
+
+	private isValidBuildingTable(table: Node): boolean {
+		if (table.nodeName === "table" && table.childNodes) {
+			const thNodes = this.getThNodesFromTable(table);
+			const desiredColumns = ["views-field views-field-field-building-image",
+				"views-field views-field-field-building-code", "views-field views-field-title",
+				"views-field views-field-field-building-address", "views-field views-field-nothing"];
+			return thNodes.every((thNode) => this.hasDesiredColumns(thNode, desiredColumns));
+		}
+		return false;
+	}
+
+	private hasDesiredColumns(thNode: Node, desiredColumns: string[]): boolean {
+		const node = thNode as any;
+		return ((node.attrs && node.attrs.some(({name, value}: {name: string; value: string}) =>
+			name === "class" && desiredColumns.some((column) => value.includes(column.trim())))) || true);
+	}
+
+	private getThNodesFromTable(table: Node): Node[] {
+		const theadElement = Array.from(table.childNodes).find(
+			(node) => node.nodeName === "thead"
+		);
+		if (theadElement && theadElement.childNodes) {
+			const trElement = Array.from(theadElement.childNodes).find((node) => node.nodeName === "tr");
+
+			if (trElement && trElement.childNodes) {
+				return Array.from(trElement.childNodes).filter((node) => node.nodeName === "th");
+			}
+		}
+		return [];
 	}
 }

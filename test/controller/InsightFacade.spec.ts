@@ -390,7 +390,7 @@ describe("InsightFacade", function () {
 						const result = await facade.addDataset("rooms", roomsOne, InsightDatasetKind.Rooms);
 						return expect(result).to.deep.equals(["rooms"]);
 					} catch (err) {
-						return expect.fail("should NOT have rejected addition of minimal rooms dataset");
+						return expect.fail("should NOT have rejected addition of minimal rooms dataset" + err);
 
 					}
 				});

@@ -10,6 +10,7 @@ import {
 } from "./IInsightFacade";
 import QueryEngine from "./QueryEngine";
 import {DatasetSectionKind} from "./DatasetSectionKind";
+import {DatasetSectionRoom} from "./DatasetSectionRoom";
 
 const PROJECT_ROOT = path.join(__dirname, "../..");
 const DATA_FOLDER_PATH = path.join(PROJECT_ROOT, "data");
@@ -23,14 +24,18 @@ export default class InsightFacade implements IInsightFacade {
 
 	private queryEngine: QueryEngine;
 	private datasetSectionHelper: DatasetSectionKind;
+	private datasetRoomHelper: DatasetSectionRoom;
 	private currentDatasets: string[];
 	private datasetsMap: Map<string, InsightResult[]>;
+	private datasetsType: Map<string, InsightDatasetKind>;
 
 	constructor() {
 		this.queryEngine = new QueryEngine();
 		this.datasetSectionHelper = new DatasetSectionKind();
+		this.datasetRoomHelper = new DatasetSectionRoom();
 		this.currentDatasets = [];
 		this.datasetsMap = new Map<string, InsightResult[]>();
+		this.datasetsType = new Map<string, InsightDatasetKind>();
 	}
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
@@ -48,17 +53,21 @@ export default class InsightFacade implements IInsightFacade {
 					}
 
 					if (kind === InsightDatasetKind.Rooms) {
-						reject(new InsightError("Invalid room kind"));
+						return this.datasetRoomHelper.handleDatasetRoom(content);
 					} else if (kind === InsightDatasetKind.Sections) {
 						return this.datasetSectionHelper.handleDatasetSection(content);
 					}
 				})
 				.then((result) => {
 					InsightResultArray = result as InsightResult[];
-					return this.saveToDisk(id, InsightResultArray, reject);
+					if (InsightResultArray.length < 1) {
+						reject(new InsightError("No valid section or rooms in dataset"));
+					}
+					return this.saveToDisk(id, InsightResultArray, kind, reject);
 				})
 				.then(() => {
 					this.currentDatasets.push(id);
+					this.datasetsType.set(id, kind);
 					this.datasetsMap.set(id, InsightResultArray);
 					resolve(this.currentDatasets);
 				})
@@ -69,11 +78,17 @@ export default class InsightFacade implements IInsightFacade {
 	}
 
 	// Saves the desired InsightResult[] to disk
-	private async saveToDisk(id: string, sections: InsightResult[], reject: (reason?: any) => void) {
+	private async saveToDisk(id: string, sections: InsightResult[], kind: InsightDatasetKind, reject: (reason?: any) =>
+		void) {
 		try {
 			await fs.mkdir(DATA_FOLDER_PATH, {recursive: true});
 
-			const filePath = path.join(DATA_FOLDER_PATH, id + ".json");
+			let filePath = "";
+			if (kind === InsightDatasetKind.Sections) {
+				filePath = path.join(DATA_FOLDER_PATH, id + "-Sections.json");
+			} else {
+				filePath = path.join(DATA_FOLDER_PATH, id + "-Rooms.json");
+			}
 			await fs.writeFile(filePath, JSON.stringify(sections, null, 2));
 		} catch (error: any) {
 			reject(new InsightError("Failed to save dataset to disk: " + error.message));
@@ -91,11 +106,17 @@ export default class InsightFacade implements IInsightFacade {
 					throw new NotFoundError("Trying to remove dataset that has not been added");
 				}
 
-				const filePath = path.join(DATA_FOLDER_PATH, id + ".json");
+				let filePath = "";
+				if (this.datasetsType.get(id) === InsightDatasetKind.Sections) {
+					filePath = path.join(DATA_FOLDER_PATH, id + "-Sections.json");
+				} else {
+					filePath = path.join(DATA_FOLDER_PATH, id + "-Rooms.json");
+				}
 				return fs.remove(filePath);
 			})
 			.then(() => {
 				this.currentDatasets = this.currentDatasets.filter((datasetID) => datasetID !== id);
+				this.datasetsType.delete(id);
 				this.datasetsMap.delete(id);
 				return id;
 			})
@@ -130,10 +151,11 @@ export default class InsightFacade implements IInsightFacade {
 			this.loadDatasetsFromDisk().then(() => {
 				for(const key of this.datasetsMap.keys()) {
 					const dataset = this.datasetsMap.get(key);
-					if (dataset) {
+					const datasetType = this.datasetsType.get(key);
+					if (dataset && datasetType) {
 						const currInsightDataset: InsightDataset = {
 							id: key,
-							kind: InsightDatasetKind.Sections,
+							kind: datasetType,
 							numRows: dataset.length
 						};
 						datasetsList.push(currInsightDataset);
@@ -159,10 +181,13 @@ export default class InsightFacade implements IInsightFacade {
 					const dataFileContent = await fs.readFile(dataFilePath, "utf-8");
 
 					try {
-						const datasetID = dataFileName.replace(".json", "");
+						const datasetID = dataFileName.split("-")[0];
+						const datasetKind = dataFileName.split("-")[1];
 						const datasetSectionsArray = JSON.parse(dataFileContent) as InsightResult[];
 						if (!this.currentDatasets.includes(datasetID)) {
 							this.currentDatasets.push(datasetID);
+							this.datasetsType.set(datasetID, datasetKind === "Sections" ?
+								InsightDatasetKind.Sections : InsightDatasetKind.Rooms);
 							this.datasetsMap.set(datasetID, datasetSectionsArray);
 						}
 					} catch (e) {
