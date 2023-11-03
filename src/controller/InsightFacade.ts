@@ -14,6 +14,8 @@ import {DatasetSectionKind} from "./DatasetSectionKind";
 const PROJECT_ROOT = path.join(__dirname, "../..");
 const DATA_FOLDER_PATH = path.join(PROJECT_ROOT, "data");
 
+import QueryValidator from "./QueryValidator";
+
 /**
  * This is the main programmatic entry point for the project.
  * Method documentation is in IInsightFacade
@@ -21,16 +23,20 @@ const DATA_FOLDER_PATH = path.join(PROJECT_ROOT, "data");
  */
 export default class InsightFacade implements IInsightFacade {
 
-	private queryEngine: QueryEngine;
 	private datasetSectionHelper: DatasetSectionKind;
 	private currentDatasets: string[];
+	private queryEngine: QueryEngine | undefined;
+	private queryValidator: QueryValidator;
 	private datasetsMap: Map<string, InsightResult[]>;
+	private datasetsType: Map<string, InsightDatasetKind>;
 
 	constructor() {
-		this.queryEngine = new QueryEngine();
+		this.currentDatasets = [];
+		this.queryValidator = new QueryValidator();
 		this.datasetSectionHelper = new DatasetSectionKind();
 		this.currentDatasets = [];
 		this.datasetsMap = new Map<string, InsightResult[]>();
+		this.datasetsType = new Map<string, InsightDatasetKind>();
 	}
 
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
@@ -112,9 +118,11 @@ export default class InsightFacade implements IInsightFacade {
 		return new Promise((resolve, reject) => {
 			this.loadDatasetsFromDisk().then(() => {
 				try {
-					this.queryEngine.checkNewQuery(query);
-					this.queryEngine.checkWhere();
-					this.queryEngine.checkOptions();
+					this.queryValidator.checkNewQuery(query, this.datasetsType);
+					this.queryValidator.checkWhere();
+					this.queryValidator.checkOptions();
+					this.queryValidator.checkTransformations();
+					this.queryEngine = new QueryEngine(this.queryValidator.makeQueryObj());
 					let result = this.queryEngine.executeQuery(this.datasetsMap);
 					resolve(result);
 				} catch (err) {

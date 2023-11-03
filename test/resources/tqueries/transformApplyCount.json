@@ -1,0 +1,67 @@
+{
+	"title": "SELECT dept, coursesWithOver100Fails WHERE fail > 100, APPLY COUNT, GROUP by dept",
+	"input": {
+		"WHERE": {
+			"GT": {
+				"sections_fail": 100
+			}
+		},
+		"OPTIONS": {
+			"COLUMNS": [
+				"sections_dept",
+				"coursesWithOver100Fails"
+			]
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				"sections_dept"
+			],
+			"APPLY": [
+				{
+					"coursesWithOver100Fails": {
+						"COUNT": "sections_id"
+					}
+				}
+			]
+		}
+	},
+	"errorExpected": false,
+	"expected": [
+		{
+			"sections_dept": "apsc",
+			"coursesWithOver100Fails": 2
+		},
+		{
+			"sections_dept": "biol",
+			"coursesWithOver100Fails": 3
+		},
+		{
+			"sections_dept": "chem",
+			"coursesWithOver100Fails": 3
+		},
+		{
+			"sections_dept": "comm",
+			"coursesWithOver100Fails": 1
+		},
+		{
+			"sections_dept": "cpsc",
+			"coursesWithOver100Fails": 1
+		},
+		{
+			"sections_dept": "econ",
+			"coursesWithOver100Fails": 2
+		},
+		{
+			"sections_dept": "math",
+			"coursesWithOver100Fails": 7
+		},
+		{
+			"sections_dept": "phys",
+			"coursesWithOver100Fails": 2
+		},
+		{
+			"sections_dept": "psyc",
+			"coursesWithOver100Fails": 2
+		}
+	]
+}
