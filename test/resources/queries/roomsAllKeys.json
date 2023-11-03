@@ -55,7 +55,7 @@
 				},
 				{
 					"IS": {
-						"rooms_href": "*students.ubc.ca*"
+						"rooms_href": "*buildings-and-classrooms*"
 					}
 				}
 			]
@@ -89,7 +89,7 @@
 			"rooms_seats": 30,
 			"rooms_type": "Small Group",
 			"rooms_furniture": "Classroom-Movable Tablets",
-			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/MATH-202"
+			"rooms_href": "./campus/discover/buildings-and-classrooms/MATH.htm"
 		},
 		{
 			"rooms_fullname": "Mathematics",
@@ -102,7 +102,7 @@
 			"rooms_seats": 30,
 			"rooms_type": "Open Design General Purpose",
 			"rooms_furniture": "Classroom-Movable Tablets",
-			"rooms_href": "http://students.ubc.ca/campus/discover/buildings-and-classrooms/room/MATH-204"
+			"rooms_href": "./campus/discover/buildings-and-classrooms/MATH.htm"
 		}
 	]
 }

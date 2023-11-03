@@ -136,36 +136,42 @@ export default class QueryEngine {
 			field === "address" || field === "type" || field === "furniture" || field === "href";
 	}
 
+	private sortMultiKeys(order: string, result: InsightResult[]): InsightResult[] {
+		let orderPriorityList = order.split("_");
+		return result.sort((entryA: any, entryB: any): number => {
+			for (let currOrder of orderPriorityList) {
+				if (currOrder === "UP" || currOrder === "DOWN") {
+					continue;
+				}
+				let attribute = this.queryObject.getDatasetID() + "_" + currOrder, res;
+				if (!entryA[attribute]) {
+					attribute = currOrder;
+				}
+				if (this.isSfield(currOrder)) {
+					if (entryA[attribute] < entryB[attribute]) {
+						res = -1;
+					} else if (entryA[attribute] > entryB[attribute]) {
+						res = 1;
+					} else {
+						res = 0;
+					}
+				} else {
+					res = entryA[attribute] - entryB[attribute];
+				}
+				if (res !== 0) {
+					return (orderPriorityList[0] === "UP") ? res : res * -1;
+				}
+			}
+			return 0; // all keys tied, therefore order doesn't change
+		});
+	}
+
 	// sorts result if necessary, can take in multiple sort keys in case of tiebreakers
 	public setOrder(result: InsightResult[]): InsightResult[] {
 		let order = this.queryObject.getOrder();
 		if (order !== "") {
 			if (order.includes("UP") || order.includes("DOWN")) {
-				let orderPriorityList = order.split("_");
-				result.sort((entryA: any, entryB: any): number => {
-					for (let currOrder of orderPriorityList) {
-						if (currOrder === "UP" || currOrder === "DOWN") {
-							continue;
-						}
-						let attribute = this.queryObject.getDatasetID() + "_" + currOrder;
-						let res;
-						if (this.isSfield(currOrder)) {
-							if (entryA[attribute] < entryB[attribute]) {
-								res = -1;
-							} else if (entryA[attribute] > entryB[attribute]) {
-								res = 1;
-							} else {
-								res = 0;
-							}
-						} else {
-							res = entryA[attribute] - entryB[attribute];
-						}
-						if (res !== 0) {
-							return (orderPriorityList[0] === "UP") ? res : res * -1;
-						}
-					}
-					return 0; // all keys tied, therefore order doesn't change
-				});
+				result = this.sortMultiKeys(order, result);
 			} else {
 				result.sort((entryA: any, entryB: any): number => {
 					let attribute = this.queryObject.getDatasetID() + "_" + order;
@@ -213,55 +219,60 @@ export default class QueryEngine {
 		return this.setOrder(result);
 	}
 
-	// checks filter in reverse order to see if section meets requirements
+	private scompCheck(data: any, name: string): boolean {
+		if (!name.includes("*")) {
+			return name === data;
+		} else {
+			if (name === "*" || name === "**") { // full wildcard, anything works
+				return true;
+			} else if (name.substring(1, (name.length - 1)).includes("*")) {
+				throw new InsightError(name + " contains invalid asterisk");
+			} else if (name.at(0) === "*" && name.at(-1) === "*") { // contains name
+				return data.includes(name.substring(1, name.length - 1));
+			} else if (name.at(0) === "*") { // ends with name
+				return data.substring(data.length - name.length + 1) === name.substring(1);
+			} else { // starts with name
+				return data.substring(0, name.length - 1) === name.substring(0, name.length - 1);
+			}
+		}
+	}
+
+	private mcompCheck(data: any, value: number, comp: string): boolean {
+		if (comp === "GT") {
+			return data > value;
+		} else if (comp === "LT") {
+			return data < value;
+		} else {
+			return data === value;
+		}
+	}
+
 	// returns true if filter meets all requirements, else return false
-	// if OR: marks all components such that if at least one is true, the entire logic is true
-	// if AND: marks all components such that if at least one is false, the entire logic is false
-	public meetsFilterReqs(section: any, query: QueryNode): boolean {
+	public meetsFilterReqs(entry: any, query: QueryNode): boolean {
 		let filterType = query.getFilterType(), filter = query.getFilter();
 		if (filterType === 0) { // non comp
 			let children = query.getBody() as number[];
 			if (filter === "AND" || filter === "OR") {
 				let success = false;
 				for (let child of children) {
-					success = this.meetsFilterReqs(section, this.queryObject.getQueryNodes()[child]);
+					success = this.meetsFilterReqs(entry, this.queryObject.getQueryNodes()[child]);
 					if (filter === "AND" ? !success : success) {
 						break;
 					}
 				}
 				return success;
 			} else { // NOT
-				return !this.meetsFilterReqs(section, this.queryObject.getQueryNodes()[children[0]]);
+				return !this.meetsFilterReqs(entry, this.queryObject.getQueryNodes()[children[0]]);
 			}
 		} else { // comp
 			let components = query.getFilter().split("_");
-			let comp = components[0], field = components[1], data = section[field];
+			let comp = components[0], field = components[1], data = entry[field];
 			if (filterType === 1) { // mcomp
 				let value = query.getBody() as number;
-				if (comp === "GT") {
-					return data > value;
-				} else if (comp === "LT") {
-					return data < value;
-				} else {
-					return data === value;
-				}
+				return this.mcompCheck(data, value, comp);
 			} else { // scomp
 				let name = query.getBody() as string;
-				if (!name.includes("*")) {
-					return name === data;
-				} else {
-					if (name === "*" || name === "**") { // full wildcard, anything works
-						return true;
-					} else if (name.substring(1, (name.length - 1)).includes("*")) {
-						throw new InsightError(name + " contains invalid asterisk");
-					} else if (name.at(0) === "*" && name.at(-1) === "*") { // contains name
-						return data.includes(name.substring(1, name.length - 1));
-					} else if (name.at(0) === "*") { // ends with name
-						return data.substring(data.length - name.length + 1) === name.substring(1);
-					} else { // starts with name
-						return data.substring(0, name.length - 1) === name.substring(0, name.length - 1);
-					}
-				}
+				return this.scompCheck(data, name);
 			}
 		}
 	}
