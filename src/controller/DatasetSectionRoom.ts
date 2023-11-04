@@ -103,7 +103,7 @@ export class DatasetSectionRoom {
 	private async retrieveRoomTextFromLink(link: string | null): Promise<string | null> {
 		if (link && this.unzippedContents) {
 			const matchingFiles = Object.keys(this.unzippedContents.files).filter(
-				(fileName) => link.endsWith(fileName)
+				(fileName) => (link.replace("./", "") === fileName)
 			);
 			if (matchingFiles.length > 0) {
 				const result = await this.unzippedContents.files[matchingFiles[0]].async("text").catch(() => null);
@@ -207,7 +207,7 @@ export class DatasetSectionRoom {
 		return zip.loadAsync(content, {base64:true}).then((contents) => {
 			this.unzippedContents = contents;
 			const indexPromise = Object.keys(contents.files).map(async (filename) => {
-				if (filename.endsWith("index.htm")) {
+				if (filename === "index.htm") {
 					const indexText = await contents.files[filename].async("text").catch();
 					return this.extractIndexElements(indexText);
 				}

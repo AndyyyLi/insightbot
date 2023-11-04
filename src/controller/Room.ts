@@ -29,19 +29,18 @@ export class Room {
 					"views-field views-field-field-room-type"));
 				const furnitureValue = String(this.extractValueFromColumnWithClass(room,
 					"views-field views-field-field-room-furniture"));
-				let hrefValue = String(this.extractLinkFromColumnWithClass(buildingRow,
-					"views-field views-field-title"));
-				if (!hrefValue) {
-					hrefValue = String(this.extractValueFromColumnWithClass(buildingRow,
-						"views-field views-field-nothing"));
-				}
+				const hrefValue = String(this.extractLinkFromColumnWithClass(room,
+					"views-field views-field-nothing"));
 
-				if (fullnameValue && shortnameValue && numberValue && addressValue && latValue && lonValue && seatValue
-					&& typeValue && furnitureValue && hrefValue) {
-					const roomResult = this.parse(fullnameValue, shortnameValue, numberValue, addressValue, latValue,
-						lonValue, seatValue, typeValue, furnitureValue, hrefValue);
-					roomsArray.push(roomResult);
-				}
+				// if (fullnameValue && shortnameValue && numberValue && addressValue && latValue && lonValue && seatValue
+				// 	&& typeValue && furnitureValue && hrefValue) {
+				// 	const roomResult = this.parse(fullnameValue, shortnameValue, numberValue, addressValue, latValue,
+				// 		lonValue, seatValue, typeValue, furnitureValue, hrefValue);
+				// 	roomsArray.push(roomResult);
+				// }
+				const roomResult = this.parse(fullnameValue, shortnameValue, numberValue, addressValue, latValue,
+					lonValue, seatValue, typeValue, furnitureValue, hrefValue);
+				roomsArray.push(roomResult);
 			}
 		}
 		return roomsArray;
