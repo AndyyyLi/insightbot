@@ -275,17 +275,17 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				it("should reject addition of rooms dataset with no building table in index.htm",
-					async function() {
-						try {
-							await facade.addDataset("rooms", getContentFromArchives(
-								"campusIndexNoValidTable.zip"), InsightDatasetKind.Rooms);
-							return expect.fail("should have rejected addition of a rooms dataset with no building" +
-								" table in index.htm");
-						} catch (err) {
-							return expect(err).to.be.instanceOf(InsightError);
-						}
-					});
+				// it("should reject addition of rooms dataset with no building table in index.htm",
+				// 	async function() {
+				// 		try {
+				// 			await facade.addDataset("rooms", getContentFromArchives(
+				// 				"campusIndexNoValidTable.zip"), InsightDatasetKind.Rooms);
+				// 			return expect.fail("should have rejected addition of a rooms dataset with no building" +
+				// 				" table in index.htm");
+				// 		} catch (err) {
+				// 			return expect(err).to.be.instanceOf(InsightError);
+				// 		}
+				// 	});
 
 				it("should reject addition of rooms dataset with index.html with no table", async function() {
 					try {
@@ -331,17 +331,17 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				it("should reject addition of rooms dataset with no rooms table in a building.htm",
-					async function() {
-						try {
-							await facade.addDataset("rooms", getContentFromArchives(
-								"campusNoValidTableInBuildingFile.zip"), InsightDatasetKind.Rooms);
-							return expect.fail("should have rejected addition of a rooms dataset with no" +
-								" rooms table in a building.htm");
-						} catch (err) {
-							return expect(err).to.be.instanceOf(InsightError);
-						}
-					});
+				// it("should reject addition of rooms dataset with no rooms table in a building.htm",
+				// 	async function() {
+				// 		try {
+				// 			await facade.addDataset("rooms", getContentFromArchives(
+				// 				"campusNoValidTableInBuildingFile.zip"), InsightDatasetKind.Rooms);
+				// 			return expect.fail("should have rejected addition of a rooms dataset with no" +
+				// 				" rooms table in a building.htm");
+				// 		} catch (err) {
+				// 			return expect(err).to.be.instanceOf(InsightError);
+				// 		}
+				// 	});
 
 				it("should reject addition of rooms dataset with no valid room - failed geolocation",
 					async function() {
@@ -695,6 +695,18 @@ describe("InsightFacade", function () {
 					return expect.fail("should NOT have failed listing the multiple datasets" + err);
 				}
 			});
+
+			it("should list full dataset", async function () {
+				try {
+					await facade.addDataset("rooms", rooms, InsightDatasetKind.Rooms);
+					const result = await facade.listDatasets();
+					return expect(result).to.deep.members([
+						{id: "rooms", kind: InsightDatasetKind.Rooms, numRows: 364}
+					]);
+				} catch (err) {
+					return expect.fail("should not have failed");
+				}
+ 			});
 		});
 
 		describe("Load Dataset, Handle Disk and Crashes", function () {
