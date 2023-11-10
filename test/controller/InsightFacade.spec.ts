@@ -1382,4 +1382,1112 @@ describe("InsightFacade", function () {
 
 		});
 	});
+
+	describe("C2 User Stories", function () {
+		beforeEach(function () {
+			facade = new InsightFacade();
+			clearDisk();
+		});
+
+		it("1. should handle different dataset structures", async function () {
+			// I add the current year's rooms dataset. This should exactly follow the structure of the dataset I gave you.
+			// I add a rooms dataset from 2015. The building HTMLs from this dataset look a bit different.
+			// I add a rooms dataset from 2012. Apparently someone messed up and this dataset is missing an entire building file!
+			// I add a rooms dataset from 2010. It looks like we had fewer buildings back then.
+			// But when I got to Step 3, I should still be able to add and view the rest of the rooms.
+			try {
+				const addCurrent = await facade.addDataset("currentRooms", rooms, InsightDatasetKind.Rooms);
+				expect(addCurrent).to.deep.equals(["currentRooms"]);
+
+				const add2015 = await facade.addDataset("2015", getContentFromArchives(
+					"campusDifferentBuildingFileStructure.zip"), InsightDatasetKind.Rooms);
+				expect(add2015).to.deep.equals(["currentRooms", "2015"]);
+				const listCurrent2015 = await facade.listDatasets();
+				expect(listCurrent2015).to.deep.equals([
+					{id: "currentRooms", kind: InsightDatasetKind.Rooms, numRows: 364},
+					{id: "2015", kind: InsightDatasetKind.Rooms, numRows: 9}
+				]);
+
+				const add2012 = await facade.addDataset("2012", getContentFromArchives(
+					"campusMissingALRDBuildingFile.zip"), InsightDatasetKind.Rooms);
+				expect(add2012).to.deep.equals(["currentRooms", "2015", "2012"]);
+				const listCurrent2012 = await facade.listDatasets();
+				expect(listCurrent2012).to.deep.equals([
+					{id: "currentRooms", kind: InsightDatasetKind.Rooms, numRows: 364},
+					{id: "2015", kind: InsightDatasetKind.Rooms, numRows: 9},
+					{id: "2012", kind: InsightDatasetKind.Rooms, numRows: 359}
+				]);
+
+				const add2010 = await facade.addDataset("2010", roomsOne, InsightDatasetKind.Rooms);
+				expect(add2010).to.deep.equals(["currentRooms", "2015", "2012", "2010"]);
+				const listCurrent2010 = await facade.listDatasets();
+				return expect(listCurrent2010).to.deep.equals([
+					{id: "currentRooms", kind: InsightDatasetKind.Rooms, numRows: 364},
+					{id: "2015", kind: InsightDatasetKind.Rooms, numRows: 9},
+					{id: "2012", kind: InsightDatasetKind.Rooms, numRows: 359},
+					{id: "2010", kind: InsightDatasetKind.Rooms, numRows: 1}
+				]);
+			} catch (err) {
+				return expect.fail("should not have failed to handle different dataset structures" + err);
+			}
+		}).timeout(10000);
+
+		it("2. should have dataset assurance", async function () {
+			// I add queryable sections and rooms datasets
+			// I list all the datasets and ensure the correct number of rooms/sections were added.
+			// But when I got to Step 2, I didn't get the response that I expected.
+			try {
+				const addSection = await facade.addDataset("sections", sections, InsightDatasetKind.Sections);
+				expect(addSection).to.deep.equals(["sections"]);
+
+				const addRoom = await facade.addDataset("rooms", rooms, InsightDatasetKind.Rooms);
+				expect(addRoom).to.deep.equals(["sections", "rooms"]);
+				const list = await facade.listDatasets();
+				return expect(list).to.deep.equals([
+					{id: "sections", kind: InsightDatasetKind.Sections, numRows: 64612},
+					{id: "rooms", kind: InsightDatasetKind.Rooms, numRows: 364}
+				]);
+			} catch (err) {
+				return expect.fail("should not have failed to have dataset assurance" + err);
+			}
+		}).timeout(10000);
+
+		it("3. should be able to carry out all the standard operations of an expected lifecycle", async function () {
+			// I add the original rooms dataset I sent you.
+			// I also add the sections dataset I sent you.
+			// I list the rooms dataset and assert that the number of rows is correct.
+			// I invoke performQuery on the rooms dataset complete with aggregations.
+			// I invoke performQuery on the sections dataset -- again with aggregations.
+			// I remove both the datasets.
+			// But when I got to Step 3, I didn't get the response that I expected.
+			try {
+				const addRoom = await facade.addDataset("rooms", rooms, InsightDatasetKind.Rooms);
+				expect(addRoom).to.deep.equals(["rooms"]);
+
+				const addSection = await facade.addDataset("sections", sections, InsightDatasetKind.Sections);
+				expect(addSection).to.deep.equals(["rooms", "sections"]);
+
+				const list = await facade.listDatasets();
+				expect(list).to.deep.equals([
+					{id: "rooms", kind: InsightDatasetKind.Rooms, numRows: 364},
+					{id: "sections", kind: InsightDatasetKind.Sections, numRows: 64612}
+				]);
+
+				const roomsQuery = await facade.performQuery({
+					WHERE: {},
+					OPTIONS: {
+						COLUMNS: [
+							"rooms_shortname",
+							"roomsInBuildings"
+						]
+					},
+					TRANSFORMATIONS: {
+						GROUP: [
+							"rooms_shortname"
+						],
+						APPLY: [
+							{
+								roomsInBuildings: {
+									COUNT: "rooms_name"
+								}
+							}
+						]
+					}
+				});
+				expect(roomsQuery).to.deep.equals([
+					{
+						rooms_shortname: "ALRD",
+						roomsInBuildings: 5
+					},
+					{
+						rooms_shortname: "ANSO",
+						roomsInBuildings: 4
+					},
+					{
+						rooms_shortname: "AERL",
+						roomsInBuildings: 1
+					},
+					{
+						rooms_shortname: "AUDX",
+						roomsInBuildings: 2
+					},
+					{
+						rooms_shortname: "BIOL",
+						roomsInBuildings: 4
+					},
+					{
+						rooms_shortname: "BRKX",
+						roomsInBuildings: 2
+					},
+					{
+						rooms_shortname: "BUCH",
+						roomsInBuildings: 61
+					},
+					{
+						rooms_shortname: "CIRS",
+						roomsInBuildings: 1
+					},
+					{
+						rooms_shortname: "CHBE",
+						roomsInBuildings: 3
+					},
+					{
+						rooms_shortname: "CHEM",
+						roomsInBuildings: 6
+					},
+					{
+						rooms_shortname: "CEME",
+						roomsInBuildings: 6
+					},
+					{
+						rooms_shortname: "EOSM",
+						roomsInBuildings: 1
+					},
+					{
+						rooms_shortname: "ESB",
+						roomsInBuildings: 3
+					},
+					{
+						rooms_shortname: "FNH",
+						roomsInBuildings: 6
+					},
+					{
+						rooms_shortname: "FSC",
+						roomsInBuildings: 10
+					},
+					{
+						rooms_shortname: "FORW",
+						roomsInBuildings: 3
+					},
+					{
+						rooms_shortname: "LASR",
+						roomsInBuildings: 6
+					},
+					{
+						rooms_shortname: "FRDM",
+						roomsInBuildings: 1
+					},
+					{
+						rooms_shortname: "GEOG",
+						roomsInBuildings: 8
+					},
+					{
+						rooms_shortname: "HEBB",
+						roomsInBuildings: 4
+					},
+					{
+						rooms_shortname: "HENN",
+						roomsInBuildings: 6
+					},
+					{
+						rooms_shortname: "ANGU",
+						roomsInBuildings: 28
+					},
+					{
+						rooms_shortname: "DMP",
+						roomsInBuildings: 5
+					},
+					{
+						rooms_shortname: "IONA",
+						roomsInBuildings: 2
+					},
+					{
+						rooms_shortname: "IBLC",
+						roomsInBuildings: 18
+					},
+					{
+						rooms_shortname: "SOWK",
+						roomsInBuildings: 7
+					},
+					{
+						rooms_shortname: "LSK",
+						roomsInBuildings: 4
+					},
+					{
+						rooms_shortname: "LSC",
+						roomsInBuildings: 3
+					},
+					{
+						rooms_shortname: "MCLD",
+						roomsInBuildings: 6
+					},
+					{
+						rooms_shortname: "MCML",
+						roomsInBuildings: 19
+					},
+					{
+						rooms_shortname: "MATH",
+						roomsInBuildings: 8
+					},
+					{
+						rooms_shortname: "MATX",
+						roomsInBuildings: 1
+					},
+					{
+						rooms_shortname: "SCRF",
+						roomsInBuildings: 22
+					},
+					{
+						rooms_shortname: "ORCH",
+						roomsInBuildings: 21
+					},
+					{
+						rooms_shortname: "PHRM",
+						roomsInBuildings: 11
+					},
+					{
+						rooms_shortname: "PCOH",
+						roomsInBuildings: 8
+					},
+					{
+						rooms_shortname: "OSBO",
+						roomsInBuildings: 3
+					},
+					{
+						rooms_shortname: "SPPH",
+						roomsInBuildings: 6
+					},
+					{
+						rooms_shortname: "SRC",
+						roomsInBuildings: 3
+					},
+					{
+						rooms_shortname: "UCLL",
+						roomsInBuildings: 4
+					},
+					{
+						rooms_shortname: "MGYM",
+						roomsInBuildings: 2
+					},
+					{
+						rooms_shortname: "WESB",
+						roomsInBuildings: 2
+					},
+					{
+						rooms_shortname: "SWNG",
+						roomsInBuildings: 22
+					},
+					{
+						rooms_shortname: "WOOD",
+						roomsInBuildings: 16
+					}
+				]);
+
+				const sectionsQuery = await facade.performQuery({
+					WHERE: {},
+					OPTIONS: {
+						COLUMNS: [
+							"sections_dept",
+							"coursesInDept"
+						]
+					},
+					TRANSFORMATIONS: {
+						GROUP: [
+							"sections_dept"
+						],
+						APPLY: [
+							{
+								coursesInDept: {
+									COUNT: "sections_id"
+								}
+							}
+						]
+					}
+				});
+				expect(sectionsQuery).to.deep.equals([
+					{
+						sections_dept: "aanb",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "adhe",
+						coursesInDept: 5
+					},
+					{
+						sections_dept: "anat",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "anth",
+						coursesInDept: 26
+					},
+					{
+						sections_dept: "apbi",
+						coursesInDept: 40
+					},
+					{
+						sections_dept: "appp",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "apsc",
+						coursesInDept: 18
+					},
+					{
+						sections_dept: "arbc",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "arch",
+						coursesInDept: 29
+					},
+					{
+						sections_dept: "arcl",
+						coursesInDept: 13
+					},
+					{
+						sections_dept: "arst",
+						coursesInDept: 19
+					},
+					{
+						sections_dept: "arth",
+						coursesInDept: 32
+					},
+					{
+						sections_dept: "asia",
+						coursesInDept: 57
+					},
+					{
+						sections_dept: "asic",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "astr",
+						coursesInDept: 16
+					},
+					{
+						sections_dept: "astu",
+						coursesInDept: 5
+					},
+					{
+						sections_dept: "atsc",
+						coursesInDept: 8
+					},
+					{
+						sections_dept: "audi",
+						coursesInDept: 34
+					},
+					{
+						sections_dept: "ba",
+						coursesInDept: 10
+					},
+					{
+						sections_dept: "baac",
+						coursesInDept: 6
+					},
+					{
+						sections_dept: "babs",
+						coursesInDept: 3
+					},
+					{
+						sections_dept: "baen",
+						coursesInDept: 6
+					},
+					{
+						sections_dept: "bafi",
+						coursesInDept: 11
+					},
+					{
+						sections_dept: "bahr",
+						coursesInDept: 5
+					},
+					{
+						sections_dept: "bait",
+						coursesInDept: 5
+					},
+					{
+						sections_dept: "bala",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "bama",
+						coursesInDept: 9
+					},
+					{
+						sections_dept: "bams",
+						coursesInDept: 12
+					},
+					{
+						sections_dept: "bapa",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "basc",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "basm",
+						coursesInDept: 6
+					},
+					{
+						sections_dept: "baul",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "bioc",
+						coursesInDept: 19
+					},
+					{
+						sections_dept: "biof",
+						coursesInDept: 3
+					},
+					{
+						sections_dept: "biol",
+						coursesInDept: 91
+					},
+					{
+						sections_dept: "bmeg",
+						coursesInDept: 9
+					},
+					{
+						sections_dept: "bota",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "busi",
+						coursesInDept: 40
+					},
+					{
+						sections_dept: "caps",
+						coursesInDept: 12
+					},
+					{
+						sections_dept: "ccst",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "ceen",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "cell",
+						coursesInDept: 12
+					},
+					{
+						sections_dept: "cens",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "chbe",
+						coursesInDept: 55
+					},
+					{
+						sections_dept: "chem",
+						coursesInDept: 63
+					},
+					{
+						sections_dept: "chil",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "chin",
+						coursesInDept: 43
+					},
+					{
+						sections_dept: "cics",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "civl",
+						coursesInDept: 84
+					},
+					{
+						sections_dept: "clch",
+						coursesInDept: 3
+					},
+					{
+						sections_dept: "clst",
+						coursesInDept: 25
+					},
+					{
+						sections_dept: "cnps",
+						coursesInDept: 19
+					},
+					{
+						sections_dept: "cnrs",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "cnto",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "coec",
+						coursesInDept: 5
+					},
+					{
+						sections_dept: "cogs",
+						coursesInDept: 5
+					},
+					{
+						sections_dept: "cohr",
+						coursesInDept: 12
+					},
+					{
+						sections_dept: "comm",
+						coursesInDept: 99
+					},
+					{
+						sections_dept: "cons",
+						coursesInDept: 15
+					},
+					{
+						sections_dept: "cpen",
+						coursesInDept: 18
+					},
+					{
+						sections_dept: "cpsc",
+						coursesInDept: 53
+					},
+					{
+						sections_dept: "crwr",
+						coursesInDept: 12
+					},
+					{
+						sections_dept: "dani",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "dent",
+						coursesInDept: 46
+					},
+					{
+						sections_dept: "dhyg",
+						coursesInDept: 18
+					},
+					{
+						sections_dept: "eced",
+						coursesInDept: 10
+					},
+					{
+						sections_dept: "econ",
+						coursesInDept: 93
+					},
+					{
+						sections_dept: "edcp",
+						coursesInDept: 26
+					},
+					{
+						sections_dept: "edst",
+						coursesInDept: 25
+					},
+					{
+						sections_dept: "educ",
+						coursesInDept: 11
+					},
+					{
+						sections_dept: "eece",
+						coursesInDept: 35
+					},
+					{
+						sections_dept: "elec",
+						coursesInDept: 54
+					},
+					{
+						sections_dept: "ends",
+						coursesInDept: 9
+					},
+					{
+						sections_dept: "engl",
+						coursesInDept: 32
+					},
+					{
+						sections_dept: "enph",
+						coursesInDept: 5
+					},
+					{
+						sections_dept: "envr",
+						coursesInDept: 7
+					},
+					{
+						sections_dept: "eosc",
+						coursesInDept: 89
+					},
+					{
+						sections_dept: "epse",
+						coursesInDept: 58
+					},
+					{
+						sections_dept: "etec",
+						coursesInDept: 12
+					},
+					{
+						sections_dept: "fhis",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "fipr",
+						coursesInDept: 14
+					},
+					{
+						sections_dept: "fish",
+						coursesInDept: 5
+					},
+					{
+						sections_dept: "fist",
+						coursesInDept: 12
+					},
+					{
+						sections_dept: "fmst",
+						coursesInDept: 7
+					},
+					{
+						sections_dept: "fnel",
+						coursesInDept: 9
+					},
+					{
+						sections_dept: "fnh",
+						coursesInDept: 38
+					},
+					{
+						sections_dept: "fnis",
+						coursesInDept: 8
+					},
+					{
+						sections_dept: "food",
+						coursesInDept: 11
+					},
+					{
+						sections_dept: "fopr",
+						coursesInDept: 7
+					},
+					{
+						sections_dept: "fre",
+						coursesInDept: 18
+					},
+					{
+						sections_dept: "fren",
+						coursesInDept: 28
+					},
+					{
+						sections_dept: "frst",
+						coursesInDept: 72
+					},
+					{
+						sections_dept: "gbpr",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "geob",
+						coursesInDept: 23
+					},
+					{
+						sections_dept: "geog",
+						coursesInDept: 47
+					},
+					{
+						sections_dept: "germ",
+						coursesInDept: 23
+					},
+					{
+						sections_dept: "gpp",
+						coursesInDept: 10
+					},
+					{
+						sections_dept: "grek",
+						coursesInDept: 6
+					},
+					{
+						sections_dept: "grsj",
+						coursesInDept: 23
+					},
+					{
+						sections_dept: "gsat",
+						coursesInDept: 3
+					},
+					{
+						sections_dept: "hebr",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "hgse",
+						coursesInDept: 10
+					},
+					{
+						sections_dept: "hinu",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "hist",
+						coursesInDept: 69
+					},
+					{
+						sections_dept: "hunu",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "iar",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "igen",
+						coursesInDept: 8
+					},
+					{
+						sections_dept: "info",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "isci",
+						coursesInDept: 6
+					},
+					{
+						sections_dept: "ital",
+						coursesInDept: 15
+					},
+					{
+						sections_dept: "itst",
+						coursesInDept: 9
+					},
+					{
+						sections_dept: "iwme",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "japn",
+						coursesInDept: 24
+					},
+					{
+						sections_dept: "jrnl",
+						coursesInDept: 3
+					},
+					{
+						sections_dept: "kin",
+						coursesInDept: 53
+					},
+					{
+						sections_dept: "korn",
+						coursesInDept: 5
+					},
+					{
+						sections_dept: "lais",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "larc",
+						coursesInDept: 19
+					},
+					{
+						sections_dept: "laso",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "last",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "latn",
+						coursesInDept: 6
+					},
+					{
+						sections_dept: "law",
+						coursesInDept: 83
+					},
+					{
+						sections_dept: "lfs",
+						coursesInDept: 9
+					},
+					{
+						sections_dept: "libe",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "libr",
+						coursesInDept: 34
+					},
+					{
+						sections_dept: "ling",
+						coursesInDept: 30
+					},
+					{
+						sections_dept: "lled",
+						coursesInDept: 27
+					},
+					{
+						sections_dept: "math",
+						coursesInDept: 94
+					},
+					{
+						sections_dept: "mdvl",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "mech",
+						coursesInDept: 85
+					},
+					{
+						sections_dept: "medg",
+						coursesInDept: 13
+					},
+					{
+						sections_dept: "medi",
+						coursesInDept: 8
+					},
+					{
+						sections_dept: "micb",
+						coursesInDept: 27
+					},
+					{
+						sections_dept: "midw",
+						coursesInDept: 14
+					},
+					{
+						sections_dept: "mine",
+						coursesInDept: 41
+					},
+					{
+						sections_dept: "mrne",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "mtrl",
+						coursesInDept: 48
+					},
+					{
+						sections_dept: "musc",
+						coursesInDept: 52
+					},
+					{
+						sections_dept: "name",
+						coursesInDept: 7
+					},
+					{
+						sections_dept: "nest",
+						coursesInDept: 7
+					},
+					{
+						sections_dept: "nrsc",
+						coursesInDept: 3
+					},
+					{
+						sections_dept: "nurs",
+						coursesInDept: 46
+					},
+					{
+						sections_dept: "obst",
+						coursesInDept: 7
+					},
+					{
+						sections_dept: "onco",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "path",
+						coursesInDept: 27
+					},
+					{
+						sections_dept: "pcth",
+						coursesInDept: 12
+					},
+					{
+						sections_dept: "pers",
+						coursesInDept: 6
+					},
+					{
+						sections_dept: "phar",
+						coursesInDept: 51
+					},
+					{
+						sections_dept: "phil",
+						coursesInDept: 17
+					},
+					{
+						sections_dept: "phrm",
+						coursesInDept: 5
+					},
+					{
+						sections_dept: "phth",
+						coursesInDept: 16
+					},
+					{
+						sections_dept: "phys",
+						coursesInDept: 68
+					},
+					{
+						sections_dept: "plan",
+						coursesInDept: 16
+					},
+					{
+						sections_dept: "poli",
+						coursesInDept: 22
+					},
+					{
+						sections_dept: "pols",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "port",
+						coursesInDept: 8
+					},
+					{
+						sections_dept: "psyc",
+						coursesInDept: 52
+					},
+					{
+						sections_dept: "punj",
+						coursesInDept: 5
+					},
+					{
+						sections_dept: "relg",
+						coursesInDept: 15
+					},
+					{
+						sections_dept: "rgla",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "rhsc",
+						coursesInDept: 10
+					},
+					{
+						sections_dept: "rmes",
+						coursesInDept: 13
+					},
+					{
+						sections_dept: "rmst",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "rsot",
+						coursesInDept: 11
+					},
+					{
+						sections_dept: "russ",
+						coursesInDept: 9
+					},
+					{
+						sections_dept: "sans",
+						coursesInDept: 3
+					},
+					{
+						sections_dept: "scan",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "scie",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "soci",
+						coursesInDept: 19
+					},
+					{
+						sections_dept: "soil",
+						coursesInDept: 9
+					},
+					{
+						sections_dept: "sowk",
+						coursesInDept: 33
+					},
+					{
+						sections_dept: "span",
+						coursesInDept: 21
+					},
+					{
+						sections_dept: "spha",
+						coursesInDept: 20
+					},
+					{
+						sections_dept: "spph",
+						coursesInDept: 51
+					},
+					{
+						sections_dept: "stat",
+						coursesInDept: 21
+					},
+					{
+						sections_dept: "sts",
+						coursesInDept: 3
+					},
+					{
+						sections_dept: "surg",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "swed",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "test",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "thtr",
+						coursesInDept: 43
+					},
+					{
+						sections_dept: "udes",
+						coursesInDept: 4
+					},
+					{
+						sections_dept: "ufor",
+						coursesInDept: 3
+					},
+					{
+						sections_dept: "urst",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "ursy",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "vant",
+						coursesInDept: 2
+					},
+					{
+						sections_dept: "visa",
+						coursesInDept: 28
+					},
+					{
+						sections_dept: "wood",
+						coursesInDept: 30
+					},
+					{
+						sections_dept: "wrds",
+						coursesInDept: 1
+					},
+					{
+						sections_dept: "zool",
+						coursesInDept: 2
+					}
+				]);
+
+				const removeRoom = await facade.removeDataset("rooms");
+				expect(removeRoom).to.deep.equals("rooms");
+
+				const removeSection = await facade.removeDataset("sections");
+				return expect(removeSection).to.deep.equals("sections");
+			} catch (err) {
+				return expect.fail("should not have failed to carry out expected lifestyle" + err);
+			}
+		}).timeout(10000);
+
+		it("4. should ensure total ordering of data", async function () {
+			// I have a rooms added for querying.
+			// 	But when I got to Step 2, I didn't get the response that I expected.
+			try {
+				const addRoom = await facade.addDataset("rooms", rooms, InsightDatasetKind.Sections);
+				expect(addRoom).to.deep.equals(["rooms"]);
+
+				// TODO performQuery
+			} catch (err) {
+				return expect.fail("should not have failed to ensure total ordering of data");
+			}
+		});
+
+		it("5. should view in browser", async function () {
+			// I add rooms dataset for querying.
+			// I invoke performQuery in search of rooms' names and links to their websites.
+			// But when I got to Step 2, I didn't get the response that I expected.
+			try {
+				const addRoom = await facade.addDataset("rooms", rooms, InsightDatasetKind.Sections);
+				expect(addRoom).to.deep.equals(["rooms"]);
+
+				// TODO performQuery
+			} catch (err) {
+				return expect.fail("should not have failed to view in browser");
+			}
+		});
+	});
 });
