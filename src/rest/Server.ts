@@ -1,11 +1,14 @@
 import express, {Application, Request, Response} from "express";
 import * as http from "http";
 import cors from "cors";
+import InsightFacade from "../controller/InsightFacade";
+import {InsightDatasetKind, NotFoundError} from "../controller/IInsightFacade";
 
 export default class Server {
 	private readonly port: number;
 	private express: Application;
 	private server: http.Server | undefined;
+	private insightFacade: InsightFacade;
 
 	constructor(port: number) {
 		console.info(`Server::<init>( ${port} )`);
@@ -14,7 +17,8 @@ export default class Server {
 
 		this.registerMiddleware();
 		this.registerRoutes();
-
+		this.insightFacade = new InsightFacade();
+		console.log("Created InsightFacade instance");
 		// NOTE: you can serve static frontend files in from your express server
 		// by uncommenting the line below. This makes files in ./frontend/public
 		// accessible at http://localhost:<port>/
@@ -84,8 +88,53 @@ export default class Server {
 		// http://localhost:4321/echo/hello
 		this.express.get("/echo/:msg", Server.echo);
 
-		// TODO: your other endpoints should go here
+		this.express.put("/dataset/:id/:kind", this.add);
+		this.express.delete("/dataset/:id", this.remove);
+		this.express.post("/query", this.query);
+		this.express.get("/datasets", this.get);
+	}
 
+	private add(req: Request, res: Response) {
+		try {
+			console.log(`Server::add(..) - params: ${JSON.stringify(req.params)}`);
+			let kind = (req.params.kind === "sections") ? InsightDatasetKind.Sections : InsightDatasetKind.Rooms;
+			const dataset = (req.body as Buffer).toString("base64");
+			const arr = this.insightFacade.addDataset(req.params.id, dataset, kind);
+			res.status(200).json({result: arr});
+		} catch (err) {
+			res.status(400).json({error: err});
+		}
+	}
+
+	private remove(req: Request, res: Response) {
+		try {
+			console.log(`Server::remove(..) - params: ${JSON.stringify(req.params)}`);
+			const str = this.insightFacade.removeDataset(req.params.id);
+			res.status(200).json({result: str});
+		} catch (err) {
+			if (err instanceof NotFoundError) {
+				res.status(404).json({error: err});
+			} else {
+				res.status(400).json({error: err});
+			}
+		}
+	}
+
+	private get(req: Request, res: Response) {
+		console.log("Server::get(..)");
+		const arr = this.insightFacade.listDatasets();
+		res.status(200).json({result: arr});
+	}
+
+	private query(req: Request, res: Response) {
+		try {
+			console.log(`Server::query(..) - body: ${JSON.stringify(req.body)}`);
+			const query = req.body;
+			const arr = this.insightFacade.performQuery(query);
+			res.status(200).json({result: arr});
+		} catch (err) {
+			res.status(400).json({error: err});
+		}
 	}
 
 	// The next two methods handle the echo service.
@@ -108,4 +157,8 @@ export default class Server {
 			return "Message not provided";
 		}
 	}
+
+	// private static performAdd(id: string, kind: string): string[] {
+	// 	this.insightFacade.addDataset(req.params.id,,req.params.kind)
+	// }
 }

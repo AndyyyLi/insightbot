@@ -12,7 +12,11 @@ describe("Facade D3", function () {
 	before(function () {
 		facade = new InsightFacade();
 		server = new Server(4321);
-		// TODO: start server here once and handle errors properly
+		try {
+			server.start();
+		} catch (err) {
+			console.log(err);
+		}
 	});
 
 	after(function () {
