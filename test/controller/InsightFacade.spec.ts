@@ -216,7 +216,7 @@ describe("InsightFacade", function () {
 			});
 
 			describe("Kind: Room", function() {
-				it("should reject addition of rooms dataset with empty id", async function() {
+				it("should reject addition of rooms dataset with empty id", async function () {
 					try {
 						await facade.addDataset("", rooms, InsightDatasetKind.Rooms);
 						return expect.fail("should have rejected addition of a dataset with an undefined EBNF id");
@@ -225,7 +225,7 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				it("should reject addition of rooms dataset with invalid id", async function() {
+				it("should reject addition of rooms dataset with invalid id", async function () {
 					try {
 						await facade.addDataset("rooms_", rooms, InsightDatasetKind.Rooms);
 						return expect.fail("should have rejected addition of a dataset with an undefined EBNF id");
@@ -234,7 +234,7 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				it("should reject addition of rooms dataset with duplicate rooms dataset id", async function() {
+				it("should reject addition of rooms dataset with duplicate rooms dataset id", async function () {
 					try {
 						await facade.addDataset("rooms", roomsOne, InsightDatasetKind.Rooms);
 						await facade.addDataset("rooms", roomsOne, InsightDatasetKind.Rooms);
@@ -245,7 +245,7 @@ describe("InsightFacade", function () {
 				});
 
 				it("should reject addition of rooms dataset with duplicate section dataset id",
-					async function() {
+					async function () {
 						try {
 							await facade.addDataset("dataset", sectionsSmall, InsightDatasetKind.Sections);
 							await facade.addDataset("dataset", roomsOne, InsightDatasetKind.Rooms);
@@ -255,7 +255,7 @@ describe("InsightFacade", function () {
 						}
 					});
 
-				it("should reject addition of rooms dataset that is not a zip", async function() {
+				it("should reject addition of rooms dataset that is not a zip", async function () {
 					try {
 						await facade.addDataset("rooms",
 							getContentFromArchives("invalidDatasetFile.txt"), InsightDatasetKind.Rooms);
@@ -265,7 +265,7 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				it("should reject addition of rooms dataset with no index.htm", async function() {
+				it("should reject addition of rooms dataset with no index.htm", async function () {
 					try {
 						await facade.addDataset("rooms", getContentFromArchives("campusNoIndex.zip"),
 							InsightDatasetKind.Rooms);
@@ -275,19 +275,19 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				// it("should reject addition of rooms dataset with no building table in index.htm",
-				// 	async function() {
-				// 		try {
-				// 			await facade.addDataset("rooms", getContentFromArchives(
-				// 				"campusIndexNoValidTable.zip"), InsightDatasetKind.Rooms);
-				// 			return expect.fail("should have rejected addition of a rooms dataset with no building" +
-				// 				" table in index.htm");
-				// 		} catch (err) {
-				// 			return expect(err).to.be.instanceOf(InsightError);
-				// 		}
-				// 	});
+				it("should reject addition of rooms dataset with no building table in index.htm",
+					async function () {
+						try {
+							await facade.addDataset("rooms", getContentFromArchives(
+								"campusIndexNoValidTable.zip"), InsightDatasetKind.Rooms);
+							return expect.fail("should have rejected addition of a rooms dataset with no building" +
+								" table in index.htm");
+						} catch (err) {
+							return expect(err).to.be.instanceOf(InsightError);
+						}
+					});
 
-				it("should reject addition of rooms dataset with index.html with no table", async function() {
+				it("should reject addition of rooms dataset with index.html with no table", async function () {
 					try {
 						await facade.addDataset("rooms", getContentFromArchives("campusIndexNoTable.zip"),
 							InsightDatasetKind.Rooms);
@@ -298,10 +298,10 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				it("should reject addition of rooms dataset with no link to a building.htm", async function() {
+				it("should reject addition of rooms dataset with no link to a building.htm", async function () {
 					try {
 						await facade.addDataset("rooms", getContentFromArchives(
-							"campusIndexNoBuildingColumnInTable.zip"), InsightDatasetKind.Rooms);
+							"campusIndexNoBuildingLinkInTable.zip"), InsightDatasetKind.Rooms);
 						return expect.fail("should have rejected addition of a rooms dataset with no link " +
 							"to a building.htm");
 					} catch (err) {
@@ -310,7 +310,7 @@ describe("InsightFacade", function () {
 				});
 
 				it("should reject addition of rooms dataset with no buildings.htm",
-					async function() {
+					async function () {
 						try {
 							await facade.addDataset("rooms", getContentFromArchives(
 								"campusNoBuildingFile.zip"), InsightDatasetKind.Rooms);
@@ -320,7 +320,7 @@ describe("InsightFacade", function () {
 						}
 					});
 
-				it("should reject addition of rooms dataset with no table in a building.htm", async function() {
+				it("should reject addition of rooms dataset with no table in a building.htm", async function () {
 					try {
 						await facade.addDataset("rooms", getContentFromArchives(
 							"campusNoTableInBuildingFile.zip"), InsightDatasetKind.Rooms);
@@ -331,20 +331,20 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				// it("should reject addition of rooms dataset with no rooms table in a building.htm",
-				// 	async function() {
-				// 		try {
-				// 			await facade.addDataset("rooms", getContentFromArchives(
-				// 				"campusNoValidTableInBuildingFile.zip"), InsightDatasetKind.Rooms);
-				// 			return expect.fail("should have rejected addition of a rooms dataset with no" +
-				// 				" rooms table in a building.htm");
-				// 		} catch (err) {
-				// 			return expect(err).to.be.instanceOf(InsightError);
-				// 		}
-				// 	});
+				it("should reject addition of rooms dataset with no rooms table in a building.htm",
+					async function () {
+						try {
+							await facade.addDataset("rooms", getContentFromArchives(
+								"campusNoValidTableInBuildingFile.zip"), InsightDatasetKind.Rooms);
+							return expect.fail("should have rejected addition of a rooms dataset with no" +
+								" rooms table in a building.htm");
+						} catch (err) {
+							return expect(err).to.be.instanceOf(InsightError);
+						}
+					});
 
 				it("should reject addition of rooms dataset with no valid room - failed geolocation",
-					async function() {
+					async function () {
 						try {
 							await facade.addDataset("rooms", getContentFromArchives(
 								"campusNoValidRoomFailedGeo.zip"), InsightDatasetKind.Rooms);
@@ -355,7 +355,7 @@ describe("InsightFacade", function () {
 						}
 					});
 
-				it("should reject addition of rooms dataset with section kind", async function() {
+				it("should reject addition of rooms dataset with section kind", async function () {
 					try {
 						await facade.addDataset("rooms", roomsOne, InsightDatasetKind.Sections);
 						return expect.fail("should have rejected addition of a rooms dataset with section kind");
@@ -364,7 +364,7 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				it("should successfully add a rooms dataset", async function() {
+				it("should successfully add a rooms dataset", async function () {
 					try {
 						const result = await facade.addDataset("rooms", rooms, InsightDatasetKind.Rooms);
 						return expect(result).to.deep.equals(["rooms"]);
@@ -374,7 +374,7 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				it("should successfully add multiple rooms dataset", async function() {
+				it("should successfully add multiple rooms dataset", async function () {
 					try {
 						await facade.addDataset("rooms1", roomsOne, InsightDatasetKind.Rooms);
 						const result = await facade.addDataset("rooms2", roomsOne, InsightDatasetKind.Rooms);
@@ -385,7 +385,7 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				it("should successfully add minimal rooms dataset", async function() {
+				it("should successfully add minimal rooms dataset", async function () {
 					try {
 						const result = await facade.addDataset("rooms", roomsOne, InsightDatasetKind.Rooms);
 						return expect(result).to.deep.equals(["rooms"]);
@@ -395,20 +395,20 @@ describe("InsightFacade", function () {
 					}
 				});
 
-				it("should successfully add rooms dataset with valid and invalid rooms - missing fields",
-					async function() {
+				it("should successfully add rooms dataset with valid and invalid rooms - building with no rooms",
+					async function () {
 						try {
 							const result = await facade.addDataset("rooms", getContentFromArchives(
 								"campusValidAndInvalidRooms.zip"), InsightDatasetKind.Rooms);
 							return expect(result).to.deep.equals(["rooms"]);
 						} catch (err) {
 							return expect.fail("should NOT have rejected addition of rooms dataset with valid" +
-								" and invalid room - invalid room is missing fields");
+								" and invalid room - building with no rooms");
 						}
 					});
 
 				it("should successfully add rooms dataset multiple buildings with valid and invalid rooms",
-					async function() {
+					async function () {
 						try {
 							const result = await facade.addDataset("rooms", getContentFromArchives(
 								"campusManyBuildingsAndRooms.zip"), InsightDatasetKind.Rooms);
@@ -418,6 +418,89 @@ describe("InsightFacade", function () {
 								" buildings with valid and invalid rooms within");
 						}
 					});
+
+				it("should successfully add a rooms dataset with a room that has non-intuitive values",
+					async function () {
+						try {
+							const result = await facade.addDataset("rooms", getContentFromArchives(
+								"campusNonIntuitiveRoom.zip"), InsightDatasetKind.Rooms);
+							return expect(result).to.deep.equals(["rooms"]);
+						} catch (err) {
+							return expect.fail("should NOT have rejected addition of room dataset with a room " +
+								" with null room type");
+						}
+					});
+
+				it("should successfully add a rooms dataset with a building with a room that has non-intuitive" +
+					" values", async function () {
+					try {
+						const result = await facade.addDataset("rooms", getContentFromArchives(
+							"campusNonIntuitiveBuilding.zip"), InsightDatasetKind.Rooms);
+						return expect(result).to.deep.equals(["rooms"]);
+					} catch (err) {
+						return expect.fail("should NOT have rejected addition of room dataset with building (LASR)" +
+							" that contains a room with null room type");
+					}
+				});
+
+				it("should successfully add a rooms dataset with a mix valid and invalid of building and rooms",
+					async function () {
+						try {
+							const result = await facade.addDataset("rooms", getContentFromArchives(
+								"campusMixOfRoomTypes.zip"), InsightDatasetKind.Rooms);
+							return expect(result).to.deep.equals(["rooms"]);
+						} catch (err) {
+							return expect.fail("should NOT have rejected addition of rooms dataset with buildings," +
+								" LASR ACU AERL, which contain a mix of invalid and valid rooms with intuitive and" +
+								" nonintuitive values");
+						}
+					});
+
+				it("should successfully add a rooms dataset with many tables in the index.htm",
+					async function () {
+						try {
+							const result = await facade.addDataset("rooms", getContentFromArchives(
+								"campusManyTableInIndex.zip"), InsightDatasetKind.Rooms);
+							return expect(result).to.deep.equals(["rooms"]);
+						} catch (err) {
+							return expect.fail("should NOT have failed to add valid dataset with several table" +
+								" elements in the index.htm file");
+						}
+					});
+
+				it("should successfully add a rooms dataset with many tables in the building.htm",
+					async function () {
+						try {
+							const result = await facade.addDataset("rooms", getContentFromArchives(
+								"campusManyTablesInBuildingFile.zip"), InsightDatasetKind.Rooms);
+							return expect(result).to.deep.equals(["rooms"]);
+						} catch (err) {
+							return expect.fail("should NOT have failed to add valid dataset with several table" +
+								" elements in the building.htm file");
+						}
+					});
+
+				it("should successfully add a valid rooms dataset with no title link", async function () {
+					try {
+						const result = await facade.addDataset("rooms", getContentFromArchives(
+							"campusHasTitleNoNothingColumnInBuilding.zip"), InsightDatasetKind.Rooms);
+						return expect(result).to.deep.equals(["rooms"]);
+					} catch (err) {
+						return expect.fail("should NOT have failed to add rooms dataset with no valid link in the" +
+							" title column of the building table but a valid link in the nothing column");
+					}
+				});
+
+				it("should successfully add a valid rooms dataset with no nothing link", async function () {
+					try {
+						const result = await facade.addDataset("rooms", getContentFromArchives(
+							"campusHasNothingNoTitleColumnInBuilding.zip"), InsightDatasetKind.Rooms);
+						return expect(result).to.deep.equals(["rooms"]);
+					} catch (err) {
+						return expect.fail("should NOT have failed to add rooms dataset with no valid link in the" +
+							" nothing column of the building table but a valid link in the title column");
+					}
+				});
 			});
 		});
 
@@ -706,7 +789,7 @@ describe("InsightFacade", function () {
 				} catch (err) {
 					return expect.fail("should not have failed");
 				}
- 			});
+			});
 		});
 
 		describe("Load Dataset, Handle Disk and Crashes", function () {

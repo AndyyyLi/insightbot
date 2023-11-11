@@ -49,19 +49,21 @@ export class Room {
 	private parse(fullnameValue: string, shortnameValue: string, numberValue: string, addressValue: string,
 		latValue: number, lonValue: number, seatValue: string, typeValue: string, furnitureValue: string,
 		hrefValue: string): InsightResult {
+		shortnameValue = (shortnameValue === "null") ? "" : shortnameValue;
+		numberValue = (numberValue === "null") ? "" : numberValue;
 		const nameValue = shortnameValue + "_" + numberValue;
 		const roomResult: InsightResult = {
-			fullname: fullnameValue,
+			fullname: (fullnameValue === "null") ? "" : fullnameValue,
 			shortname: shortnameValue,
 			number: numberValue,
 			name: nameValue,
-			address: addressValue,
+			address: (addressValue === "null") ? "" : addressValue,
 			lat: latValue,
 			lon: lonValue,
-			seats: Number(seatValue),
-			type: typeValue,
-			furniture: furnitureValue,
-			href: hrefValue
+			seats: (seatValue === "null") ? "" : Number(seatValue),
+			type: (typeValue === "null") ? "" : typeValue,
+			furniture: (furnitureValue === "null") ? "" : furnitureValue,
+			href: (hrefValue === "null") ? "" : hrefValue
 		};
 		return roomResult;
 	}
