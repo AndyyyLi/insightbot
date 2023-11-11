@@ -88,28 +88,28 @@ export default class Server {
 		// http://localhost:4321/echo/hello
 		this.express.get("/echo/:msg", Server.echo);
 
-		this.express.put("/dataset/:id/:kind", this.add);
-		this.express.delete("/dataset/:id", this.remove);
-		this.express.post("/query", this.query);
-		this.express.get("/datasets", this.get);
+		this.express.put("/dataset/:id/:kind", this.add.bind(this));
+		this.express.delete("/dataset/:id", this.remove.bind(this));
+		this.express.post("/query", this.query.bind(this));
+		this.express.get("/datasets", this.get.bind(this));
 	}
 
-	private add(req: Request, res: Response) {
+	private async add(req: Request, res: Response) {
 		try {
 			console.log(`Server::add(..) - params: ${JSON.stringify(req.params)}`);
-			let kind = (req.params.kind === "sections") ? InsightDatasetKind.Sections : InsightDatasetKind.Rooms;
+			let kind = (req.params.kind === ":sections") ? InsightDatasetKind.Sections : InsightDatasetKind.Rooms;
 			const dataset = (req.body as Buffer).toString("base64");
-			const arr = this.insightFacade.addDataset(req.params.id, dataset, kind);
+			const arr = await this.insightFacade.addDataset(req.params.id.replace(":", ""), dataset, kind);
 			res.status(200).json({result: arr});
 		} catch (err) {
 			res.status(400).json({error: err});
 		}
 	}
 
-	private remove(req: Request, res: Response) {
+	private async remove(req: Request, res: Response) {
 		try {
 			console.log(`Server::remove(..) - params: ${JSON.stringify(req.params)}`);
-			const str = this.insightFacade.removeDataset(req.params.id);
+			const str = await this.insightFacade.removeDataset(req.params.id.replace(":", ""));
 			res.status(200).json({result: str});
 		} catch (err) {
 			if (err instanceof NotFoundError) {
@@ -120,17 +120,17 @@ export default class Server {
 		}
 	}
 
-	private get(req: Request, res: Response) {
+	private async get(req: Request, res: Response) {
 		console.log("Server::get(..)");
-		const arr = this.insightFacade.listDatasets();
+		const arr = await this.insightFacade.listDatasets();
 		res.status(200).json({result: arr});
 	}
 
-	private query(req: Request, res: Response) {
+	private async query(req: Request, res: Response) {
 		try {
 			console.log(`Server::query(..) - body: ${JSON.stringify(req.body)}`);
 			const query = req.body;
-			const arr = this.insightFacade.performQuery(query);
+			const arr = await this.insightFacade.performQuery(query);
 			res.status(200).json({result: arr});
 		} catch (err) {
 			res.status(400).json({error: err});
