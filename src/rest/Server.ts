@@ -97,9 +97,9 @@ export default class Server {
 	private async add(req: Request, res: Response) {
 		try {
 			console.log(`Server::add(..) - params: ${JSON.stringify(req.params)}`);
-			let kind = (req.params.kind === ":sections") ? InsightDatasetKind.Sections : InsightDatasetKind.Rooms;
+			let kind = (req.params.kind === "sections") ? InsightDatasetKind.Sections : InsightDatasetKind.Rooms;
 			const dataset = (req.body as Buffer).toString("base64");
-			const arr = await this.insightFacade.addDataset(req.params.id.replace(":", ""), dataset, kind);
+			const arr = await this.insightFacade.addDataset(req.params.id, dataset, kind);
 			res.status(200).json({result: arr});
 		} catch (err) {
 			res.status(400).json({error: err});
@@ -109,7 +109,7 @@ export default class Server {
 	private async remove(req: Request, res: Response) {
 		try {
 			console.log(`Server::remove(..) - params: ${JSON.stringify(req.params)}`);
-			const str = await this.insightFacade.removeDataset(req.params.id.replace(":", ""));
+			const str = await this.insightFacade.removeDataset(req.params.id);
 			res.status(200).json({result: str});
 		} catch (err) {
 			if (err instanceof NotFoundError) {
