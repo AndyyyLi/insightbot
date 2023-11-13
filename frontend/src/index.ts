@@ -24,11 +24,9 @@ client.on("interactionCreate", async (interaction) => {
 
 	if (commands[commandName as keyof typeof commands]) {
 		await commands[commandName as keyof typeof commands].execute(interaction);
-	} else if (commandName === "insightfacade-echo") {
-		// Handle the echo command accordingly, commandName and naming in commands/index is different
-		commands.echo.execute(interaction);
+		console.log("Command finished:", commandName)
+
 	}
-	console.log("Command finished:", commandName)
 });
 
 client.login(config.DISCORD_TOKEN).then();
