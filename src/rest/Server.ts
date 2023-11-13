@@ -102,7 +102,7 @@ export default class Server {
 			const arr = await this.insightFacade.addDataset(req.params.id, dataset, kind);
 			res.status(200).json({result: arr});
 		} catch (err) {
-			res.status(400).json({error: err});
+			res.status(400).json({error: (err as object).toString()});
 		}
 	}
 
@@ -113,9 +113,9 @@ export default class Server {
 			res.status(200).json({result: str});
 		} catch (err) {
 			if (err instanceof NotFoundError) {
-				res.status(404).json({error: err});
+				res.status(404).json({error: (err as object).toString()});
 			} else {
-				res.status(400).json({error: err});
+				res.status(400).json({error: (err as object).toString()});
 			}
 		}
 	}
@@ -133,7 +133,7 @@ export default class Server {
 			const arr = await this.insightFacade.performQuery(query);
 			res.status(200).json({result: arr});
 		} catch (err) {
-			res.status(400).json({error: err});
+			res.status(400).json({error: (err as object).toString()});
 		}
 	}
 
