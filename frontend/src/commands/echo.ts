@@ -6,15 +6,22 @@ export const data = new SlashCommandBuilder()
 	.addStringOption(option =>
 		option.setName("message")
 			.setDescription("The message to echo")
-			.setRequired(true)
 	);
 
 export async function execute(interaction: CommandInteraction) {
 	const messageOption = interaction.options.get("message");
-	const message = (messageOption && messageOption["value"]) ? messageOption["value"] : "No ekko :("
+	const message = (messageOption && messageOption["value"]) ? messageOption["value"] : null;
 
-	console.log("Command executed:", interaction.commandName);
+	try {
+		const response = await fetch("http://localhost:4321/echo/" + message);
+		const responseData = await response.json();
 
-	// Reply with an InteractionReplyOptions object
-	return interaction.reply({ content: message } as InteractionReplyOptions);
+		if ('result' in responseData) {
+			return interaction.reply({ content: responseData.result } as InteractionReplyOptions);
+		} else {
+			return interaction.reply({ content: responseData.err } as InteractionReplyOptions);
+		}
+	} catch {
+		return interaction.reply("Invalid command call :(")
+	}
 }
