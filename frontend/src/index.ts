@@ -28,7 +28,6 @@ client.on("interactionCreate", async (interaction) => {
 		} catch (err) {
 			console.log("Caught error executing command");
 			console.log(err);
-			client.login(config.DISCORD_TOKEN).then();
 		}
 		console.log("Command finished:", commandName)
 
