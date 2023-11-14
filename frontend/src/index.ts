@@ -23,10 +23,15 @@ client.on("interactionCreate", async (interaction) => {
 	console.log("Command received:", commandName);
 
 	if (commands[commandName as keyof typeof commands]) {
-		await commands[commandName as keyof typeof commands].execute(interaction);
+		try {
+			await commands[commandName as keyof typeof commands].execute(interaction);
+		} catch (err) {
+			console.log("Caught error executing command");
+			console.log(err);
+		}
 		console.log("Command finished:", commandName)
 
 	}
 });
-
+console.log("Logging in");
 client.login(config.DISCORD_TOKEN).then();
