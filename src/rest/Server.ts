@@ -3,6 +3,7 @@ import * as http from "http";
 import cors from "cors";
 import InsightFacade from "../controller/InsightFacade";
 import {InsightDatasetKind, NotFoundError} from "../controller/IInsightFacade";
+import {clearDisk} from "../../test/TestUtil";
 
 export default class Server {
 	private readonly port: number;
@@ -14,11 +15,11 @@ export default class Server {
 		console.info(`Server::<init>( ${port} )`);
 		this.port = port;
 		this.express = express();
-
+		console.log("Clearing disk");
+		clearDisk();
 		this.registerMiddleware();
 		this.registerRoutes();
 		this.insightFacade = new InsightFacade();
-		console.log("Created InsightFacade instance");
 		// NOTE: you can serve static frontend files in from your express server
 		// by uncommenting the line below. This makes files in ./frontend/public
 		// accessible at http://localhost:<port>/
@@ -102,6 +103,7 @@ export default class Server {
 			const arr = await this.insightFacade.addDataset(req.params.id, dataset, kind);
 			res.status(200).json({result: arr});
 		} catch (err) {
+			console.log(err);
 			res.status(400).json({error: (err as object).toString()});
 		}
 	}
