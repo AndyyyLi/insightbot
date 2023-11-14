@@ -40,10 +40,14 @@ export async function execute(interaction: CommandInteraction) {
 		const responseData = await response.json();
 
 		if ('result' in responseData) {
+			let addedDatasets = "";
+			for (let id of responseData.result) {
+				addedDatasets += id + "\n";
+			}
 			const embed = new EmbedBuilder()
 				.setTitle(`Add successful! Currently added datasets:`)
-				.setColor('#0099ff')
-				.setDescription(JSON.stringify(responseData.result, null, 2));
+				.setColor('#05fa57')
+				.setDescription(addedDatasets);
 			return interaction.followUp({ embeds: [embed] });
 		} else {
 			return interaction.followUp({ content: "Invalid input, please try again " +

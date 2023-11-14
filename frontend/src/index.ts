@@ -33,5 +33,4 @@ client.on("interactionCreate", async (interaction) => {
 
 	}
 });
-console.log("Logging in");
 client.login(config.DISCORD_TOKEN).then();
