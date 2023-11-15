@@ -5,7 +5,7 @@ import * as addDataset from "./addDataset"
 
 export const commands = {
 	ping,
-	"insightfacade-echo": echo,
+	"insightbot-echo": echo,
 	"insightbot-course-avg": courseAvg,
 	"insightbot-add-dataset": addDataset
 };

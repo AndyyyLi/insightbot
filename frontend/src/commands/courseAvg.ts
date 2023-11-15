@@ -2,7 +2,13 @@ import {CommandInteraction, InteractionReplyOptions, SlashCommandBuilder, EmbedB
 
 export const data = new SlashCommandBuilder()
 	.setName("insightbot-course-avg")
-	.setDescription("Replies with list of professors that teach the provided course in order of highest averages")
+	.setDescription("Replies with list of professors that taught the provided course, in order of highest averages," +
+		" within a specified dataset")
+	.addStringOption(option =>
+		option.setName("dataset")
+			.setDescription("Dataset ID")
+			.setRequired(true)
+	)
 	.addStringOption(option =>
 		option.setName("course")
 			.setDescription("Course code")
@@ -10,29 +16,32 @@ export const data = new SlashCommandBuilder()
 	);
 
 export async function execute(interaction: CommandInteraction) {
+	const datasetOption = interaction.options.get("dataset");
+	const datasetID = (datasetOption && datasetOption["value"]) ? datasetOption["value"] : null;
+
 	const courseOption = interaction.options.get("course");
 	const courseMessage = (courseOption && courseOption["value"]) ? courseOption["value"] : null;
-
 	const [courseDept, courseID] = (typeof courseMessage === "string") ?
-		courseMessage.split(' ') : [null, null];
+		[courseMessage.split(' ')[0].toLowerCase(), courseMessage.split(' ')[1]] :
+		[null, null];
 
 	const query = {
 		"WHERE": {
 			"AND": [
 				{
 					"IS": {
-						"sections_dept": courseDept
+						[`${datasetID}_dept`]: courseDept
 					}
 				},
 				{
 					"IS": {
-						"sections_id": courseID
+						[`${datasetID}_id`]: courseID
 					}
 				},
 				{
 					"NOT": {
 						"IS": {
-							"sections_instructor": ""
+							[`${datasetID}_instructor`]: ""
 						}
 					}
 				}
@@ -40,11 +49,22 @@ export async function execute(interaction: CommandInteraction) {
 		},
 		"OPTIONS": {
 			"COLUMNS": [
-				"sections_instructor",
-				"sections_avg",
-				"sections_year"
+				`${datasetID}_instructor`,
+				"instructorAvg"
 			],
-			"ORDER": "sections_avg"
+			"ORDER": "instructorAvg"
+		},
+		"TRANSFORMATIONS": {
+			"GROUP": [
+				`${datasetID}_instructor`
+			],
+			"APPLY": [
+				{
+					"instructorAvg": {
+						"AVG": `${datasetID}_avg`
+					}
+				}
+			]
 		}
 	};
 
@@ -58,11 +78,18 @@ export async function execute(interaction: CommandInteraction) {
 		});
 		const responseData = await response.json();
 
-		if ('result' in responseData) {
+		if ('result' in responseData && responseData.result.length > 0) {
 			const embed = new EmbedBuilder()
-				.setTitle(`Course Averages for ${courseDept} ${courseID}`)
+				.setTitle(`Course averages for ${courseDept} ${courseID} instructors in the ${datasetID} dataset \n`)
 				.setColor('#0099ff')
-				.setDescription(JSON.stringify(responseData.result, null, 2));
+
+			const formattedData = responseData.result.map((entry: any) => {
+				const instructor = entry[`${datasetID}_instructor`];
+				const avg = entry.instructorAvg;
+				return `${instructor}: ${avg}`;
+			});
+			embed.setDescription(formattedData.join('\n'));
+
 			return interaction.reply({ embeds: [embed] });
 		} else {
 			return interaction.reply({ content: "Invalid input, please try again" } as InteractionReplyOptions);

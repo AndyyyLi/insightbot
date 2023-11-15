@@ -1,8 +1,8 @@
 import { CommandInteraction, InteractionReplyOptions, SlashCommandBuilder } from "discord.js";
 
 export const data = new SlashCommandBuilder()
-	.setName("insightfacade-echo")
-	.setDescription("Replies with provided message")
+	.setName("insightbot-echo")
+	.setDescription("Replies with provisded message")
 	.addStringOption(option =>
 		option.setName("message")
 			.setDescription("The message to echo")
