@@ -2,7 +2,7 @@ import { CommandInteraction, InteractionReplyOptions, SlashCommandBuilder } from
 
 export const data = new SlashCommandBuilder()
 	.setName("insightbot-echo")
-	.setDescription("Replies with provisded message")
+	.setDescription("Replies with provided message")
 	.addStringOption(option =>
 		option.setName("message")
 			.setDescription("The message to echo")
