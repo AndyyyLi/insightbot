@@ -3,7 +3,6 @@ import * as http from "http";
 import cors from "cors";
 import InsightFacade from "../controller/InsightFacade";
 import {InsightDatasetKind, NotFoundError} from "../controller/IInsightFacade";
-import {clearDisk} from "../../test/TestUtil";
 
 export default class Server {
 	private readonly port: number;
@@ -15,8 +14,7 @@ export default class Server {
 		console.info(`Server::<init>( ${port} )`);
 		this.port = port;
 		this.express = express();
-		console.log("Clearing disk");
-		clearDisk();
+
 		this.registerMiddleware();
 		this.registerRoutes();
 		this.insightFacade = new InsightFacade();
