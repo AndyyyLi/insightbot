@@ -2,8 +2,7 @@ import {CommandInteraction, InteractionReplyOptions, SlashCommandBuilder, EmbedB
 
 export const data = new SlashCommandBuilder()
 	.setName("insightbot-course-avg")
-	.setDescription("Replies with list of professors that taught the provided course, in order of highest averages," +
-		" within a specified dataset")
+	.setDescription("Replies with list of professors that taught the provided course within a specified dataset")
 	.addStringOption(option =>
 		option.setName("dataset")
 			.setDescription("Dataset ID")
