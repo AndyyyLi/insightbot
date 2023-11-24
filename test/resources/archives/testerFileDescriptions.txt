@@ -1,0 +1,52 @@
++------------------------------------------------------------------------------------------------------------------+
+| Tester File Description                                                                                          |
++---------------------------------------------+--------------------------------------------------------------------+
+| fileName                                    | description                                                        |
++---------------------------------------------+--------------------------------------------------------------------+
+| campus.zip                                  | default - all buildings and rooms                                  |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusIndexNoBuildingLinkInTable.zip        | building table has no columns that refer to a link, title/nothing  |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusIndexNoTable.zip                      | index.htm has no <table>                                           |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusIndexNoValidTable.zip                 | index.htm has <table> but not <table class = 'view-table ...'>     |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusManyBuildingsAndRooms.zip             | valid buildings: ACU, AERL, ALRD                                   |
+|                                             | buildings with valid rooms: AERL, ALRD                             |
+|                                             | total rooms: 6?                                                    |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusNoBuildingFile.zip                    | valid index.htm, no building.htm files                             |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusNoIndex.zip                           | no index.htm in the zip                                            |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusNoTableInBuildingFile.zip             | no <table> in building.htm                                         |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusNoValidRoomFailedGeo.zip              | invalid address in building.htm                                    |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusNoValidTableInBuildingFile.zip        | building.htm has <table> but not <table class = 'view-table ...'>  |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusOneValidRoom.zip                      | room: AERL_120                                                     |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusValidAndInvalidRooms.zip              | valid buildings: ACU, AERL                                         |
+|                                             | buildings with valid rooms: AERL                                   |
+|                                             | total rooms: 1                                                     |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusManyTablesInIndex.zip                 | index.htm contains <table> and <table class = 'view-table ...'>    |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusManyTablesInBuildingFile.zip          | building.htm contains <table> and <table class = 'view-table ...'> |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusNonIntuitiveRoom.zip                  | room: LASR_105, which contains a null value                        |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusNonIntuitiveBuilding.zip              | building: LASR                                                     |
+|                                             | total rooms: 5                                                     |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusMixOfRoomTypes.zip                    | valid buildings: LASR, ACU, AERL                                   |
+|                                             | buildings with valid rooms: LASR, AERL                             |
+|                                             | total rooms: 6?                                                    |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusHasNothingNoTitleColumnInBuilding.zip | in the building table, there is a column for '-nothing'            |
+|                                             | but no column for '-title'                                         |
++---------------------------------------------+--------------------------------------------------------------------+
+| campusHasTitleNoNothingColumnInBuilding.zip | in the building table, there is a column for '-title'              |
+|                                             | but no column for '-nothing'                                       |
++---------------------------------------------+--------------------------------------------------------------------+

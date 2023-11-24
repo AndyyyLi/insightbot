@@ -51,11 +51,10 @@ export default class InsightFacade implements IInsightFacade {
 			let InsightResultArray: InsightResult[] = [];
 			this.loadDatasetsFromDisk()
 				.then(() => {
-					if (id === "" || id.includes("_") || this.currentDatasets.includes(id)) {
-						reject(new InsightError("Trying to add dataset with an invalid ID, or one with a duplicate " +
-							"ID"));
+					if (id === "" || id.includes("_") || this.currentDatasets.includes(id) ||
+						id.trim().length === 0) {
+						throw new InsightError("Trying to add dataset with an invalid ID, or one with a duplicate ID");
 					}
-
 					if (kind === InsightDatasetKind.Rooms) {
 						return this.datasetRoomHelper.handleDatasetRoom(content);
 					} else if (kind === InsightDatasetKind.Sections) {
@@ -102,7 +101,7 @@ export default class InsightFacade implements IInsightFacade {
 	public removeDataset(id: string): Promise<string> {
 		return this.loadDatasetsFromDisk()
 			.then(() => {
-				if (id === "" || id.includes("_")) {
+				if (id === "" || id.includes("_") || id.trim().length === 0) {
 					throw new InsightError("Trying to remove dataset with an invalid ID");
 				}
 

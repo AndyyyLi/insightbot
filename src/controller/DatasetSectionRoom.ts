@@ -137,7 +137,7 @@ export class DatasetSectionRoom {
 
 	private async extractRoomTable(buildingHTML: any): Promise<any> {
 		if (buildingHTML.nodeName === "table") {
-			if(this.isValidRoomTable(buildingHTML)) {
+			if(this.isValidTable(buildingHTML)) {
 				return buildingHTML;
 			}
 		}
@@ -148,18 +148,6 @@ export class DatasetSectionRoom {
 			return Promise.all(childPromises).then((rows) => rows.flat());
 		}
 		return [];
-	}
-
-	private isValidRoomTable(table: any): boolean {
-		if (table.nodeName === "table" && table.childNodes) {
-			const thNodes = this.getThNodesFromTable(table);
-			const desiredColumns = [
-				"views-field views-field-field-room-number", "views-field views-field-field-room-capacity",
-				"views-field views-field-field-room-furniture", "views-field views-field-field-room-type",
-			];
-			return thNodes.every((thNode) => this.hasDesiredColumns(thNode, desiredColumns));
-		}
-		return false;
 	}
 
 	private extractLinkFromColumnWithClass(trElement: any, className: string): string | null {
@@ -251,7 +239,7 @@ export class DatasetSectionRoom {
 
 	private async extractBuildingTable(html: any): Promise<any> {
 		if (html.nodeName === "table") {
-			if(this.isValidBuildingTable(html)) {
+			if(this.isValidTable(html)) {
 				return html;
 			}
 		}
@@ -266,32 +254,11 @@ export class DatasetSectionRoom {
 		return "";
 	}
 
-	private isValidBuildingTable(table: any): boolean {
-		if (table.nodeName === "table" && table.childNodes) {
-			const thNodes = this.getThNodesFromTable(table);
-			const desiredColumns = ["views-field views-field-field-building-image",
-				"views-field views-field-field-building-code", "views-field views-field-title",
-				"views-field views-field-field-building-address", "views-field views-field-nothing"];
-			return thNodes.every((thNode) => this.hasDesiredColumns(thNode, desiredColumns));
+	private isValidTable(table: any): boolean{
+		if (table.nodeName === "table" && table.attrs) {
+			return table.attrs.some((attr: {name: string, value: string;}) =>
+				attr.name === "class" && attr.value === "views-table cols-5 table");
 		}
 		return false;
-	}
-
-	private hasDesiredColumns(thNode: any, desiredColumns: string[]): boolean {
-		const node = thNode as any;
-		return ((node.attrs && node.attrs.some(({name, value}: {name: string; value: string}) =>
-			name === "class" && desiredColumns.some((column) => value.includes(column.trim())))) || true);
-	}
-
-	private getThNodesFromTable(table: any): any[] {
-		const theadElement = Array.from(table.childNodes).find(
-			(node: any) => node.nodeName === "thead") as any;
-		if (theadElement && theadElement.childNodes) {
-			const trElement = Array.from(theadElement.childNodes).find((node: any) => node.nodeName === "tr") as any;
-			if (trElement && trElement.childNodes) {
-				return Array.from(trElement.childNodes).filter((node: any) => node.nodeName === "th");
-			}
-		}
-		return [];
 	}
 }
