@@ -45,7 +45,7 @@ export default class InsightFacade implements IInsightFacade {
 	public addDataset(id: string, content: string, kind: InsightDatasetKind): Promise<string[]> {
 		return new Promise<string[]>((resolve, reject) => {
 			if (!id || !content || !kind) {
-				reject(new InsightError("Trying to add a dataset with invalid parameters"));
+				throw new InsightError("Trying to add a dataset with invalid parameters");
 			}
 
 			let InsightResultArray: InsightResult[] = [];

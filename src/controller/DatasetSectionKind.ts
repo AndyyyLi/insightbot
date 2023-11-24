@@ -97,7 +97,7 @@ export class DatasetSectionKind {
 				return validResults;
 			})
 			.catch((error) => {
-				reject(error);
+				throw new InsightError("Failed to extract zip content" + error);
 				return [];
 			});
 	}
