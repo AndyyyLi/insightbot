@@ -12,7 +12,14 @@ export class DatasetSectionRoom {
 	public handleDatasetRoom(content: string): Promise<InsightResult[]> {
 		return new Promise<InsightResult[]>((resolve, reject) => {
 			this.extractBuildingRowsFromContent(content, reject)
-				.then((buildingRowsHTML) => resolve(this.processRoomFiles(buildingRowsHTML, reject)));
+				.then((buildingRowsHTML) => {
+					return this.processRoomFiles(buildingRowsHTML, reject)
+						.then(resolve) // Resolve with the result of processRoomFiles
+						.catch(() => {
+							throw new InsightError("error");
+						}); // Catch any errors from processRoomFiles
+				})
+				.catch((error) => reject(error));
 		});
 	}
 
@@ -196,22 +203,26 @@ export class DatasetSectionRoom {
 			this.unzippedContents = contents;
 			const indexPromise = Object.keys(contents.files).map(async (filename) => {
 				if (filename === "index.htm") {
-					const indexText = await contents.files[filename].async("text").catch();
-					return this.extractIndexElements(indexText);
+					try {
+						const indexText = await contents.files[filename].async("text").catch();
+						return this.extractIndexElements(indexText);
+					} catch(error) {
+						throw new InsightError("Failed to extract index.htm content: " + error);
+					}
 				}
 			});
 			return Promise.all(indexPromise);
 		}).then((extractedElements) => {
 			const validTableHTML = extractedElements.filter((element) => !!element);
 			if (validTableHTML.length !== 1) {
-				reject(new InsightError("No valid building table in index.htm or invalid index.htm"));
+				throw new InsightError("No valid building table in index.htm or invalid index.htm");
 			}
 			return this.extractBuildingRows(validTableHTML[0]);
 		}).then((extractedRows) => {
 			const buildingRows = extractedRows.filter((element: any ) => !!element);
 			return buildingRows;
 		}).catch((error) => {
-			reject(new InsightError("Failed to extract building table from zip file" + error));
+			throw new InsightError("Failed to extract zip content" + error);
 		});
 	}
 
